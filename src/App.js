@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Minigames</h1>
+        <h1>Manigames</h1>
       </header>
       <body>
         <TickTackToe />

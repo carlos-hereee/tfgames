@@ -7,7 +7,6 @@ const TickTackToe = () => {
       <button type="button" onClick={() => setStart(!start)}>
         {start ? "Play Game" : "Reset Game"}
       </button>
-      {start}
     </div>
   );
 };
