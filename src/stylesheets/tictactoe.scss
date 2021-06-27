@@ -1,0 +1,14 @@
+.tictactoe {
+  display: flex;
+  flex-flow: row wrap;
+  max-width: 450px;
+}
+
+.room {
+  flex: 1 0 30%;
+  border: 1px solid black;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
