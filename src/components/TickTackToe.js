@@ -15,22 +15,34 @@ const gameboard = [
 const TickTackToe = () => {
   const turnSwap = { X: "O", O: "X" };
   const [player, setPlayer] = useState("X");
+  const [log, setLog] = useState([]);
   const [rooms, setRooms] = useState(gameboard);
 
   return (
     <div className="tictactoe">
-      {rooms.map((data) => (
-        <button
-          className={`room x-${data.x} y-${data.y}`}
-          key={data.id}
-          onClick={() => {
-            data.content = player;
-            setPlayer(turnSwap[player]);
-          }}
-          disabled={data.content}>
-          {data.content}
-        </button>
-      ))}
+      <div className="gameboard">
+        {rooms.map((data) => (
+          <button
+            className={`room x-${data.x} y-${data.y}`}
+            key={data.id}
+            onClick={() => {
+              setLog([
+                ...log,
+                `Player: ${player} made a move its now ${turnSwap[player]}'s turn`,
+              ]);
+              data.content = player;
+              setPlayer(turnSwap[player]);
+            }}
+            disabled={data.content}>
+            {data.content}
+          </button>
+        ))}
+      </div>
+      <div className="logger">
+        {log.map((data) => (
+          <p key={shortid.generate()}> {data}</p>
+        ))}
+      </div>
     </div>
   );
 };
