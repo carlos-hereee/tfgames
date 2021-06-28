@@ -7,21 +7,20 @@
 .tictactoe {
   display: grid;
   grid-template-columns: repeat(3, 100px);
-}
-
-.room {
-  background-color: cadetblue;
-  border: 1px solid black;
-  height: 100px;
-  align-self: stretch;
-  &:hover {
-    opacity: 0.4;
-    transition: 0.3s ease-in-out;
-  }
-  &:disabled {
-    border: 1px solid #999999;
-    background-color: #cccccc;
-    color: #666666;
+  .room {
+    background-color: cadetblue;
+    border: 1px solid black;
+    height: 100px;
+    align-self: stretch;
+    &:hover {
+      opacity: 0.4;
+      transition: 0.3s ease-in-out;
+    }
+    &:disabled {
+      border: 1px solid #999999;
+      background-color: #cccccc;
+      color: #666666;
+    }
   }
 }
 .x-1 {
