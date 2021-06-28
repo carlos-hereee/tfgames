@@ -1,31 +1,36 @@
 import { useState } from "react";
 import shortid from "shortid";
-import { randomBoolean } from "../utils/math";
-import Room from "./Room";
 
+const gameboard = [
+  { x: 1, y: 1, id: shortid.generate(), content: null },
+  { x: 2, y: 1, id: shortid.generate(), content: null },
+  { x: 3, y: 1, id: shortid.generate(), content: null },
+  { x: 1, y: 2, id: shortid.generate(), content: null },
+  { x: 2, y: 2, id: shortid.generate(), content: null },
+  { x: 3, y: 2, id: shortid.generate(), content: null },
+  { x: 1, y: 3, id: shortid.generate(), content: null },
+  { x: 2, y: 3, id: shortid.generate(), content: null },
+  { x: 3, y: 3, id: shortid.generate(), content: null },
+];
 const TickTackToe = () => {
-  const [start, setStart] = useState(false);
-  const rooms = [
-    { x: 1, y: 1, id: shortid.generate(), active: randomBoolean() },
-    { x: 2, y: 1, id: shortid.generate(), active: randomBoolean() },
-    { x: 3, y: 1, id: shortid.generate(), active: randomBoolean() },
-    { x: 1, y: 2, id: shortid.generate(), active: randomBoolean() },
-    { x: 2, y: 2, id: shortid.generate(), active: randomBoolean() },
-    { x: 3, y: 2, id: shortid.generate(), active: randomBoolean() },
-    { x: 1, y: 3, id: shortid.generate(), active: randomBoolean() },
-    { x: 2, y: 3, id: shortid.generate(), active: randomBoolean() },
-    { x: 3, y: 3, id: shortid.generate(), active: randomBoolean() },
-  ];
+  const turnSwap = { X: "O", O: "X" };
+  const [player, setPlayer] = useState("X");
+  const [rooms, setRooms] = useState(gameboard);
+
   return (
-    <div>
-      <button type="button" onClick={() => setStart(!start)}>
-        {start ? "Play Game" : "Reset Game"}
-      </button>
-      <div className="tictactoe">
-        {rooms.map((data) => (
-          <Room key={data.id} room={data} />
-        ))}
-      </div>
+    <div className="tictactoe">
+      {rooms.map((data) => (
+        <button
+          className={`room x-${data.x} y-${data.y}`}
+          key={data.id}
+          onClick={() => {
+            data.content = player;
+            setPlayer(turnSwap[player]);
+          }}
+          disabled={data.content}>
+          {data.content}
+        </button>
+      ))}
     </div>
   );
 };
