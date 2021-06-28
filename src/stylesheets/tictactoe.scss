@@ -1,12 +1,10 @@
-.tictactoe {
+.game {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   margin: 2rem 1rem;
 }
-
-.gameboard {
-  width: 100%;
+.tictactoe {
   display: grid;
   grid-template-columns: repeat(3, 100px);
 }
@@ -44,10 +42,19 @@
 .y-3 {
   grid-column: 3;
 }
+.gamestatus {
+  height: 350px;
+  .status {
+    height: 150px;
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    background-color: yellow;
+    .referee {
+      border: 1px solid black;
+    }
+  }
+}
 .logger {
-  width: 100%;
-  max-height: 300px;
-  display: flex;
-  flex-direction: column;
+  height: 150px;
   overflow: scroll;
 }
