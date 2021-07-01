@@ -1,16 +1,11 @@
-.game {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  margin: 2rem 1rem;
-}
 .tictactoe {
   display: grid;
-  grid-template-columns: repeat(3, 100px);
+  grid-template-columns: repeat(3, 6rem);
+  margin: auto;
   .room {
     background-color: cadetblue;
     border: 1px solid black;
-    height: 100px;
+    height: 6rem;
     align-self: stretch;
     &:hover {
       opacity: 0.4;
@@ -44,7 +39,7 @@
 .gamestatus {
   height: 350px;
   .status {
-    height: 150px;
+    height: 180px;
     display: grid;
     grid-template-columns: repeat(3, 100px);
     background-color: yellow;
@@ -54,6 +49,10 @@
   }
 }
 .logger {
-  height: 150px;
-  overflow: scroll;
+  height: 3rem;
+}
+.card {
+  min-width: 300px;
+  @media screen {
+  }
 }

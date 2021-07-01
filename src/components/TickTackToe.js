@@ -18,12 +18,12 @@ const TickTackToe = () => {
     { x: 3, y: 3, content: null },
   ]);
   const [referee, setReferee] = useState([
-    { id: 0, x: 1, notes: "" },
-    { id: 1, x: 2, notes: "" },
-    { id: 2, x: 3, notes: "" },
-    { id: 3, y: 1, notes: "" },
-    { id: 4, y: 2, notes: "" },
-    { id: 5, y: 3, notes: "" },
+    { id: 0, x: 1, notes: "", winner: false },
+    { id: 1, x: 2, notes: "", winner: false },
+    { id: 2, x: 3, notes: "", winner: false },
+    { id: 3, y: 1, notes: "", winner: false },
+    { id: 4, y: 2, notes: "", winner: false },
+    { id: 5, y: 3, notes: "", winner: false },
   ]);
 
   const turnSwap = { X: "O", O: "X" };
@@ -44,7 +44,7 @@ const TickTackToe = () => {
       return i.notes.length > 2 && allCharactersSame(i.notes);
     });
     if (winner.length > 0) {
-      setWinner(player);
+      setWinner(true);
     }
     setLog([
       ...log,
@@ -53,9 +53,9 @@ const TickTackToe = () => {
     setPlayer(turnSwap[player]);
   };
   return (
-    <div>
-      <div className="game">
-        <div>
+    <div className="container">
+      <div className="card-deck mb-3 text-center">
+        <div className="card mb-4 p-1 shadow-sm">
           <div className="tictactoe">
             {rooms.map((data) => (
               <button
@@ -68,7 +68,7 @@ const TickTackToe = () => {
             ))}
           </div>
         </div>
-        <div className="gamestatus">
+        <div className="card mb-4 p-1 shadow-sm">
           <div className="status">
             {referee.map((data) => (
               <div
@@ -79,14 +79,15 @@ const TickTackToe = () => {
               </div>
             ))}
           </div>
-          <div className="logger">
+        </div>
+        <div className="card mb-4 p-1 shadow-sm">
+          <div className="logger overflow-auto">
             {log.map((data) => (
               <p key={shortid.generate()}> {data}</p>
             ))}
           </div>
         </div>
       </div>
-      {winner && <div> Winner Winner! </div>}
     </div>
   );
 };

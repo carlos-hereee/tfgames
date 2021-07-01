@@ -1,8 +1,8 @@
 import TickTackToe from "../components/TickTackToe";
 
 const Homepage = () => (
-  <body className="body">
+  <main role="main">
     <TickTackToe />
-  </body>
+  </main>
 );
 export default Homepage;

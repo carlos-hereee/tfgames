@@ -1,5 +1,9 @@
 const Footer = () => (
-  <footer className="footer">ManiGames © {new Date().getFullYear()}</footer>
+  <footer className="text-muted">
+    <div className="container">
+      <small>ManiGames © {new Date().getFullYear()}</small>
+    </div>
+  </footer>
 );
 
 export default Footer;
