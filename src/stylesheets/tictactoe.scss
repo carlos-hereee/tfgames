@@ -36,23 +36,9 @@
 .y-3 {
   grid-column: 3;
 }
-.gamestatus {
-  height: 350px;
-  .status {
-    height: 180px;
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    background-color: yellow;
-    .referee {
-      border: 1px solid black;
-    }
-  }
+.referee {
+  max-width: 10rem;
 }
 .logger {
-  height: 3rem;
-}
-.card {
-  min-width: 300px;
-  @media screen {
-  }
+  min-height: 270px;
 }
