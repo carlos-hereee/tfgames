@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import shortid from "shortid";
-import { allCharactersSame, refereeReset, roomReset } from "../utils/math";
+import {
+  allCharactersSame,
+  refereeReset,
+  roomReset,
+} from "../utlils/usefulFunction";
 
 const turnSwap = { X: "O", O: "X" };
 const TickTackToe = () => {
