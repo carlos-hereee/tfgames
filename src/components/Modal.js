@@ -1,26 +1,19 @@
 import { useEffect, useState } from "react";
 
 const Modal = ({ data }) => {
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    if (data.victor) {
-      return setShow(true);
-    }
-    setShow(false);
-  }, [data.victor]);
   return (
     <div
-      className={show ? "modal d-block" : "modal d-none"}
-      id="exampleModal"
+      className={data.show ? "modal d-block" : "modal d-none"}
+      id={`${data.modalName}`}
       tabIndex="-1"
       role="dialog"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby={`${data.modalName}Label}`}
       aria-hidden="true">
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLabel">
-              YOU WON!
+            <h5 className="modal-title" id={`${data.modalName}Label`}>
+              {data.title}
             </h5>
           </div>
           <div className="modal-body">...</div>
@@ -28,7 +21,8 @@ const Modal = ({ data }) => {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={() => setShow(false)}>
+              // onClick={() => playAgain()}
+            >
               Play Again
             </button>
           </div>
