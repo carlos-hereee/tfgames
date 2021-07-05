@@ -3,7 +3,7 @@ const Header = () => (
     <div className="jumbotron">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a href="/" className="navbar-brand">
-          <h1 className="display-4">ManiGames</h1>
+          <h1 className="display-4">Take Five</h1>
         </a>
         <button
           class="navbar-toggler"

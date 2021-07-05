@@ -2,7 +2,11 @@ const queueMatch = (state, action) => {
   return {
     ...state,
     is_loading: false,
-    player: { isPlayingAgainst: action.payload, isInQueue: true },
+    player: {
+      ...state.player,
+      isPlayingAgainst: action.payload,
+      isInQueue: true,
+    },
   };
 };
 

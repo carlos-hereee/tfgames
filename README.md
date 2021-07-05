@@ -1,7 +1,7 @@
-# Minigames to play with your friends
+# Take Five to play with your friends
 
 App Goal: Create arcade of games where the user share their status and can play
-minigames with friends
+Take Five with friends
 
 ## Tik Tak Toe
 

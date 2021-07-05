@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { PlayerContext } from "../utlils/PlayerContext";
 
 const GameMenu = () => {
-  const { queueMatch } = useContext(PlayerContext);
+  const { player, queueMatch } = useContext(PlayerContext);
   return (
     <div className="card">
       <div className="card-body text-center">
@@ -11,7 +11,7 @@ const GameMenu = () => {
           className="d-grid gap-2 col-6 mx-auto"
           aria-label="play vs computer or friend">
           <button
-            className="btn btn-primary btn-lg btn-block"
+            className="btn btn-secondary btn-lg btn-block"
             onClick={() => queueMatch("vs-computer")}>
             Computer
           </button>

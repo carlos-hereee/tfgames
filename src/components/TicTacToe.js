@@ -7,7 +7,7 @@ import {
 } from "../utlils/usefulFunction";
 
 const turnSwap = { X: "O", O: "X" };
-const TickTackToe = () => {
+const TicTacToe = () => {
   const [player, setPlayer] = useState("X");
   const [winner, setWinner] = useState(false);
   const [tie, setTie] = useState(false);
@@ -171,4 +171,4 @@ const TickTackToe = () => {
     </div>
   );
 };
-export default TickTackToe;
+export default TicTacToe;
