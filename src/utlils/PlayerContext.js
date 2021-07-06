@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useReducer } from "react";
 import { reducer } from "./reducer";
+import db from "../data/database.json";
 
 export const PlayerContext = createContext();
 
@@ -8,22 +9,27 @@ export const PlayerState = ({ children }) => {
     isLoading: false,
     error: "",
     player: {
-      isLoading: false,
-      isLoggedIn: false,
-      isPlaying: false,
+      isAMember: false,
       isInQueue: false,
-      isPlayerTurn: false,
-      playerUuid: "p-111",
-      weapon: "",
-      isPlayingAgainst: "",
+      isPlaying: false,
       playerName: "",
+      playerUuid: "p-111",
+      isPlayingAgainst: "",
     },
     room: {
-      player1: "",
-      player2: "",
-      player1weapon: "",
-      player2weapon: "",
+      player1: {
+        playerName: "",
+        weapon: "",
+        playerUuid: "",
+      },
+      player2: {
+        playerName: "",
+        weapon: "",
+        playerUuid: "",
+      },
       log: [],
+      roomMessage: "",
+      playerTurn: "",
       roomUuid: "r-111",
     },
     queue: ["p-111", "p-222", "p-333"],
@@ -32,17 +38,33 @@ export const PlayerState = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    // if there in the queue and not playing
-    if (state.player.isInQueue && !state.player.isPlaying) {
-      // find an oponent for player
-      const oponent = state.queue.filter((item) => {
-        console.log("item", state.player);
-        return state.player.playerUuid !== item;
-      })[0];
-      console.log("oponent", oponent);
-      // create a room and add the two in the room
-    }
-  }, [state.player.isInQueue]);
+    const findingMatch = async () => {
+      const { isInQueue, isPlaying, playerUuid } = state.player;
+      // if there in the queue and not playing
+      if (isInQueue && !isPlaying) {
+        // find an oponent for player
+        const oponent = state.queue.filter((item) => playerUuid !== item)[0];
+        // if theres an oponent in the queue a match has been found
+        if (oponent) {
+          // find the oponent in db
+          // fill the room data, and start match
+          const player1 = state.player;
+          const player2 = db[oponent];
+          const startMatch = {
+            player1: player1,
+            player2: player2,
+          };
+          try {
+            //
+            dispatch({ type: "START_MATCH", payload: startMatch });
+          } catch (error) {
+            dispatch({ type: "SET_ERROR", payload: "Could not find match" });
+          }
+        }
+      }
+    };
+    findingMatch();
+  }, [state.player.isInQueue, state.player.isPlaying]);
 
   const resetGame = async () => {
     dispatch({ type: "IS_LOADING", payload: true });
@@ -63,8 +85,9 @@ export const PlayerState = ({ children }) => {
   return (
     <PlayerContext.Provider
       value={{
-        player: state.player,
         isLoading: state.isLoading,
+        player: state.player,
+        room: state.room,
         queueMatch,
         resetGame,
       }}>

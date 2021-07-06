@@ -1,13 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import shortid from "shortid";
+import { PlayerContext } from "../utlils/PlayerContext";
 import {
   allCharactersSame,
   refereeReset,
   roomReset,
 } from "../utlils/usefulFunction";
+import PlayerCard from "./PlayerCard";
+import GameStatus from "./GameStatus";
 
 const turnSwap = { X: "O", O: "X" };
 const TicTacToe = () => {
+  const { room } = useContext(PlayerContext);
   const [player, setPlayer] = useState("X");
   const [winner, setWinner] = useState(false);
   const [tie, setTie] = useState(false);
@@ -85,14 +89,15 @@ const TicTacToe = () => {
     setReset(true);
     setLog([...log, `Player: ${player} started a new game`]);
   };
+  console.log("room", room);
   return (
     <div className="container">
       <div className="card-deck mb-3 text-center">
         <div className="card mb-4 p-1 shadow-sm">
-          <div className="tictactoe">
+          <div className={`tictactoe ${room.turn}`}>
             {rooms.map((data) => (
               <button
-                className={`room x-${data.x} y-${data.y}`}
+                className={`room x-${data.x} y-${data.y} `}
                 key={shortid.generate()}
                 onClick={() => playerMove(data)}
                 disabled={data.content}>
@@ -101,24 +106,15 @@ const TicTacToe = () => {
             ))}
           </div>
         </div>
-        <div className="card mb-4 p-1 shadow-sm">
-          <div className="row justify-content-center m-0">
-            {referee.map((data) => (
-              <div
-                key={data.id}
-                className="col-md-auto p-1 m-1 shadow-sm card-body referee">
-                <h5 className="card-title">Referee: {data.id}</h5>
-                <p className="card-text">{"Note: " + data.notes}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="card mb-4 p-1 shadow-sm">
-          <div className="card overflow-auto logger">
-            {log.map((data) => (
-              <p key={shortid.generate()}> {data}</p>
-            ))}
-          </div>
+        <PlayerCard player={room.player1} />
+        <PlayerCard player={room.player2} />
+        <GameStatus />
+      </div>
+      <div className="card mb-4 p-1 shadow-sm">
+        <div className="card overflow-auto logger">
+          {log.map((data) => (
+            <p key={shortid.generate()}> {data}</p>
+          ))}
         </div>
       </div>
       <div

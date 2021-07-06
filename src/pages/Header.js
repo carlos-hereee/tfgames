@@ -6,24 +6,24 @@ const Header = () => (
           <h1 className="display-4">Take Five</h1>
         </a>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarNavAltMarkup"
           aria-controls="navbarNavAltMarkup"
           aria-expanded="false"
           aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="/">
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="navbar-nav">
+            <a className="nav-link active" aria-current="page" href="/">
               Home
             </a>
-            <a class="nav-link" href="/profile">
+            <a className="nav-link" href="/profile">
               Profile
             </a>
-            <a class="nav-link" href="/leaderboard">
+            <a className="nav-link" href="/leaderboard">
               Leaderboard
             </a>
           </div>

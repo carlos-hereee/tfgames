@@ -16,6 +16,11 @@ const GameMenu = () => {
             Computer
           </button>
           <button
+            className="btn btn-secondary btn-lg btn-block"
+            onClick={() => queueMatch("vs-pvp")}>
+            PVP
+          </button>
+          <button
             className="btn btn-primary btn-lg btn-block"
             onClick={() => queueMatch("vs-friend")}>
             Friend

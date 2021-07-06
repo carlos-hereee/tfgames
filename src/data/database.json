@@ -1,0 +1,18 @@
+{
+  "p-222": {
+    "isAMember": true,
+    "isInQueue": true,
+    "isPlaying": false,
+    "playerName": "tictactoe-123",
+    "playerUuid": "p-222",
+    "isPlayingAgainst": ""
+  },
+  "p-111": {
+    "isAMember": false,
+    "isInQueue": true,
+    "isPlaying": false,
+    "playerName": "tictactoe-123",
+    "playerUuid": "p-222",
+    "isPlayingAgainst": ""
+  }
+}
