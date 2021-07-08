@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { PlayerContext } from "../utlils/PlayerContext";
+import RandomName from "./RandomName";
 
 const GameMenu = () => {
   const { player, queueMatch } = useContext(PlayerContext);
@@ -27,6 +28,7 @@ const GameMenu = () => {
           </button>
         </div>
       </div>
+      <RandomName />
     </div>
   );
 };

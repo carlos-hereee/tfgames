@@ -1,33 +1,17 @@
 import { useState, useEffect, useContext } from "react";
 import shortid from "shortid";
 import { PlayerContext } from "../utlils/PlayerContext";
-import {
-  allCharactersSame,
-  refereeReset,
-  roomReset,
-} from "../utlils/usefulFunction";
+import { allCharactersSame, refereeReset } from "../utlils/usefulFunction";
 import PlayerCard from "./PlayerCard";
 import GameStatus from "./GameStatus";
 
-const turnSwap = { X: "O", O: "X" };
+// const turnSwap = { X: "O", O: "X" };
 const TicTacToe = () => {
-  const { room } = useContext(PlayerContext);
-  const [player, setPlayer] = useState("X");
+  const { room, player, playMove } = useContext(PlayerContext);
+  // const [player, setPlayer] = useState("X");
   const [winner, setWinner] = useState(false);
   const [tie, setTie] = useState(false);
   const [reset, setReset] = useState(false);
-  const [log, setLog] = useState([]);
-  const [rooms, setRooms] = useState([
-    { x: 1, y: 1, content: null },
-    { x: 2, y: 1, content: null },
-    { x: 3, y: 1, content: null },
-    { x: 1, y: 2, content: null },
-    { x: 2, y: 2, content: null },
-    { x: 3, y: 2, content: null },
-    { x: 1, y: 3, content: null },
-    { x: 2, y: 3, content: null },
-    { x: 3, y: 3, content: null },
-  ]);
   const [referee, setReferee] = useState([
     { id: 0, x: 1, notes: "", winner: false },
     { id: 1, x: 2, notes: "", winner: false },
@@ -39,27 +23,26 @@ const TicTacToe = () => {
     { id: 7, z: 2, notes: "", winner: false },
   ]);
   const [show, setShow] = useState(false);
-  const [turn, setTurn] = useState(0);
 
   useEffect(() => {
     if (reset) {
       setReferee(refereeReset);
-      setRooms(roomReset);
+      // setRooms(roomReset);
       setReset(false);
     }
   }, [winner, reset]);
 
-  const playerMove = (data) => {
-    // increment the turn by 1
-    setTurn(turn + 1);
+  const playerMove = (room) => {
+    // if its the correct players turn
+    // if (room.playerTurn && player.playerUuid) {
     // update the square
-    data.content = player;
+    playMove(room, player);
     // add the player move to the refs notes
     const refereeNotes = referee.filter((item) => {
-      if (item.x === data.x || item.y === data.y) {
+      if (item.x === room.x || item.y === room.y) {
         item.notes = item.notes += player;
       }
-      return item.x === data.x || item.y === data.y;
+      return item.x === room.x || item.y === room.y;
     });
     // check for winning move
     const winner = refereeNotes.filter((i) => {
@@ -71,37 +54,37 @@ const TicTacToe = () => {
       setWinner(true);
       setShow(true);
     }
-    if (turn === 8) {
+    if (room.roomTurn === 8) {
       setTie(true);
     }
-    setLog([
-      ...log,
-      `Player: ${player} made a move its now ${turnSwap[player]}'s turn`,
-    ]);
-    setPlayer(turnSwap[player]);
+    // setLog([
+    //   ...log,
+    //   `Player: ${player} made a move its now ${turnSwap[player]}'s turn`,
+    // ]);
+    // setPlayer(turnSwap[player]);
+    // }
   };
   const playAgain = () => {
     // reset everything
-    setTurn(0);
+    // setTurn(0);
     setShow(false);
     setWinner(false);
     setTie(false);
     setReset(true);
-    setLog([...log, `Player: ${player} started a new game`]);
+    // setLog([...log, `Player: ${player} started a new game`]);
   };
-  console.log("room", room);
   return (
     <div className="container">
       <div className="card-deck mb-3 text-center">
         <div className="card mb-4 p-1 shadow-sm">
-          <div className={`tictactoe ${room.turn}`}>
-            {rooms.map((data) => (
+          <div className="tictactoe">
+            {room.game?.map((item) => (
               <button
-                className={`room x-${data.x} y-${data.y} `}
+                className={`room x-${item.x} y-${item.y} `}
                 key={shortid.generate()}
-                onClick={() => playerMove(data)}
-                disabled={data.content}>
-                {data.content}
+                onClick={() => playerMove(item)}
+                disabled={item.content}>
+                {item.content}
               </button>
             ))}
           </div>
@@ -112,7 +95,7 @@ const TicTacToe = () => {
       </div>
       <div className="card mb-4 p-1 shadow-sm">
         <div className="card overflow-auto logger">
-          {log.map((data) => (
+          {room.log.map((data) => (
             <p key={shortid.generate()}> {data}</p>
           ))}
         </div>

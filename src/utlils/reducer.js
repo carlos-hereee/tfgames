@@ -30,6 +30,18 @@ const startMatch = (state, action) => {
     },
   };
 };
+const playMove = (state, action) => {
+  return {
+    ...state,
+    is_loading: false,
+    room: {
+      ...state.room,
+      ...action.payload,
+      // increment the turn by 1
+      roomTurn: state.room.roomTurn + 1,
+    },
+  };
+};
 
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -41,6 +53,8 @@ export const reducer = (state, action) => {
       return queueMatch(state, action);
     case "START_MATCH":
       return startMatch(state, action);
+    case "PLAY_MOVE":
+      return playMove(state, action);
     default:
       return state;
   }
