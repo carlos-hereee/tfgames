@@ -42,7 +42,29 @@ const playMove = (state, action) => {
     },
   };
 };
-
+const initUser = (state, action) => {
+  return {
+    ...state,
+    is_loading: false,
+    player: { ...state.player, playerUuid: action.payload },
+  };
+};
+const initRoom = (state, action) => {
+  return {
+    ...state,
+    is_loading: false,
+    room: { ...state.room, ...action.payload },
+    player: { ...state.player, isPlaying: true },
+  };
+};
+const toggle = (state, action) => {
+  return {
+    ...state,
+    player: {
+      ...state.player,
+    },
+  };
+};
 export const reducer = (state, action) => {
   switch (action.type) {
     case "IS_LOADING":
@@ -55,6 +77,12 @@ export const reducer = (state, action) => {
       return startMatch(state, action);
     case "PLAY_MOVE":
       return playMove(state, action);
+    case "INITIALIZE_USER":
+      return initUser(state, action);
+    case "INITIALIZE_ROOM":
+      return initRoom(state, action);
+    case "TOGGLE":
+      return toggle(state, action);
     default:
       return state;
   }
