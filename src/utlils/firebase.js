@@ -23,3 +23,5 @@ if (!firebase.apps.length) {
 export const auth = firebase.auth();
 export const db = firebase.firestore();
 export const serverTimeStamp = firebase.firestore.FieldValue.serverTimestamp();
+export const gameRoomRef = db.collection("game-rooms");
+export const usersRef = db.collection("users");

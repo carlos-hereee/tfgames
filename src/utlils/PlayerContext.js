@@ -6,7 +6,7 @@ import { reducer } from "./reducer";
 export const PlayerContext = createContext();
 export const PlayerState = ({ children }) => {
   const [user] = useAuthState(auth);
-  const gameRoomRef = db.collection("game-rooms");
+
   const initialState = {
     isLoading: false,
     error: "",
@@ -46,18 +46,13 @@ export const PlayerState = ({ children }) => {
       playerTurn: "",
       roomUuid: "r-111",
     },
-    queue: ["p-111", "p-222", "p-333"],
     gameRooms: [],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     if (!user) {
-      auth
-        .signInAnonymously()
-        .then((data) =>
-          dispatch({ type: "INITIALIZE_USER", payload: data.user.uid })
-        );
+      auth.signInAnonymously().then((data) => console.log("data", data));
     }
   }, [user]);
 
@@ -85,26 +80,16 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", payload: "Could not make the move" });
     }
   };
-  const vsFriends = async () => {
+
+  const liveRoom = async (room) => {
     dispatch({ type: "IS_LOADING", payload: true });
-    dispatch({ type: "TOGGLE", payload: "" });
     try {
-      // load an empty room
-      // gameRoomRef
-      //   .limit(1)
-      //   .get()
-      //   .then((snap) => {
-      //     snap.forEach((item) => {
-      //       console.log("item", item.data());
-      //       dispatch({ type: "INITIALIZE_ROOM", payload: item.data() });
-      //     });
-      //   });
-      // add the player in the room and get a shareable link for oponent
-      // db.collection ()
-    } catch {}
+      // load room state
+      dispatch({ type: "INITIALIZE_ROOM", payload: room });
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", dispatch: "Error loading room" });
+    }
   };
-  const vsComputer = () => {};
-  const vsPlayer = () => {};
   return (
     <PlayerContext.Provider
       value={{
@@ -115,9 +100,7 @@ export const PlayerState = ({ children }) => {
         // queueMatch,
         resetGame,
         playMove,
-        vsComputer,
-        vsPlayer,
-        vsFriends,
+        liveRoom,
       }}>
       {children}
     </PlayerContext.Provider>
