@@ -31,21 +31,16 @@ export const PlayerState = ({ children }) => {
       { x: 3, y: 3, content: null },
     ],
     room: {
-      player1: {
-        playerName: "",
-        weapon: "",
-        playerUuid: "",
-      },
-      player2: {
-        playerName: "",
-        weapon: "",
-        playerUuid: "",
-      },
-      log: [],
+      player1Name: "",
+      player2Name: "",
+      player1Uuid: "",
+      player2Uuid: "",
+      player1Weapon: "",
+      player2Weapon: "",
       roomTurn: 0,
       roomMessage: "",
       playerTurn: "",
-      roomUuid: "r-111",
+      roomUuid: "",
     },
     gameRooms: [],
   };
@@ -108,7 +103,18 @@ export const PlayerState = ({ children }) => {
           dispatch({ type: "INITIALIZE_ROOM", payload: doc.data() })
         );
       });
-      // update player state
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", dispatch: "Error loading room" });
+    }
+  };
+  const enterRoom = async (roomUuid, playerUuid) => {
+    try {
+      // add room to player
+      usersRef
+        .doc(playerUuid)
+        .set({ isPlaying: true, isPlayingInRoom: roomUuid }, { merge: true });
+      // add player to the room
+      gameRoomRef.doc(roomUuid).set({ player1: playerUuid }, { merge: true });
     } catch (e) {
       dispatch({ type: "SET_ERROR", dispatch: "Error loading room" });
     }
@@ -123,6 +129,7 @@ export const PlayerState = ({ children }) => {
         resetGame,
         playMove,
         liveRoom,
+        enterRoom,
       }}>
       {children}
     </PlayerContext.Provider>

@@ -6,7 +6,7 @@ import shortid from "shortid";
 // import RandomName from "./RandomName";
 
 const GameMenu = () => {
-  const { player, liveRoom, room } = useContext(PlayerContext);
+  const { player, liveRoom, room, enterRoom } = useContext(PlayerContext);
   const [gameMode, setGameMode] = useState("");
 
   useEffect(() => {
@@ -23,18 +23,21 @@ const GameMenu = () => {
     const roomUuid = shortid.generate();
     gameRoomRef.doc(roomUuid).set({ gameMode, roomUuid, inUse: false });
     liveRoom();
+    enterRoom(room.roomUuid, player.playerUuid);
   };
   const handleGameMode = (mode) => {
     setGameMode(mode);
     // make a live instance when the game mode is chaged
     const notInUseGameRoom = gameRoomRef.where("inUse", "==", false).limit(1);
-    notInUseGameRoom.get().then((room) => {
-      if (room.empty) {
+    notInUseGameRoom.get().then((doc) => {
+      if (doc.empty) {
         // make a new live room if they are all in use
         newLiveRoom();
       } else {
         // create live instance
         liveRoom();
+        // add player to room
+        enterRoom(room.roomUuid, player.playerUuid);
       }
     });
   };

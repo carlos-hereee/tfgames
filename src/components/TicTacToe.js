@@ -89,16 +89,9 @@ const TicTacToe = () => {
             ))}
           </div>
         </div>
-        <PlayerCard player={room.player1} />
-        <PlayerCard player={room.player2} />
+        <PlayerCard player={player} />
+        <PlayerCard player={player} />
         <GameStatus />
-      </div>
-      <div className="card mb-4 p-1 shadow-sm">
-        <div className="card overflow-auto logger">
-          {room.log.map((data) => (
-            <p key={shortid.generate()}> {data}</p>
-          ))}
-        </div>
       </div>
       <div
         className={show ? "modal d-block" : "modal d-none"}
