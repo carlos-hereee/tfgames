@@ -42,11 +42,11 @@ const playMove = (state, action) => {
     },
   };
 };
-const initUser = (state, action) => {
+const initPlayer = (state, action) => {
   return {
     ...state,
     is_loading: false,
-    player: { ...state.player },
+    player: action.payload,
   };
 };
 const initRoom = (state, action) => {
@@ -69,6 +69,8 @@ export const reducer = (state, action) => {
       return startMatch(state, action);
     case "PLAY_MOVE":
       return playMove(state, action);
+    case "INITIALIZE_PLAYER":
+      return initPlayer(state, action);
     case "INITIALIZE_ROOM":
       return initRoom(state, action);
     default:

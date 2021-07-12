@@ -1,7 +1,8 @@
 import React, { createContext, useEffect, useReducer } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "./firebase";
+import { auth, gameRoomRef, usersRef } from "./firebase";
 import { reducer } from "./reducer";
+import generate from "project-name-generator";
 
 export const PlayerContext = createContext();
 export const PlayerState = ({ children }) => {
@@ -50,10 +51,34 @@ export const PlayerState = ({ children }) => {
   };
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const livePlayer = async (playerUuid) => {
+    try {
+      // create live instance of player
+      usersRef.doc(playerUuid).onSnapshot((snap) => {
+        dispatch({ type: "INITIALIZE_PLAYER", payload: snap.data() });
+      });
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", payload: "Couldnt make player instance" });
+    }
+  };
   useEffect(() => {
     if (!user) {
-      auth.signInAnonymously().then((data) => console.log("data", data));
+      // if theres no user loaded
+      auth.signInAnonymously().then((data) => {
+        usersRef.doc(data.user.uid).set(
+          {
+            playerUuid: data.user.uid,
+            isAMember: false,
+            isInQueue: false,
+            isPlaying: false,
+            isPlayingAgainst: "",
+            playerName: generate({ words: 3 }).dashed,
+          },
+          { merge: true }
+        );
+      });
     }
+    user?.uid && livePlayer(user.uid);
   }, [user]);
 
   const resetGame = async () => {
@@ -64,14 +89,6 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", payload: "Could not reset game" });
     }
   };
-  // const queueMatch = async (vs) => {
-  //   dispatch({ type: "IS_LOADING", payload: true });
-  //   try {
-  //     dispatch({ type: "QUEUE_MATCH", payload: vs });
-  //   } catch (error) {
-  //     dispatch({ type: "SET_ERROR", payload: "Could not queue match" });
-  //   }
-  // };
   const playMove = async (square, player) => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
@@ -81,11 +98,17 @@ export const PlayerState = ({ children }) => {
     }
   };
 
-  const liveRoom = async (room) => {
+  const liveRoom = async () => {
+    const notInUseGameRoom = gameRoomRef.where("inUse", "==", false).limit(1);
     dispatch({ type: "IS_LOADING", payload: true });
     try {
       // load room state
-      dispatch({ type: "INITIALIZE_ROOM", payload: room });
+      notInUseGameRoom.onSnapshot((snap) => {
+        snap.forEach((doc) =>
+          dispatch({ type: "INITIALIZE_ROOM", payload: doc.data() })
+        );
+      });
+      // update player state
     } catch (e) {
       dispatch({ type: "SET_ERROR", dispatch: "Error loading room" });
     }
@@ -97,7 +120,6 @@ export const PlayerState = ({ children }) => {
         player: state.player,
         room: state.room,
         game: state.game,
-        // queueMatch,
         resetGame,
         playMove,
         liveRoom,

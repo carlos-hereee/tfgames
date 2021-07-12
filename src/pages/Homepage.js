@@ -1,30 +1,10 @@
-import { Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { PlayerContext } from "../utlils/PlayerContext";
 import TicTacToe from "../components/TicTacToe";
 import GameMenu from "../components/GameMenu";
-import TTTMenu from "./TTTMenu";
-import RandomName from "../components/RandomName";
-import { db } from "../utlils/firebase";
 
 const Homepage = () => {
   const { player } = useContext(PlayerContext);
-  // useEffect(() => {
-  //   const gameRoomRef = db.collection("game-rooms");
-  //   const query = gameRoomRef.where("inUse", "==", false).limit(1);
-  //   if (!player.isPlaying) {
-  //     const unsubcribe = query.onSnapshot(
-  //       (snap) => {
-  //         const dummyArr = [];
-  //         snap.forEach((doc) => dummyArr.push(doc.data()));
-  //         // setRoom(dummyArr);
-  //         console.log("dummyArr", dummyArr);
-  //       },
-  //       (err) => console.log("err", err)
-  //     );
-  //     return () => unsubcribe();
-  //   }
-  // }, [player.isInQueue, player.isPlaying]);
   return (
     <main className="container">
       <div className="card">
