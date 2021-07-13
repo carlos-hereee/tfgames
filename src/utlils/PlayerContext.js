@@ -97,42 +97,11 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", payload: "Could not make the move" });
     }
   };
-
-  const enterRoom = async (room, player, mode) => {
-    const roomData = {
-      ...room,
-      roomMessage: "Welcome To Take Five",
-      gameMode: mode,
-    };
-    if (!room.player1Uuid) {
-      roomData.player1Uuid = player.playerUuid;
-      roomData.player1Name = player.playerName;
-    } else {
-      roomData.player2Uuid = player.playerUuid;
-      roomData.player2Name = player.playerName;
-    }
-    console.log("roomData", roomData);
-    try {
-      // add room to player
-      usersRef
-        .doc(player.playerUuid)
-        .set(
-          { isPlaying: true, isPlayingInRoom: room.roomUuid },
-          { merge: true }
-        );
-      // add player to the room
-      gameRoomRef.doc(room.roomUuid).set({ roomData }, { merge: true });
-    } catch (e) {
-      dispatch({ type: "SET_ERROR", dispatch: "Error loading room" });
-    }
-  };
-  const liveRoom = async (room, player, mode) => {
+  const liveRoom = async (room) => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
       // load room state
       dispatch({ type: "INITIALIZE_ROOM", payload: room });
-      // add player to room if a room exist
-      enterRoom(room, player, mode);
     } catch (e) {
       dispatch({ type: "SET_ERROR", dispatch: "Error loading room" });
     }
@@ -147,7 +116,6 @@ export const PlayerState = ({ children }) => {
         resetGame,
         playMove,
         liveRoom,
-        enterRoom,
       }}>
       {children}
     </PlayerContext.Provider>

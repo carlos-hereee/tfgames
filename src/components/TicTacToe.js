@@ -4,12 +4,16 @@ import { PlayerContext } from "../utlils/PlayerContext";
 import { allCharactersSame, refereeReset } from "../utlils/usefulFunction";
 import PlayerCard from "./PlayerCard";
 import GameStatus from "./GameStatus";
+import generate from "project-name-generator";
+import { gameRoomRef } from "../utlils/firebase";
 
 const TicTacToe = () => {
   const { room, player, playMove, game } = useContext(PlayerContext);
-  const [winner, setWinner] = useState(false);
-  const [tie, setTie] = useState(false);
-  const [reset, setReset] = useState(false);
+  const [winCondition, setWinCondition] = useState({
+    win: false,
+    tie: false,
+    reset: false,
+  });
   const [referee, setReferee] = useState([
     { id: 0, x: 1, notes: "", winner: false },
     { id: 1, x: 2, notes: "", winner: false },
@@ -20,16 +24,21 @@ const TicTacToe = () => {
     { id: 6, z: 1, notes: "", winner: false },
     { id: 7, z: 2, notes: "", winner: false },
   ]);
-  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if (reset) {
-      setReferee(refereeReset);
-      // setRooms(roomReset);
-      setReset(false);
-    }
-  }, [winner, reset]);
+    // add player to room
+    gameRoomRef.doc(room.roomUuid).set(
+      {
+        player1Name: player.playerName,
+        player1Uuid: player.playerUuid,
+        roomMessage: `Welcome to Take Five`,
+        // invitationCode:
+      },
+      { merge: true }
+    );
+  }, []);
 
+  console.log("room", room);
   const playerMove = (move) => {
     // if its the correct players turn
     // if (room.playerTurn && player.playerUuid) {
@@ -49,27 +58,38 @@ const TicTacToe = () => {
       return i.notes.length > 2 && allCharactersSame(i.notes);
     });
     if (winner.length > 0) {
-      setWinner(true);
-      setShow(true);
+      // setWinner(true);
+      // setShow(true);
     }
     if (room.roomTurn === 8) {
-      setTie(true);
+      // setTie(true);
     }
     // setPlayer(turnSwap[player]);
   };
   const playAgain = () => {
     // reset everything
     // setTurn(0);
-    setShow(false);
-    setWinner(false);
-    setTie(false);
-    setReset(true);
+    // setShow(false);
+    // setWinner(false);
+    // setTie(false);
+    // setReset(true);
     // setLog([...log, `Player: ${player} started a new game`]);
+  };
+  const player1 = {
+    playerName: room.player1Name,
+    playerWeapon: room.player1Weapon,
+    playerUuid: room.player1Uuid,
+  };
+  const player2 = {
+    playerName: room.player2Name,
+    playerWeapon: room.player2Weapon,
+    playerUuid: room.player2Uuid,
   };
   return (
     <div className="container">
       <div className="card-deck mb-3 text-center">
         <div className="card mb-4 p-1 shadow-sm">
+          <h4 className="card-title">{room.roomMessage}</h4>
           <div className="tictactoe">
             {game?.map((item) => (
               <button
@@ -83,56 +103,9 @@ const TicTacToe = () => {
             ))}
           </div>
         </div>
-        <PlayerCard player={player} />
-        {/* <PlayerCard player={player} /> */}
+        <PlayerCard player={player1} />
+        <PlayerCard player={player2} />
         <GameStatus />
-      </div>
-      <div
-        className={show ? "modal d-block" : "modal d-none"}
-        id="exampleModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                YOU WON!
-              </h5>
-            </div>
-            <div className="modal-body">...</div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => playAgain()}>
-                Play Again
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className={tie ? "modal d-block" : "modal d-none"}
-        id="exampleModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-body">TIE</div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => playAgain()}>
-                Play Again
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

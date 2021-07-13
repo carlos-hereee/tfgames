@@ -6,7 +6,7 @@ import GameMenu from "../components/GameMenu";
 const Homepage = () => {
   const { player } = useContext(PlayerContext);
   return (
-    <main className="container">
+    <main>
       <div className="card">
         {player.isPlaying ? <TicTacToe /> : <GameMenu />}
       </div>

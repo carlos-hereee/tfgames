@@ -1,37 +1,42 @@
 import { useContext, useEffect } from "react";
-import { gameRoomRef } from "../utlils/firebase";
+import { useState } from "react/cjs/react.development";
+import { gameRoomRef, usersRef } from "../utlils/firebase";
 import { PlayerContext } from "../utlils/PlayerContext";
 // import RandomName from "./RandomName";
 
 const GameMenu = () => {
-  const { player, liveRoom, room, enterRoom, isLoading } =
-    useContext(PlayerContext);
+  const { player, liveRoom, room, isLoading } = useContext(PlayerContext);
+  const [gameMode, setGameMode] = useState("");
 
-  // useEffect(() => {
-  //   if (room.roomUuid) {
-  //     gameRoomRef
-  //       .doc(room.roomUuid)
-  //       .set({ gameMode, inUse: true }, { merge: true });
-  //     // TODO: update player to the server
-  //     // usersRef.doc(player.playerUuid).set({ isPlaying: true }, { merge: true });
-  //   }
-  // }, [room?.roomUuid]);
+  useEffect(() => {
+    if (room.roomUuid) {
+      // set player isPlaying to true
+      usersRef.doc(player.playerUuid).set({ isPlaying: true }, { merge: true });
+      gameRoomRef
+        .doc(room.roomUuid)
+        .set({ ...room, gameMode }, { merge: true });
+      const unsubscribe = gameRoomRef
+        .doc(room.roomUuid)
+        .onSnapshot((snap) => liveRoom(snap.data()));
+      // TODO: update player to the server
+      return () => unsubscribe();
+    }
+  }, [room.roomUuid]);
 
   // const newLiveRoom = () => {
   //   const roomUuid = shortid.generate();
   //   gameRoomRef.doc(roomUuid).set({ roomUuid, inUse: false });
   // };
   const handleGameMode = (mode) => {
+    setGameMode(mode);
     // // search for an empty room
     const query = gameRoomRef.where("inUse", "==", false).limit(1);
     // TODO: if all rooms are full
     // make a live instance of the server
-    query.onSnapshot((snap) => {
-      snap.forEach((doc) => liveRoom(doc.data(), player, mode));
+    query.get().then((item) => {
+      item.forEach((doc) => liveRoom(doc.data()));
     });
   };
-  console.log("room", room);
-  console.log("player", player);
   return (
     <div className="card">
       <div className="card-body text-center">
