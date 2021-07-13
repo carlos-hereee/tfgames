@@ -37,7 +37,9 @@ const TicTacToe = () => {
         player1Name: player.playerName,
         player1Uuid: player.playerUuid,
         roomMessage: `Welcome to Take Five`,
-        invitationCode: invitationCode(),
+        invitationCode: room.invitationCode
+          ? room.invitationCode
+          : invitationCode(),
       },
       { merge: true }
     );
@@ -107,6 +109,7 @@ const TicTacToe = () => {
               </button>
             ))}
           </div>
+          <p class="card-text text-muted ml-auto">Room Id# {room.roomUuid}</p>
         </div>
         <PlayerCard player={player1} />
         {room.player2Uuid ? (

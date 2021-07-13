@@ -46,7 +46,6 @@ export const PlayerState = ({ children }) => {
     gameRooms: [],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
-
   const livePlayer = async (playerUuid) => {
     try {
       // create live instance of player
@@ -68,7 +67,7 @@ export const PlayerState = ({ children }) => {
             isInQueue: false,
             isPlaying: false,
             isPlayingAgainst: "",
-            playerName: generate({ words: 3 }).dashed,
+            // playerName: generate({ words: 3 }).dashed,
           },
           { merge: true }
         );

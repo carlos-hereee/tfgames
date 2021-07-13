@@ -1,4 +1,5 @@
 import randomNumber from "random-number";
+import copyText from "copy-to-clipboard";
 
 export const randomBoolean = () => Math.random() >= 0.5;
 export const allCharactersSame = (s) => {
@@ -29,4 +30,13 @@ export const roomReset = [
 ];
 export const invitationCode = () => {
   return randomNumber({ min: 1000, max: 9999, integer: true });
+};
+export const copy = (txt) => {
+  console.log(
+    "copyText()",
+    copyText(txt, {
+      debug: true,
+      message: "Press #{key} to copy",
+    })
+  );
 };
