@@ -3,6 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, gameRoomRef, usersRef } from "./firebase";
 import { reducer } from "./reducer";
 import generate from "project-name-generator";
+import shortid from "shortid";
 
 export const PlayerContext = createContext();
 export const PlayerState = ({ children }) => {
@@ -20,15 +21,15 @@ export const PlayerState = ({ children }) => {
       isPlayingAgainst: "",
     },
     game: [
-      { x: 1, y: 1, content: null },
-      { x: 1, y: 2, content: null },
-      { x: 1, y: 3, content: null },
-      { x: 2, y: 1, content: null },
-      { x: 2, y: 2, content: null },
-      { x: 2, y: 3, content: null },
-      { x: 3, y: 1, content: null },
-      { x: 3, y: 2, content: null },
-      { x: 3, y: 3, content: null },
+      { x: 1, y: 1, piece: null, id: shortid.generate() },
+      { x: 1, y: 2, piece: null, id: shortid.generate() },
+      { x: 1, y: 3, piece: null, id: shortid.generate() },
+      { x: 2, y: 1, piece: null, id: shortid.generate() },
+      { x: 2, y: 2, piece: null, id: shortid.generate() },
+      { x: 2, y: 3, piece: null, id: shortid.generate() },
+      { x: 3, y: 1, piece: null, id: shortid.generate() },
+      { x: 3, y: 2, piece: null, id: shortid.generate() },
+      { x: 3, y: 3, piece: null, id: shortid.generate() },
     ],
     room: {
       player1Name: "",
@@ -37,10 +38,10 @@ export const PlayerState = ({ children }) => {
       player2Uuid: "",
       player1Weapon: "",
       player2Weapon: "",
-      roomTurn: 0,
-      roomMessage: "",
       playerTurn: "",
+      roomMessage: "",
       roomUuid: "",
+      roomTurn: 0,
     },
     gameRooms: [],
   };
@@ -84,10 +85,13 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", payload: "Could not reset game" });
     }
   };
-  const playMove = async (square, player) => {
+  const playMove = async (room, player, move) => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
-      dispatch({ type: "PLAY_MOVE", payload: "" });
+      // update board
+      // dispatch({ type: "PLAY_MOVE", payload: { room, player, move } });
+      // update room
+      // gameRoomRef.doc(room.roomUuid).set({});
     } catch (error) {
       dispatch({ type: "SET_ERROR", payload: "Could not make the move" });
     }
@@ -107,14 +111,27 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", dispatch: "Error loading room" });
     }
   };
-  const enterRoom = async (roomUuid, playerUuid) => {
+  const enterRoom = async (room, player) => {
+    const updateRoom = {
+      roomMessage: "Welcome To Take Five",
+    };
+    if (!room.player1Uuid) {
+      updateRoom.player1Uuid = player.playerUuid;
+      updateRoom.player1Name = player.playerName;
+    } else {
+      updateRoom.player2Uuid = player.playerUuid;
+      updateRoom.player2Name = player.playerName;
+    }
     try {
       // add room to player
       usersRef
-        .doc(playerUuid)
-        .set({ isPlaying: true, isPlayingInRoom: roomUuid }, { merge: true });
+        .doc(player.playerUuid)
+        .set(
+          { isPlaying: true, isPlayingInRoom: room.roomUuid },
+          { merge: true }
+        );
       // add player to the room
-      gameRoomRef.doc(roomUuid).set({ player1: playerUuid }, { merge: true });
+      gameRoomRef.doc(room.roomUuid).set({ updateRoom }, { merge: true });
     } catch (e) {
       dispatch({ type: "SET_ERROR", dispatch: "Error loading room" });
     }

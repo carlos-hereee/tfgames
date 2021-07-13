@@ -23,7 +23,7 @@ const GameMenu = () => {
     const roomUuid = shortid.generate();
     gameRoomRef.doc(roomUuid).set({ gameMode, roomUuid, inUse: false });
     liveRoom();
-    enterRoom(room.roomUuid, player.playerUuid);
+    enterRoom(room, player);
   };
   const handleGameMode = (mode) => {
     setGameMode(mode);
@@ -37,7 +37,7 @@ const GameMenu = () => {
         // create live instance
         liveRoom();
         // add player to room
-        enterRoom(room.roomUuid, player.playerUuid);
+        enterRoom(room, player);
       }
     });
   };

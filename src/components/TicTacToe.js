@@ -5,10 +5,8 @@ import { allCharactersSame, refereeReset } from "../utlils/usefulFunction";
 import PlayerCard from "./PlayerCard";
 import GameStatus from "./GameStatus";
 
-// const turnSwap = { X: "O", O: "X" };
 const TicTacToe = () => {
-  const { room, player, playMove } = useContext(PlayerContext);
-  // const [player, setPlayer] = useState("X");
+  const { room, player, playMove, game } = useContext(PlayerContext);
   const [winner, setWinner] = useState(false);
   const [tie, setTie] = useState(false);
   const [reset, setReset] = useState(false);
@@ -32,17 +30,17 @@ const TicTacToe = () => {
     }
   }, [winner, reset]);
 
-  const playerMove = (room) => {
+  const playerMove = (move) => {
     // if its the correct players turn
     // if (room.playerTurn && player.playerUuid) {
     // update the square
-    playMove(room, player);
+    playMove(room, player, move);
     // add the player move to the refs notes
     const refereeNotes = referee.filter((item) => {
-      if (item.x === room.x || item.y === room.y) {
+      if (item.x === room.x || item.y === move.y) {
         item.notes = item.notes += player;
       }
-      return item.x === room.x || item.y === room.y;
+      return item.x === move.x || item.y === move.y;
     });
     // check for winning move
     const winner = refereeNotes.filter((i) => {
@@ -57,12 +55,7 @@ const TicTacToe = () => {
     if (room.roomTurn === 8) {
       setTie(true);
     }
-    // setLog([
-    //   ...log,
-    //   `Player: ${player} made a move its now ${turnSwap[player]}'s turn`,
-    // ]);
     // setPlayer(turnSwap[player]);
-    // }
   };
   const playAgain = () => {
     // reset everything
@@ -78,12 +71,13 @@ const TicTacToe = () => {
       <div className="card-deck mb-3 text-center">
         <div className="card mb-4 p-1 shadow-sm">
           <div className="tictactoe">
-            {room.game?.map((item) => (
+            {game?.map((item) => (
               <button
                 className={`room x-${item.x} y-${item.y} `}
                 key={shortid.generate()}
                 onClick={() => playerMove(item)}
-                disabled={item.content}>
+                // disabled={item.content}
+              >
                 {item.content}
               </button>
             ))}
