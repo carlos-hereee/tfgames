@@ -84,7 +84,7 @@ const TicTacToe = () => {
           </div>
         </div>
         <PlayerCard player={player} />
-        <PlayerCard player={player} />
+        {/* <PlayerCard player={player} /> */}
         <GameStatus />
       </div>
       <div

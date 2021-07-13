@@ -3,7 +3,7 @@ import { randomBoolean } from "./usefulFunction";
 const queueMatch = (state, action) => {
   return {
     ...state,
-    is_loading: false,
+    isLoading: false,
     player: {
       ...state.player,
       isPlayingAgainst: action.payload,
@@ -33,7 +33,7 @@ const startMatch = (state, action) => {
 const playMove = (state, action) => {
   return {
     ...state,
-    is_loading: false,
+    isLoading: false,
     room: {
       ...state.room,
       ...action.payload,
@@ -45,14 +45,14 @@ const playMove = (state, action) => {
 const initPlayer = (state, action) => {
   return {
     ...state,
-    is_loading: false,
+    isLoading: false,
     player: action.payload,
   };
 };
 const initRoom = (state, action) => {
   return {
     ...state,
-    is_loading: false,
+    isLoading: false,
     room: action.payload,
   };
 };

@@ -32,16 +32,16 @@ export const PlayerState = ({ children }) => {
       { x: 3, y: 3, piece: null, id: shortid.generate() },
     ],
     room: {
-      player1Name: "",
-      player2Name: "",
-      player1Uuid: "",
-      player2Uuid: "",
-      player1Weapon: "",
-      player2Weapon: "",
-      playerTurn: "",
-      roomMessage: "",
-      roomUuid: "",
-      roomTurn: 0,
+      // player1Name: "",
+      // player2Name: "",
+      // player1Uuid: "",
+      // player2Uuid: "",
+      // player1Weapon: "",
+      // player2Weapon: "",
+      // playerTurn: "",
+      // roomMessage: "",
+      // roomUuid: "",
+      // roomTurn: 0,
     },
     gameRooms: [],
   };
@@ -113,6 +113,7 @@ export const PlayerState = ({ children }) => {
   };
   const enterRoom = async (room, player) => {
     const updateRoom = {
+      ...room,
       roomMessage: "Welcome To Take Five",
     };
     if (!room.player1Uuid) {
