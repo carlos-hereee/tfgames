@@ -1,3 +1,5 @@
+import randomNumber from "random-number";
+
 export const randomBoolean = () => Math.random() >= 0.5;
 export const allCharactersSame = (s) => {
   let n = s.length;
@@ -25,3 +27,6 @@ export const roomReset = [
   { x: 2, y: 3, content: null },
   { x: 3, y: 3, content: null },
 ];
+export const invitationCode = () => {
+  return randomNumber({ min: 1000, max: 9999, integer: true });
+};

@@ -1,11 +1,16 @@
 import { useState, useEffect, useContext } from "react";
 import shortid from "shortid";
 import { PlayerContext } from "../utlils/PlayerContext";
-import { allCharactersSame, refereeReset } from "../utlils/usefulFunction";
+import {
+  allCharactersSame,
+  invitationCode,
+  refereeReset,
+} from "../utlils/usefulFunction";
 import PlayerCard from "./PlayerCard";
 import GameStatus from "./GameStatus";
 import generate from "project-name-generator";
 import { gameRoomRef } from "../utlils/firebase";
+import GameInvitation from "./GameInvitation";
 
 const TicTacToe = () => {
   const { room, player, playMove, game } = useContext(PlayerContext);
@@ -32,7 +37,7 @@ const TicTacToe = () => {
         player1Name: player.playerName,
         player1Uuid: player.playerUuid,
         roomMessage: `Welcome to Take Five`,
-        // invitationCode:
+        invitationCode: invitationCode(),
       },
       { merge: true }
     );
@@ -104,7 +109,11 @@ const TicTacToe = () => {
           </div>
         </div>
         <PlayerCard player={player1} />
-        <PlayerCard player={player2} />
+        {room.player2Uuid ? (
+          <PlayerCard player={player2} />
+        ) : (
+          <GameInvitation invite={room} />
+        )}
         <GameStatus />
       </div>
     </div>
