@@ -1,47 +1,37 @@
 import { useContext, useEffect } from "react";
-import { useState } from "react/cjs/react.development";
 import { gameRoomRef } from "../utlils/firebase";
 import { PlayerContext } from "../utlils/PlayerContext";
-import shortid from "shortid";
 // import RandomName from "./RandomName";
 
 const GameMenu = () => {
-  const { player, liveRoom, room, enterRoom } = useContext(PlayerContext);
-  const [gameMode, setGameMode] = useState("");
+  const { player, liveRoom, room, enterRoom, isLoading } =
+    useContext(PlayerContext);
 
-  useEffect(() => {
-    if (room.roomUuid) {
-      gameRoomRef
-        .doc(room.roomUuid)
-        .set({ gameMode, inUse: true }, { merge: true });
-      // TODO: update player to the server
-      // usersRef.doc(player.playerUuid).set({ isPlaying: true }, { merge: true });
-    }
-  }, [room?.roomUuid]);
+  // useEffect(() => {
+  //   if (room.roomUuid) {
+  //     gameRoomRef
+  //       .doc(room.roomUuid)
+  //       .set({ gameMode, inUse: true }, { merge: true });
+  //     // TODO: update player to the server
+  //     // usersRef.doc(player.playerUuid).set({ isPlaying: true }, { merge: true });
+  //   }
+  // }, [room?.roomUuid]);
 
-  const newLiveRoom = () => {
-    const roomUuid = shortid.generate();
-    gameRoomRef.doc(roomUuid).set({ gameMode, roomUuid, inUse: false });
-    liveRoom();
-    enterRoom(room, player);
-  };
+  // const newLiveRoom = () => {
+  //   const roomUuid = shortid.generate();
+  //   gameRoomRef.doc(roomUuid).set({ roomUuid, inUse: false });
+  // };
   const handleGameMode = (mode) => {
-    setGameMode(mode);
-    // make a live instance when the game mode is chaged
-    const notInUseGameRoom = gameRoomRef.where("inUse", "==", false).limit(1);
-    notInUseGameRoom.get().then((doc) => {
-      if (doc.empty) {
-        // make a new live room if they are all in use
-        newLiveRoom();
-      } else {
-        // create live instance
-        liveRoom();
-        // add player to room
-        enterRoom(room, player);
-      }
+    // // search for an empty room
+    const query = gameRoomRef.where("inUse", "==", false).limit(1);
+    // TODO: if all rooms are full
+    // make a live instance of the server
+    query.onSnapshot((snap) => {
+      snap.forEach((doc) => liveRoom(doc.data(), player, mode));
     });
   };
-
+  console.log("room", room);
+  console.log("player", player);
   return (
     <div className="card">
       <div className="card-body text-center">
@@ -54,17 +44,19 @@ const GameMenu = () => {
           aria-label="play vs computer or friend">
           <button
             className="btn btn-secondary btn-lg btn-block"
-            disabled
+            disabled={isLoading}
             onClick={() => handleGameMode("Computer")}>
             Computer
           </button>
           <button
             className="btn btn-secondary btn-lg btn-block"
+            disabled={isLoading}
             onClick={() => handleGameMode("PVP")}>
             PVP
           </button>
           <button
             className="btn btn-primary btn-lg btn-block"
+            disabled={isLoading}
             onClick={() => handleGameMode("Friend")}>
             Friend
           </button>

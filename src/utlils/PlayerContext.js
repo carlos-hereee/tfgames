@@ -87,6 +87,7 @@ export const PlayerState = ({ children }) => {
   };
   const playMove = async (room, player, move) => {
     dispatch({ type: "IS_LOADING", payload: true });
+    console.log("room", room, player, move);
     try {
       // update board
       // dispatch({ type: "PLAY_MOVE", payload: { room, player, move } });
@@ -97,32 +98,20 @@ export const PlayerState = ({ children }) => {
     }
   };
 
-  const liveRoom = async () => {
-    const notInUseGameRoom = gameRoomRef.where("inUse", "==", false).limit(1);
-    dispatch({ type: "IS_LOADING", payload: true });
-    try {
-      // load room state
-      notInUseGameRoom.onSnapshot((snap) => {
-        snap.forEach((doc) =>
-          dispatch({ type: "INITIALIZE_ROOM", payload: doc.data() })
-        );
-      });
-    } catch (e) {
-      dispatch({ type: "SET_ERROR", dispatch: "Error loading room" });
-    }
-  };
-  const enterRoom = async (room, player) => {
-    const updateRoom = {
+  const enterRoom = async (room, player, mode) => {
+    const roomData = {
       ...room,
       roomMessage: "Welcome To Take Five",
+      gameMode: mode,
     };
     if (!room.player1Uuid) {
-      updateRoom.player1Uuid = player.playerUuid;
-      updateRoom.player1Name = player.playerName;
+      roomData.player1Uuid = player.playerUuid;
+      roomData.player1Name = player.playerName;
     } else {
-      updateRoom.player2Uuid = player.playerUuid;
-      updateRoom.player2Name = player.playerName;
+      roomData.player2Uuid = player.playerUuid;
+      roomData.player2Name = player.playerName;
     }
+    console.log("roomData", roomData);
     try {
       // add room to player
       usersRef
@@ -132,7 +121,18 @@ export const PlayerState = ({ children }) => {
           { merge: true }
         );
       // add player to the room
-      gameRoomRef.doc(room.roomUuid).set({ updateRoom }, { merge: true });
+      gameRoomRef.doc(room.roomUuid).set({ roomData }, { merge: true });
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", dispatch: "Error loading room" });
+    }
+  };
+  const liveRoom = async (room, player, mode) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    try {
+      // load room state
+      dispatch({ type: "INITIALIZE_ROOM", payload: room });
+      // add player to room if a room exist
+      enterRoom(room, player, mode);
     } catch (e) {
       dispatch({ type: "SET_ERROR", dispatch: "Error loading room" });
     }
