@@ -105,6 +105,7 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", dispatch: "Error loading room" });
     }
   };
+
   return (
     <PlayerContext.Provider
       value={{

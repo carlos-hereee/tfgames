@@ -1,18 +1,15 @@
 import { useState, useEffect, useContext } from "react";
 import shortid from "shortid";
 import { PlayerContext } from "../utlils/PlayerContext";
-import {
-  allCharactersSame,
-  invitationCode,
-  refereeReset,
-} from "../utlils/usefulFunction";
+import { allCharactersSame, invitationCode } from "../utlils/usefulFunction";
 import PlayerCard from "./PlayerCard";
 import GameStatus from "./GameStatus";
-import generate from "project-name-generator";
 import { gameRoomRef } from "../utlils/firebase";
 import GameInvitation from "./GameInvitation";
+import GameMenu from "./GameMenu";
+import GameInvitationButton from "./GameInvitationButton";
 
-const TicTacToe = () => {
+const TicTacToe = ({ history }) => {
   const { room, player, playMove, game } = useContext(PlayerContext);
   const [winCondition, setWinCondition] = useState({
     win: false,
@@ -29,23 +26,39 @@ const TicTacToe = () => {
     { id: 6, z: 1, notes: "", winner: false },
     { id: 7, z: 2, notes: "", winner: false },
   ]);
+  const [gameMessage, setGameMessage] = useState(false);
 
+  const inviteCode = parseInt(history.location.search.split("=").pop());
   useEffect(() => {
-    // add player to room
-    gameRoomRef.doc(room.roomUuid).set(
-      {
-        player1Name: player.playerName,
-        player1Uuid: player.playerUuid,
-        roomMessage: `Welcome to Take Five`,
-        invitationCode: room.invitationCode
-          ? room.invitationCode
-          : invitationCode(),
-      },
-      { merge: true }
-    );
-  }, []);
-
-  console.log("room", room);
+    const query = gameRoomRef.where("invitationCode", "==", inviteCode);
+    // for invited users
+    if (inviteCode) {
+      query.get().then((item) => {
+        // if its code doesnt match any room notify the player
+        if (item.empty) {
+          setGameMessage(true);
+        }
+        // if the room exits
+        item.forEach((doc) => console.log("doc", doc.data()));
+      });
+    }
+  }, [inviteCode]);
+  console.log("gameMessage", room);
+  console.log("gameMessage", gameMessage);
+  // useEffect(() => {
+  //   // add player to room
+  //   gameRoomRef.doc(room.roomUuid).set(
+  //     {
+  //       player1Name: player.playerName,
+  //       player1Uuid: player.playerUuid,
+  //       roomMessage: `Welcome to Take Five`,
+  //       invitationCode: room.invitationCode
+  //         ? room.invitationCode
+  //         : invitationCode(),
+  //     },
+  //     { merge: true }
+  //   );
+  // }, []);
   const playerMove = (move) => {
     // if its the correct players turn
     // if (room.playerTurn && player.playerUuid) {
@@ -94,31 +107,40 @@ const TicTacToe = () => {
   };
   return (
     <div className="container">
-      <div className="card-deck mb-3 text-center">
-        <div className="card mb-4 p-1 shadow-sm">
-          <h4 className="card-title">{room.roomMessage}</h4>
-          <div className="tictactoe">
-            {game?.map((item) => (
-              <button
-                className={`room x-${item.x} y-${item.y} `}
-                key={shortid.generate()}
-                onClick={() => playerMove(item)}
-                // disabled={item.content}
-              >
-                {item.content}
-              </button>
-            ))}
+      {gameMessage ? (
+        <div className="card">
+          <div className="card-body text-center">
+            <h3 className="card-title">Expired or Invalid invitation code</h3>
+            <GameInvitation />
           </div>
-          <p class="card-text text-muted ml-auto">Room Id# {room.roomUuid}</p>
         </div>
-        <PlayerCard player={player1} />
-        {room.player2Uuid ? (
-          <PlayerCard player={player2} />
-        ) : (
-          <GameInvitation invite={room} />
-        )}
-        <GameStatus />
-      </div>
+      ) : (
+        <div className="card-deck mb-3 text-center">
+          <div className="card mb-4 p-1 shadow-sm">
+            <h4 className="card-title">{room.roomMessage}</h4>
+            <div className="tictactoe">
+              {game?.map((item) => (
+                <button
+                  className={`room x-${item.x} y-${item.y} `}
+                  key={shortid.generate()}
+                  onClick={() => playerMove(item)}
+                  // disabled={item.content}
+                >
+                  {item.content}
+                </button>
+              ))}
+            </div>
+            <p class="card-text text-muted ml-auto">Room Id# {room.roomUuid}</p>
+          </div>
+          <PlayerCard player={player1} />
+          {room.player2Uuid ? (
+            <PlayerCard player={player2} />
+          ) : (
+            <GameInvitationButton invite={room} />
+          )}
+          <GameStatus />
+        </div>
+      )}
     </div>
   );
 };

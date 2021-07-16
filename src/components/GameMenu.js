@@ -2,11 +2,13 @@ import { useContext, useEffect } from "react";
 import { useState } from "react/cjs/react.development";
 import { gameRoomRef, usersRef } from "../utlils/firebase";
 import { PlayerContext } from "../utlils/PlayerContext";
+import GameInvitation from "./GameInvitation";
 // import RandomName from "./RandomName";
 
 const GameMenu = () => {
   const { player, liveRoom, room, isLoading } = useContext(PlayerContext);
   const [gameMode, setGameMode] = useState("");
+  // const [roomInvatationCode, setRoomInvatationCode] = useState();
 
   useEffect(() => {
     if (room.roomUuid) {
@@ -53,21 +55,24 @@ const GameMenu = () => {
             onClick={() => handleGameMode("Computer")}>
             Computer
           </button>
-          <button
+          {/* <button
             className="btn btn-secondary btn-lg btn-block"
             disabled={isLoading}
             onClick={() => handleGameMode("PVP")}>
             PVP
-          </button>
-          <button
+          </button> */}
+          {/* <button
             className="btn btn-primary btn-lg btn-block"
             disabled={isLoading}
             onClick={() => handleGameMode("Friend")}>
             Friend
-          </button>
+          </button> */}
         </div>
+        <div>
+          <GameInvitation />
+        </div>
+        {/* <RandomName /> */}
       </div>
-      {/* <RandomName /> */}
     </div>
   );
 };
