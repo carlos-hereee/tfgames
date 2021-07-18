@@ -99,7 +99,6 @@ export const PlayerState = ({ children }) => {
   const liveRoom = async (room) => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
-      // load room state
       dispatch({ type: "INITIALIZE_ROOM", payload: room });
     } catch (e) {
       dispatch({ type: "SET_ERROR", dispatch: "Error loading room" });
