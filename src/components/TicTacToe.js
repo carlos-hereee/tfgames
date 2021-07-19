@@ -1,11 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import shortid from "shortid";
 import { PlayerContext } from "../utlils/PlayerContext";
-import {
-  allCharactersSame,
-  invitationCode,
-  randomBoolean,
-} from "../utlils/usefulFunction";
+import { randomBoolean } from "../utlils/usefulFunction";
 import PlayerCard from "./PlayerCard";
 import GameStatus from "./GameStatus";
 import { gameRoomRef } from "../utlils/firebase";
@@ -14,7 +10,8 @@ import GameMenu from "./GameMenu";
 import GameInvitationButton from "./GameInvitationButton";
 
 const TicTacToe = ({ history }) => {
-  const { room, player, playMove, game, liveRoom } = useContext(PlayerContext);
+  const { room, player, playMove, game, liveRoom, swapTurn } =
+    useContext(PlayerContext);
   const [winCondition, setWinCondition] = useState({
     win: false,
     tie: false,
@@ -82,11 +79,12 @@ const TicTacToe = ({ history }) => {
   }, [room.roomUuid]);
   useEffect(() => {
     const playerTurnBool = randomBoolean();
-    if (gameStart) {
+    if (gameStart && !room.playerTurn) {
       gameRoomRef.doc(room.roomUuid).set(
         {
           ...room,
           playerTurn: playerTurnBool ? room.player1Uuid : room.player2Uuid,
+          turn: 0,
         },
         { merge: true }
       );
@@ -96,7 +94,36 @@ const TicTacToe = ({ history }) => {
     // after each turn pases
     // increment
   }, [room.playerTurn]);
+  const playerMove = (square) => {
+    // update the game board
+    playMove(room, game, square);
+    // check for win condition
+    // swap turns
+    swapTurn(room);
 
+    // if (room.playerTurn && player.playerUuid) {
+    // update the square
+    // add the player move to the refs notes
+    // const refereeNotes = referee.filter((item) => {
+    //   if (item.x === room.x || item.y === move.y) {
+    //     item.notes = item.notes += player;
+    //   }
+    //   return item.x === move.x || item.y === move.y;
+    // });
+    // check for winning move
+    // const winner = refereeNotes.filter((i) => {
+    //   // check for length of 3 characters
+    //   // check if all characters are the same
+    //   return i.notes.length > 2 && allCharactersSame(i.notes);
+    // });
+    // if (winner.length > 0) {
+    //   // setWinner(true);
+    //   // setShow(true);
+    // }
+    // if (room.roomTurn === 8) {
+    //   // setTie(true);
+    // }
+  };
   const player1 = {
     playerName: room.player1Name,
     playerWeapon: room.player1Weapon,
@@ -107,6 +134,7 @@ const TicTacToe = ({ history }) => {
     playerWeapon: room.player2Weapon,
     playerUuid: room.player2Uuid,
   };
+  console.log("game", game);
   return (
     <div className="container">
       {gameMessage ? (
@@ -124,7 +152,7 @@ const TicTacToe = ({ history }) => {
                 {room.playerTurn === room.player1Uuid
                   ? room.player1Name
                   : room.player2Name}
-                's Turn
+                's turn
               </h4>
             ) : (
               <h4 className="card-title">{room.roomMessage}</h4>
@@ -134,18 +162,18 @@ const TicTacToe = ({ history }) => {
                 <button
                   className={`room x-${item.x} y-${item.y} `}
                   key={shortid.generate()}
-                  // onClick={() => playerMove(item)}
-                  // disabled={item.content}
-                >
-                  {item.content}
+                  onClick={() => playerMove(item)}
+                  disabled={room.playerTurn === player.playerUuid}>
+                  {item.piece}
                 </button>
               ))}
             </div>
+            <p class="card-text text-muted ml-auto">Turn # {room.turn}</p>
             <p class="card-text text-muted ml-auto">Room Id# {room.roomUuid}</p>
           </div>
-          <PlayerCard player={player1} />
+          <PlayerCard data={player1} />
           {room.player2Uuid ? (
-            <PlayerCard player={player2} />
+            <PlayerCard data={player2} />
           ) : (
             <GameInvitationButton invite={room} />
           )}
@@ -157,39 +185,12 @@ const TicTacToe = ({ history }) => {
 };
 export default TicTacToe;
 
-/*  const playerMove = (move) => {
-    // if its the correct players turn
-    // if (room.playerTurn && player.playerUuid) {
-    // update the square
-    playMove(room, player, move);
-    // add the player move to the refs notes
-    const refereeNotes = referee.filter((item) => {
-      if (item.x === room.x || item.y === move.y) {
-        item.notes = item.notes += player;
-      }
-      return item.x === move.x || item.y === move.y;
-    });
-    // check for winning move
-    const winner = refereeNotes.filter((i) => {
-      // check for length of 3 characters
-      // check if all characters are the same
-      return i.notes.length > 2 && allCharactersSame(i.notes);
-    });
-    if (winner.length > 0) {
-      // setWinner(true);
-      // setShow(true);
-    }
-    if (room.roomTurn === 8) {
-      // setTie(true);
-    }
-    // setPlayer(turnSwap[player]);
-  };
-  const playAgain = () => {
-    // reset everything
-    // setTurn(0);
-    // setShow(false);
-    // setWinner(false);
-    // setTie(false);
-    // setReset(true);
-    // setLog([...log, `Player: ${player} started a new game`]);
-  };*/
+const playAgain = () => {
+  // reset everything
+  // setTurn(0);
+  // setShow(false);
+  // setWinner(false);
+  // setTie(false);
+  // setReset(true);
+  // setLog([...log, `Player: ${player} started a new game`]);
+};

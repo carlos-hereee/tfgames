@@ -84,14 +84,14 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", payload: "Could not reset game" });
     }
   };
-  const playMove = async (room, player, move) => {
+  const playMove = async (room, game, square) => {
     dispatch({ type: "IS_LOADING", payload: true });
-    console.log("room", room, player, move);
+    // if its player1's turn then the content in the room is X else O
+    const squareIndex = game.findIndex((item) => square === item);
+    game[squareIndex].piece = room.playerTurn === room.player1Uuid ? "X" : "O";
     try {
       // update board
-      // dispatch({ type: "PLAY_MOVE", payload: { room, player, move } });
-      // update room
-      // gameRoomRef.doc(room.roomUuid).set({});
+      dispatch({ type: "PLAY_MOVE", payload: game });
     } catch (error) {
       dispatch({ type: "SET_ERROR", payload: "Could not make the move" });
     }
@@ -104,6 +104,22 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", dispatch: "Error loading room" });
     }
   };
+  const swapTurn = async (room) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    try {
+      gameRoomRef.doc(room.roomUuid).set(
+        {
+          ...room,
+          playerTurn:
+            room.playerTurn === room.player1Uuid
+              ? room.player2Uuid
+              : room.player1Uuid,
+          turn: room.turn + 1,
+        },
+        { merge: true }
+      );
+    } catch (e) {}
+  };
 
   return (
     <PlayerContext.Provider
@@ -115,6 +131,7 @@ export const PlayerState = ({ children }) => {
         resetGame,
         playMove,
         liveRoom,
+        swapTurn,
       }}>
       {children}
     </PlayerContext.Provider>

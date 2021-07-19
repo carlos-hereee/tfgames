@@ -57,7 +57,6 @@ const GameMenu = () => {
       item.forEach((doc) => liveRoom(doc.data()));
     });
   };
-  console.log("room", room);
   return (
     <div className="card">
       <div className="card-body text-center">
