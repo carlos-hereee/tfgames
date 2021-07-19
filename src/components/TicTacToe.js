@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import shortid from "shortid";
 import { PlayerContext } from "../utlils/PlayerContext";
-import { randomBoolean } from "../utlils/usefulFunction";
+import { randomBoolean, ticTacToeRoomStart } from "../utlils/usefulFunction";
 import PlayerCard from "./PlayerCard";
 import GameStatus from "./GameStatus";
 import { gameRoomRef } from "../utlils/firebase";
@@ -10,7 +10,7 @@ import GameMenu from "./GameMenu";
 import GameInvitationButton from "./GameInvitationButton";
 
 const TicTacToe = ({ history }) => {
-  const { room, player, playMove, game, liveRoom, swapTurn } =
+  const { room, player, playMove, liveRoom, swapTurn } =
     useContext(PlayerContext);
   const [winCondition, setWinCondition] = useState({
     win: false,
@@ -76,6 +76,15 @@ const TicTacToe = ({ history }) => {
       // the match can begin
       setGameStart(true);
     }
+    // start with an empty game board
+    if (room.roomUuid) {
+      gameRoomRef
+        .doc(room.roomUuid)
+        .set(
+          { ...room, game: ticTacToeRoomStart, roomTurn: "", turn: 0 },
+          { merge: true }
+        );
+    }
   }, [room.roomUuid]);
   useEffect(() => {
     const playerTurnBool = randomBoolean();
@@ -95,8 +104,11 @@ const TicTacToe = ({ history }) => {
     // increment
   }, [room.playerTurn]);
   const playerMove = (square) => {
-    // update the game board
-    playMove(room, game, square);
+    // if its your turn
+    if (room.playerTurn === player.playerUuid) {
+      // update the game board
+      playMove(room, room.game, square);
+    }
     // check for win condition
     // swap turns
     swapTurn(room);
@@ -134,7 +146,7 @@ const TicTacToe = ({ history }) => {
     playerWeapon: room.player2Weapon,
     playerUuid: room.player2Uuid,
   };
-  console.log("game", game);
+  console.log("room", room);
   return (
     <div className="container">
       {gameMessage ? (
@@ -158,7 +170,7 @@ const TicTacToe = ({ history }) => {
               <h4 className="card-title">{room.roomMessage}</h4>
             )}
             <div className="tictactoe">
-              {game?.map((item) => (
+              {room.game?.map((item) => (
                 <button
                   className={`room x-${item.x} y-${item.y} `}
                   key={shortid.generate()}
@@ -168,8 +180,10 @@ const TicTacToe = ({ history }) => {
                 </button>
               ))}
             </div>
-            <p class="card-text text-muted ml-auto">Turn # {room.turn}</p>
-            <p class="card-text text-muted ml-auto">Room Id# {room.roomUuid}</p>
+            <p className="card-text text-muted ml-auto">Turn # {room.turn}</p>
+            <p className="card-text text-muted ml-auto">
+              Room Id# {room.roomUuid}
+            </p>
           </div>
           <PlayerCard data={player1} />
           {room.player2Uuid ? (

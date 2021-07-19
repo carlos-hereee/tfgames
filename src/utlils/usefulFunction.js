@@ -1,5 +1,6 @@
 import randomNumber from "random-number";
 import copyText from "copy-to-clipboard";
+import shortid from "shortid";
 
 export const randomBoolean = () => Math.random() >= 0.5;
 export const allCharactersSame = (s) => {
@@ -17,16 +18,16 @@ export const refereeReset = [
   { id: 6, z: 1, notes: "", winner: false },
   { id: 7, z: 2, notes: "", winner: false },
 ];
-export const roomReset = [
-  { x: 1, y: 1, content: null },
-  { x: 2, y: 1, content: null },
-  { x: 3, y: 1, content: null },
-  { x: 1, y: 2, content: null },
-  { x: 2, y: 2, content: null },
-  { x: 3, y: 2, content: null },
-  { x: 1, y: 3, content: null },
-  { x: 2, y: 3, content: null },
-  { x: 3, y: 3, content: null },
+export const ticTacToeRoomStart = [
+  { x: 1, y: 1, piece: null, id: shortid.generate() },
+  { x: 1, y: 2, piece: null, id: shortid.generate() },
+  { x: 1, y: 3, piece: null, id: shortid.generate() },
+  { x: 2, y: 1, piece: null, id: shortid.generate() },
+  { x: 2, y: 2, piece: null, id: shortid.generate() },
+  { x: 2, y: 3, piece: null, id: shortid.generate() },
+  { x: 3, y: 1, piece: null, id: shortid.generate() },
+  { x: 3, y: 2, piece: null, id: shortid.generate() },
+  { x: 3, y: 3, piece: null, id: shortid.generate() },
 ];
 export const invitationCode = () => {
   return randomNumber({ min: 1000, max: 9999, integer: true });
