@@ -53,6 +53,16 @@ export const PlayerState = ({ children }) => {
     }
     user?.uid && livePlayer(user.uid);
   }, [user]);
+  useEffect(() => {
+    if (state.room.roomUuid) {
+      const unsubscribe = gameRoomRef
+        .doc(state.room.roomUuid)
+        .onSnapshot((snap) => {
+          dispatch({ type: "INITIALIZE_ROOM", payload: snap.data() });
+        });
+      return () => unsubscribe();
+    }
+  }, [state.room.roomUuid]);
 
   const resetGame = async () => {
     dispatch({ type: "IS_LOADING", payload: true });
@@ -62,14 +72,21 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", payload: "Could not reset game" });
     }
   };
-  const playMove = async (room, game, square) => {
+  const playMove = async (room, square) => {
     dispatch({ type: "IS_LOADING", payload: true });
+    const index = room.game.findIndex((item) => item === square);
+    const gameBoard = [...room.game];
+    gameBoard[index].piece = room.playerTurn === room.player1Uuid ? "X" : "O";
     // if its player1's turn then the content in the room is X else O
-    const squareIndex = game.findIndex((item) => square === item);
-    game[squareIndex].piece = room.playerTurn === room.player1Uuid ? "X" : "O";
     try {
-      // update board
-      dispatch({ type: "PLAY_MOVE", payload: game });
+      // update game board
+      gameRoomRef.doc(room.roomUuid).set(
+        {
+          ...room,
+          game: gameBoard,
+        },
+        { merge: true }
+      );
     } catch (error) {
       dispatch({ type: "SET_ERROR", payload: "Could not make the move" });
     }
@@ -96,7 +113,9 @@ export const PlayerState = ({ children }) => {
         },
         { merge: true }
       );
-    } catch (e) {}
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", dispatch: "Error swaping turns" });
+    }
   };
 
   return (

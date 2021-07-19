@@ -31,11 +31,7 @@ const GameMenu = () => {
       };
       usersRef.doc(player.playerUuid).set(playerData, { merge: true });
       gameRoomRef.doc(room.roomUuid).set(roomData, { merge: true });
-      const unsubscribe = gameRoomRef
-        .doc(room.roomUuid)
-        .onSnapshot((snap) => liveRoom(snap.data()));
       history.push(`/tictactoe/invite?code=${room.invitationCode}`);
-      return () => unsubscribe();
     }
   }, [room.roomUuid]);
 
