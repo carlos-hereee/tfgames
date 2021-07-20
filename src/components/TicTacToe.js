@@ -8,6 +8,7 @@ import { gameRoomRef } from "../utlils/firebase";
 import GameInvitation from "./GameInvitation";
 import GameMenu from "./GameMenu";
 import GameInvitationButton from "./GameInvitationButton";
+import { gameResult } from "./winCondition";
 
 const TicTacToe = ({ history }) => {
   const { room, player, playMove, liveRoom, swapTurn, isLoading } =
@@ -17,16 +18,6 @@ const TicTacToe = ({ history }) => {
     tie: false,
     reset: false,
   });
-  const [referee, setReferee] = useState([
-    { id: 0, x: 1, notes: "", winner: false },
-    { id: 1, x: 2, notes: "", winner: false },
-    { id: 2, x: 3, notes: "", winner: false },
-    { id: 3, y: 1, notes: "", winner: false },
-    { id: 4, y: 2, notes: "", winner: false },
-    { id: 5, y: 3, notes: "", winner: false },
-    { id: 6, z: 1, notes: "", winner: false },
-    { id: 7, z: 2, notes: "", winner: false },
-  ]);
   const [gameMessage, setGameMessage] = useState(false);
   const [gameStart, setGameStart] = useState(false);
 
@@ -93,10 +84,13 @@ const TicTacToe = ({ history }) => {
   useEffect(() => {
     const playerTurnBool = randomBoolean();
     if (gameStart && !room.playerTurn) {
+      // start the match
       gameRoomRef.doc(room.roomUuid).set(
         {
           ...room,
           playerTurn: playerTurnBool ? room.player1Uuid : room.player2Uuid,
+          player1Weapon: playerTurnBool ? "X" : "O",
+          player2Weapon: playerTurnBool ? "O" : "X",
           roomMessage: "Game Start",
           turn: 0,
         },
@@ -108,35 +102,24 @@ const TicTacToe = ({ history }) => {
   const playerMove = (square) => {
     // if its your turn
     if (room.playerTurn === player.playerUuid) {
+      const weapon =
+        room.playerTurn === room.player1Uuid
+          ? room.player1Weapon || "X"
+          : room.player2Weapon || "O";
       // update the game board
       playMove(room, square);
       // swap turns
-      swapTurn(room);
+      // check for win condition
+      const status = gameResult(room.game, room.turn, weapon);
+      if (status.result === "winner") {
+      }
+      if (status.result === "continue") {
+        swapTurn(room);
+      }
     } else {
       // TODO: notification that's its not your turn
-      // console.log("not your turn");
+      console.log("not your turn");
     }
-    // check for win condition
-    // add the player move to the refs notes
-    // const refereeNotes = referee.filter((item) => {
-    //   if (item.x === room.x || item.y === move.y) {
-    //     item.notes = item.notes += player;
-    //   }
-    //   return item.x === move.x || item.y === move.y;
-    // });
-    // check for winning move
-    // const winner = refereeNotes.filter((i) => {
-    //   // check for length of 3 characters
-    //   // check if all characters are the same
-    //   return i.notes.length > 2 && allCharactersSame(i.notes);
-    // });
-    // if (winner.length > 0) {
-    //   // setWinner(true);
-    //   // setShow(true);
-    // }
-    // if (room.roomTurn === 8) {
-    //   // setTie(true);
-    // }
   };
   const player1 = {
     playerName: room.player1Name,
@@ -193,7 +176,6 @@ const TicTacToe = ({ history }) => {
           ) : (
             <GameInvitationButton invite={room} />
           )}
-          <GameStatus />
         </div>
       )}
     </div>

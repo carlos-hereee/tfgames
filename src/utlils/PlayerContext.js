@@ -2,8 +2,6 @@ import React, { createContext, useEffect, useReducer } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, gameRoomRef, usersRef } from "./firebase";
 import { reducer } from "./reducer";
-import generate from "project-name-generator";
-import shortid from "shortid";
 
 export const PlayerContext = createContext();
 export const PlayerState = ({ children }) => {
@@ -76,7 +74,10 @@ export const PlayerState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     const index = room.game.findIndex((item) => item === square);
     const gameBoard = [...room.game];
-    gameBoard[index].piece = room.playerTurn === room.player1Uuid ? "X" : "O";
+    gameBoard[index].piece =
+      room.playerTurn === room.player1Uuid
+        ? room.player1Weapon
+        : room.player2Weapon;
     // if its player1's turn then the content in the room is X else O
     try {
       // update game board
