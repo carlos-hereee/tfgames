@@ -3,23 +3,26 @@ import shortid from "shortid";
 import { PlayerContext } from "../utlils/PlayerContext";
 import { randomBoolean, ticTacToeRoomStart } from "../utlils/usefulFunction";
 import PlayerCard from "./PlayerCard";
-import GameStatus from "./GameStatus";
 import { gameRoomRef } from "../utlils/firebase";
 import GameInvitation from "./GameInvitation";
 import GameMenu from "./GameMenu";
 import GameInvitationButton from "./GameInvitationButton";
 import { gameResult } from "./winCondition";
+import Modal from "./Modal";
 
 const TicTacToe = ({ history }) => {
   const { room, player, playMove, liveRoom, swapTurn, isLoading } =
     useContext(PlayerContext);
-  const [winCondition, setWinCondition] = useState({
+  const [gameStatus, setGameStatus] = useState({
     win: false,
     tie: false,
     reset: false,
+    gameStart: false,
+    isEmpty: false,
+    show: false,
+    message: "",
+    title: "",
   });
-  const [gameMessage, setGameMessage] = useState(false);
-  const [gameStart, setGameStart] = useState(false);
 
   const inviteCode = parseInt(history.location.search.split("=").pop());
   useEffect(() => {
@@ -29,7 +32,7 @@ const TicTacToe = ({ history }) => {
       query.get().then((item) => {
         // if its code doesnt match any room notify the player
         if (item.empty) {
-          setGameMessage(true);
+          setGameStatus({ ...gameStatus, isEmpty: true });
         }
         // if the room exits
         item.forEach((doc) => liveRoom(doc.data()));
@@ -78,12 +81,12 @@ const TicTacToe = ({ history }) => {
     if (room.player1Uuid && room.player2Uuid) {
       // TODO: send ready checks
       // the match can begin
-      setGameStart(true);
+      setGameStatus({ ...gameStatus, gameStart: true });
     }
   }, [room.roomUuid]);
   useEffect(() => {
     const playerTurnBool = randomBoolean();
-    if (gameStart && !room.playerTurn) {
+    if (gameStatus.gameStart && !room.playerTurn) {
       // start the match
       gameRoomRef.doc(room.roomUuid).set(
         {
@@ -97,7 +100,7 @@ const TicTacToe = ({ history }) => {
         { merge: true }
       );
     }
-  }, [gameStart]);
+  }, [gameStatus.gameStart]);
 
   const playerMove = (square) => {
     // if its your turn
@@ -107,11 +110,27 @@ const TicTacToe = ({ history }) => {
           ? room.player1Weapon || "X"
           : room.player2Weapon || "O";
       // update the game board
-      playMove(room, square);
+      // playMove(room, square);
       // swap turns
       // check for win condition
       const status = gameResult(room.game, room.turn, weapon);
       if (status.result === "winner") {
+        setGameStatus({
+          ...gameStatus,
+          show: true,
+          win: true,
+          message: "Congratulations! You Won",
+          title: "VICTORY!",
+        });
+      }
+      if (status.result === "draw") {
+        setGameStatus({
+          ...gameStatus,
+          show: true,
+          draw: true,
+          message: "It's a draw!",
+          title: "DRAW!",
+        });
       }
       if (status.result === "continue") {
         swapTurn(room);
@@ -131,9 +150,10 @@ const TicTacToe = ({ history }) => {
     playerWeapon: room.player2Weapon,
     playerUuid: room.player2Uuid,
   };
+
   return (
     <div className="container">
-      {gameMessage ? (
+      {gameStatus.isEmpty ? (
         <div className="card">
           <div className="card-body text-center">
             <h3 className="card-title">Expired or Invalid invitation code</h3>
@@ -143,7 +163,7 @@ const TicTacToe = ({ history }) => {
       ) : (
         <div className="card-deck mb-3 text-center">
           <div className="card mb-4 p-1 shadow-sm">
-            {gameStart ? (
+            {gameStatus.gameStart ? (
               <h4 classNames="card-title">
                 {room.playerTurn === room.player1Uuid
                   ? room.player1Name
@@ -178,6 +198,13 @@ const TicTacToe = ({ history }) => {
           )}
         </div>
       )}
+      <Modal
+        data={{
+          show: gameStatus.show,
+          message: gameStatus.message,
+          title: gameStatus.title,
+        }}
+      />
     </div>
   );
 };

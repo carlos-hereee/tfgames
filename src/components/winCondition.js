@@ -39,7 +39,6 @@ export const gameResult = (game, turn, weapon) => {
   // traverse the array
   game.forEach((room) => {
     // if its the players move add to possible winners
-    console.log("room.piece, weapon", room.piece, weapon);
     if (room.piece === weapon) {
       if (room.x === 1) possibleWinners.x1 += 1;
       if (room.x === 2) possibleWinners.x2 += 1;
