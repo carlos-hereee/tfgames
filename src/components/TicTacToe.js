@@ -14,7 +14,6 @@ const TicTacToe = ({ history }) => {
   const { room, player, playMove, liveRoom, swapTurn, isLoading } =
     useContext(PlayerContext);
   const [gameStatus, setGameStatus] = useState({
-    win: false,
     tie: false,
     reset: false,
     gameStart: false,
@@ -101,6 +100,31 @@ const TicTacToe = ({ history }) => {
       );
     }
   }, [gameStatus.gameStart]);
+  useEffect(() => {
+    if (room.winner) {
+      room.winner === player.playerUuid
+        ? setGameStatus({
+            ...gameStatus,
+            show: true,
+            message: "Congratulations! You Won",
+            title: "VICTORY!",
+          })
+        : setGameStatus({
+            ...gameStatus,
+            show: true,
+            message: "You Lose",
+            title: "DEFEAT!",
+          });
+    }
+    if (room.winner === "draw") {
+      setGameStatus({
+        ...gameStatus,
+        show: true,
+        message: "It's a draw",
+        title: "DRAW!",
+      });
+    }
+  }, [room.winner]);
 
   const playerMove = (square) => {
     // if its your turn
@@ -110,29 +134,21 @@ const TicTacToe = ({ history }) => {
           ? room.player1Weapon || "X"
           : room.player2Weapon || "O";
       // update the game board
-      // playMove(room, square);
-      // swap turns
+      playMove(room, square);
       // check for win condition
       const status = gameResult(room.game, room.turn, weapon);
       if (status.result === "winner") {
-        setGameStatus({
-          ...gameStatus,
-          show: true,
-          win: true,
-          message: "Congratulations! You Won",
-          title: "VICTORY!",
-        });
+        gameRoomRef
+          .doc(room.roomUuid)
+          .set({ ...room, winner: room.playerTurn }, { merge: true });
       }
       if (status.result === "draw") {
-        setGameStatus({
-          ...gameStatus,
-          show: true,
-          draw: true,
-          message: "It's a draw!",
-          title: "DRAW!",
-        });
+        gameRoomRef
+          .doc(room.roomUuid)
+          .set({ ...room, winner: "draw" }, { merge: true });
       }
       if (status.result === "continue") {
+        // swap turns
         swapTurn(room);
       }
     } else {
@@ -179,8 +195,7 @@ const TicTacToe = ({ history }) => {
                   className={`room x-${item.x} y-${item.y} `}
                   key={shortid.generate()}
                   onClick={() => playerMove(item)}
-                  // disabled={isLoading}
-                >
+                  disabled={isLoading}>
                   {item.piece}
                 </button>
               ))}
@@ -198,13 +213,7 @@ const TicTacToe = ({ history }) => {
           )}
         </div>
       )}
-      <Modal
-        data={{
-          show: gameStatus.show,
-          message: gameStatus.message,
-          title: gameStatus.title,
-        }}
-      />
+      <Modal data={gameStatus} />
     </div>
   );
 };
