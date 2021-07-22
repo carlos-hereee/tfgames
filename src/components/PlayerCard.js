@@ -21,7 +21,7 @@ const PlayerCard = ({ data }) => {
       <div className="card-footer">
         <button
           className="btn btn-primary"
-          onClick={() => playerReady(room, player)}
+          onClick={() => playerReady(room, data.playerUuid)}
           disabled={data.ready}>
           Ready {data.ready && <FontAwesomeIcon icon={faCheckCircle} />}
         </button>

@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useReducer } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, gameRoomRef, usersRef } from "./firebase";
 import { reducer } from "./reducer";
-import { player1, player2, ticTacToeRoomStart } from "./usefulFunction";
+import { isPlayer1, ticTacToeRoomStart } from "./usefulFunction";
 
 export const PlayerContext = createContext();
 export const PlayerState = ({ children }) => {
@@ -60,21 +60,24 @@ export const PlayerState = ({ children }) => {
     const data = {
       ...room,
       game: ticTacToeRoomStart,
-      winner: "",
+      player1ReadyCheck: false,
+      player2ReadyCheck: false,
+      isEmpty: false,
+      winner: null,
       playerTurn: "",
       player1Weapon: "",
       player2Weapon: "",
       turn: 0,
       roomStatus: "",
     };
-    player1(room, player.playerUuid)
+    isPlayer1(room, player.playerUuid)
       ? (data.player1Message = `${player.playerName} wants a rematch.`)
       : (data.player2Message = `${player.playerName} wants a rematch.`);
 
     try {
       // reset the room
-      if (player1(room, player.playerUuid))
-        gameRoomRef.doc(room.roomUuid).set({ data }, { merge: true });
+      if (isPlayer1(room, player.playerUuid))
+        gameRoomRef.doc(room.roomUuid).set({ ...data }, { merge: true });
     } catch (e) {
       dispatch({ type: "SET_ERROR", payload: "Could not reset game" });
     }
@@ -164,7 +167,7 @@ export const PlayerState = ({ children }) => {
   const playerReady = async (room, playerUuid) => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
-      if (player1(room, playerUuid)) {
+      if (isPlayer1(room, playerUuid)) {
         gameRoomRef.doc(room.roomUuid).set(
           {
             ...room,
@@ -187,7 +190,42 @@ export const PlayerState = ({ children }) => {
     try {
     } catch (e) {}
   };
-
+  const startGame = async (room) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    try {
+      gameRoomRef
+        .doc(room.roomUuid)
+        .set({ ...room, gameStart: true }, { merge: true });
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", dispatch: "Could not add player2" });
+    }
+  };
+  const roomIsEmpty = async (room) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    try {
+      gameRoomRef
+        .doc(room.roomUuid)
+        .set({ ...room, isEmpty: true }, { merge: true });
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", dispatch: "Could not add player2" });
+    }
+  };
+  const showWinnerModal = async (result, room) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    try {
+      gameRoomRef.doc(room.roomUuid).set(
+        {
+          ...room,
+          showModal: true,
+          gameStart: false,
+          winner: result === "draw" ? "draw" : room.playerTurn,
+        },
+        { merge: true }
+      );
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", dispatch: "Could not show winner modal" });
+    }
+  };
   return (
     <PlayerContext.Provider
       value={{
@@ -202,6 +240,9 @@ export const PlayerState = ({ children }) => {
         addPlayer1,
         addPlayer2,
         playerReady,
+        startGame,
+        roomIsEmpty,
+        showWinnerModal,
       }}>
       {children}
     </PlayerContext.Provider>

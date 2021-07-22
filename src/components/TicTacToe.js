@@ -1,14 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import shortid from "shortid";
 import { PlayerContext } from "../utlils/PlayerContext";
-import { randomBoolean, ticTacToeRoomStart } from "../utlils/usefulFunction";
+import { randomBoolean } from "../utlils/usefulFunction";
 import PlayerCard from "./PlayerCard";
 import { gameRoomRef } from "../utlils/firebase";
 import GameInvitation from "./GameInvitation";
-import GameMenu from "./GameMenu";
 import GameInvitationButton from "./GameInvitationButton";
 import { gameResult } from "./winCondition";
-import Modal from "./Modal";
+import GameResultModal from "./GameResultModal";
+import { isPlayer1 } from "../utlils/usefulFunction";
 
 const TicTacToe = ({ history }) => {
   const {
@@ -20,16 +20,11 @@ const TicTacToe = ({ history }) => {
     isLoading,
     addPlayer1,
     addPlayer2,
+    startGame,
+    roomIsEmpty,
+    showWinnerModal,
   } = useContext(PlayerContext);
-  const [gameStatus, setGameStatus] = useState({
-    tie: false,
-    reset: false,
-    gameStart: false,
-    isEmpty: false,
-    show: false,
-    message: "",
-    title: "",
-  });
+
   const { player1Uuid, player2Uuid, roomUuid, playerTurn } = room;
   const { playerUuid } = player;
 
@@ -39,9 +34,10 @@ const TicTacToe = ({ history }) => {
     // for invited users
     if (inviteCode) {
       query.get().then((item) => {
-        // if its code doesnt match any room notify the player
+        // if invitecode doesnt match any room notify the player
         if (item.empty) {
-          setGameStatus({ ...gameStatus, isEmpty: true });
+          // setGameStatus({ ...gameStatus, isEmpty: true });
+          roomIsEmpty(room);
         }
         // if the room exits
         item.forEach((doc) => liveRoom(doc.data()));
@@ -49,24 +45,23 @@ const TicTacToe = ({ history }) => {
     }
   }, [inviteCode]);
   useEffect(() => {
-    // when a player joins the room
     // is player1 if player1 has not been chosen
     if (!player1Uuid) addPlayer1(room, player);
     // is player2 if is not player1 and player2 is empty
     if (player1Uuid !== playerUuid && !player2Uuid) addPlayer2(room, player);
     // if player1 and player 2 are in the room
     if (player1Uuid && player2Uuid) {
-      // TODO: send ready checks
-      // setGameStart(room);
-      // gameStart()
-      // the match can begin
-      // setGameStatus({ ...gameStatus, gameStart: true });
+      // both players should respond to ready checks
+      if (room.player1ReadyCheck && room.player2ReadyCheck) {
+        // the match can begin
+        startGame(room);
+      }
     }
-  }, [roomUuid]);
+  }, [roomUuid, room.player1ReadyCheck, room.player2ReadyCheck]);
 
   useEffect(() => {
     const playerTurnBool = randomBoolean();
-    if (gameStatus.gameStart && !room.playerTurn) {
+    if (room.gameStart && !room.playerTurn) {
       // start the match
       gameRoomRef.doc(room.roomUuid).set(
         {
@@ -80,33 +75,7 @@ const TicTacToe = ({ history }) => {
         { merge: true }
       );
     }
-  }, [gameStatus.gameStart]);
-  useEffect(() => {
-    if (room.winner) {
-      room.winner === player.playerUuid
-        ? setGameStatus({
-            ...gameStatus,
-            show: true,
-            message: "Congratulations! You Won",
-            title: "VICTORY!",
-          })
-        : setGameStatus({
-            ...gameStatus,
-            show: true,
-            message: "You Lose",
-            title: "DEFEAT!",
-          });
-    }
-    if (room.winner === "draw") {
-      setGameStatus({
-        ...gameStatus,
-        show: true,
-        message: "It's a draw",
-        title: "DRAW!",
-      });
-    }
-  }, [room.winner]);
-
+  }, [room.gameStart]);
   const playerMove = (square) => {
     const { player1Weapon, player2Weapon, game, turn } = room;
     // if its your turn
@@ -117,27 +86,13 @@ const TicTacToe = ({ history }) => {
       const status = gameResult(
         game,
         turn,
-        player1(room, playerUuid) ? player1Weapon || "X" : player2Weapon || "O"
+        isPlayer1(room, player.playerUuid)
+          ? player1Weapon || "X"
+          : player2Weapon || "O"
       );
-      if (status.result === "winner") {
-        gameRoomRef.doc(roomUuid).set(
-          {
-            ...room,
-            winner: playerTurn,
-            rematchMessage: "Waiting on oponent...",
-          },
-          { merge: true }
-        );
-      }
-      if (status.result === "draw") {
-        gameRoomRef
-          .doc(room.roomUuid)
-          .set({ ...room, winner: "draw" }, { merge: true });
-      }
-      if (status.result === "continue") {
-        // swap turns
-        swapTurn(room);
-      }
+      // if resutl is contine swap turns
+      if (status.result === "continue") swapTurn(room);
+      else showWinnerModal(status.result, room);
     } else {
       // TODO: notification that's its not your turn
       console.log("not your turn");
@@ -158,7 +113,7 @@ const TicTacToe = ({ history }) => {
 
   return (
     <div className="container">
-      {gameStatus.isEmpty ? (
+      {room.isEmpty ? (
         <div className="card">
           <div className="card-body text-center">
             <h3 className="card-title">Expired or Invalid invitation code</h3>
@@ -168,7 +123,7 @@ const TicTacToe = ({ history }) => {
       ) : (
         <div className="card-deck mb-3 text-center">
           <div className="card mb-4 p-1 shadow-sm">
-            {gameStatus.gameStart ? (
+            {room.gameStart ? (
               <h4 classNames="card-title">
                 {room.playerTurn === room.player1Uuid
                   ? room.player1Name
@@ -202,7 +157,7 @@ const TicTacToe = ({ history }) => {
           )}
         </div>
       )}
-      <Modal data={gameStatus} />
+      <GameResultModal />
     </div>
   );
 };

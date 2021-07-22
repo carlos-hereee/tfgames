@@ -35,7 +35,7 @@ export const gameResult = (game, turn, weapon) => {
     diagnolBotTop: 0,
   };
   // if number of turns === total possible turns its a draw
-  // if (turn > 8) return { result: "draw" };
+  if (turn > 8) return { result: "draw" };
   // traverse the array
   game.forEach((room) => {
     // if its the players move add to possible winners
