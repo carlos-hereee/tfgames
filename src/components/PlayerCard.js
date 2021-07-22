@@ -15,18 +15,15 @@ const PlayerCard = ({ data }) => {
         <p className="card-text">Playing as {data.playerWeapon}</p>
       </div>
       {/* if ready check needed show footer */}
-      <div className="card-footer text-right">
+      <div className="card-footer">
         {!room.gameStart && (
           <button
-            className="btn btn-primary"
-            onClick={() => playerReady(room, data.playerUuid, player)}
+            className="btn btn-primary m-auto"
+            onClick={() => playerReady(room, data.playerUuid)}
             disabled={data.ready || player.playerUuid === data.playerUuid}>
             Ready {data.ready && <FontAwesomeIcon icon={faCheckCircle} />}
           </button>
         )}
-        <p className="card-subtitle font-weight-light">
-          <small>{data.playerUuid}</small>
-        </p>
       </div>
     </div>
   );

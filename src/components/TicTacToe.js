@@ -22,6 +22,7 @@ const TicTacToe = ({ history }) => {
     startGame,
     roomIsEmpty,
     showWinnerModal,
+    playersReady,
   } = useContext(PlayerContext);
 
   const { player1Uuid, player2Uuid, roomUuid, playerTurn } = room;
@@ -49,27 +50,24 @@ const TicTacToe = ({ history }) => {
     if (player1Uuid !== playerUuid && !player2Uuid) addPlayer2(room, player);
     // if player1 and player 2 are in the room
     if (player1Uuid && player2Uuid) {
+      // the match can begin
+      if (room.player1Ready && room.player2Ready) startGame(room);
       // both players should respond to ready checks
-      if (room.player1Ready && room.player2Ready) {
-        // the match can begin
-        startGame(room);
-      }
+      if (!room.player1Ready || !room.player2Ready) playersReady(room);
     }
-  }, [roomUuid, room.player1ReadyCheck, room.player2ReadyCheck]);
+  }, [roomUuid, room.player1Ready, room.player2Ready]);
 
   const playerMove = (square) => {
     const { player1Weapon, player2Weapon, game, turn } = room;
-    // if its your turn
-    if (playerTurn === player.playerUuid) {
+    // if its your turn and if that square is empty
+    if (playerTurn === player.playerUuid && !square.piece) {
       // update the game board
       playMove(room, square);
       // check for win condition
       const status = gameResult(
         game,
         turn,
-        isPlayer1(room, player.playerUuid)
-          ? player1Weapon || "X"
-          : player2Weapon || "O"
+        isPlayer1 ? player1Weapon || "X" : player2Weapon || "O"
       );
       // if resutl is contine swap turns
       if (status.result === "continue") swapTurn(room);

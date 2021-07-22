@@ -1,34 +1,62 @@
 import { useContext } from "react";
+import { useEffect, useState } from "react/cjs/react.development";
 import { PlayerContext } from "../utlils/PlayerContext";
 
-const GameResultModal = () => {
+const GameResultModal = ({ data }) => {
   const { playAgain, room, player } = useContext(PlayerContext);
+  const [gameStatus, setGameStatus] = useState({
+    show: false,
+    message: "",
+    title: "",
+  });
 
-  const data =
-    room.winner === player.playerUuid
-      ? { modalMessage: "Congratulations! You Won", modalTitle: "VICTORY!" }
-      : { modalMessage: "Lose", modalTitle: "DEFEAT!" };
-  if (room.winner === "draw") {
-    data.modalMessage = "Its a draw";
-    data.modalTitle = "DRAW!";
-  }
+  useEffect(() => {
+    if (room.winner) {
+      if (room.winner === player.playerUuid) {
+        setGameStatus({
+          show: true,
+          modalMessage: "Congratulations! You Won",
+          modalTitle: "VICTORY!",
+        });
+      }
+      if (room.winner !== player.playerUuid && room.winner !== "draw") {
+        setGameStatus({
+          show: true,
+          modalMessage: "You were defeated, Rematch?",
+          modalTitle: "DEFEAT!",
+        });
+      }
+      if (room.winner === "draw") {
+        setGameStatus({
+          show: true,
+          modalMessage: "It is a tie.",
+          modalTitle: "DRAW!",
+        });
+      }
+    }
+  }, [room.winner]);
+
+  const handlePlayAgain = (room, player) => {
+    setGameStatus({ ...gameStatus, show: false });
+    playAgain(room, player);
+  };
   return (
     <div
-      className={room.showModal ? "modal d-block" : "modal d-none"}
-      id={`${data.title}`}
+      className={gameStatus.show ? "modal d-block" : "modal d-none"}
+      id={`${gameStatus.title}`}
       tabIndex="-1"
       role="dialog"
-      aria-labelledby={`${data.modalTitle}`}
+      aria-labelledby={`${gameStatus.modalTitle}`}
       aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id={`${data.modalTitle}Label`}>
-              {data.modalTitle}
+            <h5 className="modal-title" id={`${gameStatus.modalTitle}Label`}>
+              {gameStatus.modalTitle}
             </h5>
           </div>
           <div className="modal-body">
-            <p>{data.modalMessage}</p>
+            <p>{gameStatus.modalMessage}</p>
             {/* <p>{room.rematchMessage}</p> */}
           </div>
           <div className="modal-footer">
@@ -36,7 +64,7 @@ const GameResultModal = () => {
               type="button"
               className="btn btn-primary"
               data-dismiss="modal"
-              onClick={() => playAgain(room, player)}>
+              onClick={() => handlePlayAgain(room, player)}>
               Play Again
             </button>
           </div>
