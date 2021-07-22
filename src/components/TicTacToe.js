@@ -1,7 +1,6 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import shortid from "shortid";
 import { PlayerContext } from "../utlils/PlayerContext";
-import { randomBoolean } from "../utlils/usefulFunction";
 import PlayerCard from "./PlayerCard";
 import { gameRoomRef } from "../utlils/firebase";
 import GameInvitation from "./GameInvitation";
@@ -27,7 +26,6 @@ const TicTacToe = ({ history }) => {
 
   const { player1Uuid, player2Uuid, roomUuid, playerTurn } = room;
   const { playerUuid } = player;
-
   const inviteCode = parseInt(history.location.search.split("=").pop());
   useEffect(() => {
     const query = gameRoomRef.where("invitationCode", "==", inviteCode);
@@ -52,30 +50,13 @@ const TicTacToe = ({ history }) => {
     // if player1 and player 2 are in the room
     if (player1Uuid && player2Uuid) {
       // both players should respond to ready checks
-      if (room.player1ReadyCheck && room.player2ReadyCheck) {
+      if (room.player1Ready && room.player2Ready) {
         // the match can begin
         startGame(room);
       }
     }
   }, [roomUuid, room.player1ReadyCheck, room.player2ReadyCheck]);
 
-  useEffect(() => {
-    const playerTurnBool = randomBoolean();
-    if (room.gameStart && !room.playerTurn) {
-      // start the match
-      gameRoomRef.doc(room.roomUuid).set(
-        {
-          ...room,
-          playerTurn: playerTurnBool ? player1Uuid : player2Uuid,
-          player1Weapon: playerTurnBool ? "X" : "O",
-          player2Weapon: playerTurnBool ? "O" : "X",
-          roomMessage: "Game Start",
-          turn: 0,
-        },
-        { merge: true }
-      );
-    }
-  }, [room.gameStart]);
   const playerMove = (square) => {
     const { player1Weapon, player2Weapon, game, turn } = room;
     // if its your turn
@@ -102,13 +83,13 @@ const TicTacToe = ({ history }) => {
     playerName: room.player1Name,
     playerWeapon: room.player1Weapon,
     playerUuid: room.player1Uuid,
-    ready: room.player1ReadyCheck,
+    ready: room.player1Ready,
   };
   const player2 = {
     playerName: room.player2Name,
     playerWeapon: room.player2Weapon,
     playerUuid: room.player2Uuid,
-    ready: room.player2ReadyCheck,
+    ready: room.player2Ready,
   };
 
   return (
@@ -123,16 +104,7 @@ const TicTacToe = ({ history }) => {
       ) : (
         <div className="card-deck mb-3 text-center">
           <div className="card mb-4 p-1 shadow-sm">
-            {room.gameStart ? (
-              <h4 classNames="card-title">
-                {room.playerTurn === room.player1Uuid
-                  ? room.player1Name
-                  : room.player2Name}
-                's turn
-              </h4>
-            ) : (
-              <h4 className="card-title">{room.roomMessage}</h4>
-            )}
+            <h4 className="card-title">{room.roomMessage}</h4>
             <div className="tictactoe">
               {room.game?.map((item) => (
                 <button
@@ -162,13 +134,3 @@ const TicTacToe = ({ history }) => {
   );
 };
 export default TicTacToe;
-
-const playAgain = () => {
-  // reset everything
-  // setTurn(0);
-  // setShow(false);
-  // setWinner(false);
-  // setTie(false);
-  // setReset(true);
-  // setLog([...log, `Player: ${player} started a new game`]);
-};

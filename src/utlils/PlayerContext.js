@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useReducer } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, gameRoomRef, usersRef } from "./firebase";
 import { reducer } from "./reducer";
-import { isPlayer1, ticTacToeRoomStart } from "./usefulFunction";
+import { isPlayer1, randomBoolean, ticTacToeRoomStart } from "./usefulFunction";
 
 export const PlayerContext = createContext();
 export const PlayerState = ({ children }) => {
@@ -140,6 +140,7 @@ export const PlayerState = ({ children }) => {
           player1IsPlaying: false,
           player1Uuid: player.playerUuid,
           player1Name: player.playerName,
+          roomMessage: `${player.playerName} entered the room`,
         },
         { merge: true }
       );
@@ -157,6 +158,7 @@ export const PlayerState = ({ children }) => {
           player2IsPlaying: false,
           player2Uuid: player.playerUuid,
           player2Name: player.playerName,
+          roomMessage: `${player.playerName} entered the room`,
         },
         { merge: true }
       );
@@ -164,34 +166,46 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", dispatch: "Could not add player2" });
     }
   };
-  const playerReady = async (room, playerUuid) => {
+  const playerReady = async (room, playerUuid, player) => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
-      if (isPlayer1(room, playerUuid)) {
-        gameRoomRef.doc(room.roomUuid).set(
-          {
-            ...room,
-            player1Ready: true,
-          },
-          { merge: true }
-        );
-      } else {
-        gameRoomRef.doc(room.roomUuid).set(
-          {
-            ...room,
-            player2Ready: true,
-          },
-          { merge: true }
-        );
+      if (player.playerUuid === playerUuid) {
+        if (isPlayer1(room, playerUuid)) {
+          gameRoomRef.doc(room.roomUuid).set(
+            {
+              ...room,
+              player1Ready: true,
+            },
+            { merge: true }
+          );
+        } else {
+          gameRoomRef.doc(room.roomUuid).set(
+            {
+              ...room,
+              player2Ready: true,
+            },
+            { merge: true }
+          );
+        }
       }
     } catch (e) {
       dispatch({ type: "SET_ERROR", dispatch: "Could not add player2" });
     }
-    try {
-    } catch (e) {}
   };
   const startGame = async (room) => {
     dispatch({ type: "IS_LOADING", payload: true });
+    const playerTurnBool = randomBoolean();
+    gameRoomRef.doc(room.roomUuid).set(
+      {
+        ...room,
+        playerTurn: playerTurnBool ? room.player1Uuid : room.player2Uuid,
+        player1Weapon: playerTurnBool ? "X" : "O",
+        player2Weapon: playerTurnBool ? "O" : "X",
+        roomMessage: "Game Start",
+        turn: 0,
+      },
+      { merge: true }
+    );
     try {
       gameRoomRef
         .doc(room.roomUuid)
