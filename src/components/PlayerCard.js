@@ -8,10 +8,8 @@ const PlayerCard = ({ data }) => {
   return (
     <div
       className={`card mb-4 p-1 shadow-sm ${
-        data?.playerUuid === player?.playerUuid
-          ? "player-turn--true"
-          : "player-turn--false"
-      } ${data.ready ? "ready" : "not-ready"}`}>
+        data.ready ? "ready" : "not-ready"
+      }`}>
       <div className="card-body">
         <h3 className="card-title">{data.playerName}</h3>
         <p className="card-text">Playing as {data.playerWeapon}</p>

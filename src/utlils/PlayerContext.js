@@ -59,9 +59,8 @@ export const PlayerState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     const data = {
       ...room,
-      game: ticTacToeRoomStart,
-      player1ReadyCheck: false,
-      player2ReadyCheck: false,
+      player1Ready: false,
+      player2Ready: false,
       isEmpty: false,
       winner: null,
       playerTurn: "",
@@ -198,6 +197,7 @@ export const PlayerState = ({ children }) => {
     gameRoomRef.doc(room.roomUuid).set(
       {
         ...room,
+        game: ticTacToeRoomStart,
         playerTurn: playerTurnBool ? room.player1Uuid : room.player2Uuid,
         player1Weapon: playerTurnBool ? "X" : "O",
         player2Weapon: playerTurnBool ? "O" : "X",

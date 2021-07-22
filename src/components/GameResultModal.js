@@ -28,7 +28,7 @@ const GameResultModal = () => {
             </h5>
           </div>
           <div className="modal-body">
-            {/* <p>{room.modalMessage}</p> */}
+            <p>{data.modalMessage}</p>
             {/* <p>{room.rematchMessage}</p> */}
           </div>
           <div className="modal-footer">
