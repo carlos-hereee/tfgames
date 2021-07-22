@@ -11,8 +11,16 @@ import { gameResult } from "./winCondition";
 import Modal from "./Modal";
 
 const TicTacToe = ({ history }) => {
-  const { room, player, playMove, liveRoom, swapTurn, isLoading } =
-    useContext(PlayerContext);
+  const {
+    room,
+    player,
+    playMove,
+    liveRoom,
+    swapTurn,
+    isLoading,
+    addPlayer1,
+    addPlayer2,
+  } = useContext(PlayerContext);
   const [gameStatus, setGameStatus] = useState({
     tie: false,
     reset: false,
@@ -22,6 +30,8 @@ const TicTacToe = ({ history }) => {
     message: "",
     title: "",
   });
+  const { player1Uuid, player2Uuid, roomUuid, playerTurn } = room;
+  const { playerUuid } = player;
 
   const inviteCode = parseInt(history.location.search.split("=").pop());
   useEffect(() => {
@@ -39,50 +49,21 @@ const TicTacToe = ({ history }) => {
     }
   }, [inviteCode]);
   useEffect(() => {
-    // start with an empty game board
-    if (!room.gameHasStarted) {
-      gameRoomRef.doc(room.roomUuid).set(
-        {
-          ...room,
-          game: ticTacToeRoomStart,
-          roomTurn: "",
-          turn: 0,
-          gameHasStarted: true,
-        },
-        { merge: true }
-      );
-    }
-    // if client enter the room and player1 has not been chosen
-    if (!room.player1Uuid) {
-      // then player is player1
-      gameRoomRef.doc(room.roomUuid).set(
-        {
-          ...room,
-          player1Uuid: player.playerUuid,
-          player1Name: player.playerName,
-        },
-        { merge: true }
-      );
-    }
-    // if client is not player1 and player2 is empty
-    if (room.player1Uuid !== player.playerUuid && !room.player2Uuid) {
-      // then the player is player2
-      gameRoomRef.doc(room.roomUuid).set(
-        {
-          ...room,
-          player2Uuid: player.playerUuid,
-          player2Name: player.playerName,
-        },
-        { merge: true }
-      );
-    }
-    // if player1 and player 2 are int he room
-    if (room.player1Uuid && room.player2Uuid) {
+    // when a player joins the room
+    // is player1 if player1 has not been chosen
+    if (!player1Uuid) addPlayer1(room, player);
+    // is player2 if is not player1 and player2 is empty
+    if (player1Uuid !== playerUuid && !player2Uuid) addPlayer2(room, player);
+    // if player1 and player 2 are in the room
+    if (player1Uuid && player2Uuid) {
       // TODO: send ready checks
+      // setGameStart(room);
+      // gameStart()
       // the match can begin
-      setGameStatus({ ...gameStatus, gameStart: true });
+      // setGameStatus({ ...gameStatus, gameStart: true });
     }
-  }, [room.roomUuid]);
+  }, [roomUuid]);
+
   useEffect(() => {
     const playerTurnBool = randomBoolean();
     if (gameStatus.gameStart && !room.playerTurn) {
@@ -90,7 +71,7 @@ const TicTacToe = ({ history }) => {
       gameRoomRef.doc(room.roomUuid).set(
         {
           ...room,
-          playerTurn: playerTurnBool ? room.player1Uuid : room.player2Uuid,
+          playerTurn: playerTurnBool ? player1Uuid : player2Uuid,
           player1Weapon: playerTurnBool ? "X" : "O",
           player2Weapon: playerTurnBool ? "O" : "X",
           roomMessage: "Game Start",
@@ -127,20 +108,26 @@ const TicTacToe = ({ history }) => {
   }, [room.winner]);
 
   const playerMove = (square) => {
+    const { player1Weapon, player2Weapon, game, turn } = room;
     // if its your turn
-    if (room.playerTurn === player.playerUuid) {
-      const weapon =
-        room.playerTurn === room.player1Uuid
-          ? room.player1Weapon || "X"
-          : room.player2Weapon || "O";
+    if (playerTurn === player.playerUuid) {
       // update the game board
       playMove(room, square);
       // check for win condition
-      const status = gameResult(room.game, room.turn, weapon);
+      const status = gameResult(
+        game,
+        turn,
+        player1(room, playerUuid) ? player1Weapon || "X" : player2Weapon || "O"
+      );
       if (status.result === "winner") {
-        gameRoomRef
-          .doc(room.roomUuid)
-          .set({ ...room, winner: room.playerTurn }, { merge: true });
+        gameRoomRef.doc(roomUuid).set(
+          {
+            ...room,
+            winner: playerTurn,
+            rematchMessage: "Waiting on oponent...",
+          },
+          { merge: true }
+        );
       }
       if (status.result === "draw") {
         gameRoomRef
@@ -160,11 +147,13 @@ const TicTacToe = ({ history }) => {
     playerName: room.player1Name,
     playerWeapon: room.player1Weapon,
     playerUuid: room.player1Uuid,
+    ready: room.player1ReadyCheck,
   };
   const player2 = {
     playerName: room.player2Name,
     playerWeapon: room.player2Weapon,
     playerUuid: room.player2Uuid,
+    ready: room.player2ReadyCheck,
   };
 
   return (

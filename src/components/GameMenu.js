@@ -4,7 +4,7 @@ import { useState } from "react/cjs/react.development";
 import shortid from "shortid";
 import { gameRoomRef, usersRef } from "../utlils/firebase";
 import { PlayerContext } from "../utlils/PlayerContext";
-import { invitationCode } from "../utlils/usefulFunction";
+import { createInvitationCode } from "../utlils/usefulFunction";
 import GameInvitation from "./GameInvitation";
 // import RandomName from "./RandomName";
 
@@ -22,7 +22,7 @@ const GameMenu = () => {
         gameMode,
         invitationCode: room.invitationCode
           ? room.invitationCode
-          : invitationCode(),
+          : createInvitationCode(),
       };
       const playerData = {
         ...player,

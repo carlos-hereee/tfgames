@@ -29,15 +29,15 @@ export const ticTacToeRoomStart = [
   { x: 3, y: 2, piece: null, id: shortid.generate() },
   { x: 3, y: 3, piece: null, id: shortid.generate() },
 ];
-export const invitationCode = () => {
+export const createInvitationCode = () => {
   return randomNumber({ min: 1000, max: 9999, integer: true });
 };
-export const copy = (txt) => {
-  console.log(
-    "copyText()",
-    copyText(txt, {
-      debug: true,
-      message: "Press #{key} to copy",
-    })
-  );
+export const copy = (txt) => copyText(txt);
+export const player1 = (room, playerUuid) => {
+  if (room.player1Uuid === playerUuid) return true;
+  return false;
+};
+export const player2 = (room, playerUuid) => {
+  if (room.player2Uuid === playerUuid) return true;
+  return false;
 };

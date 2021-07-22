@@ -2,26 +2,19 @@ import React, { createContext, useEffect, useReducer } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, gameRoomRef, usersRef } from "./firebase";
 import { reducer } from "./reducer";
+import { player1, player2, ticTacToeRoomStart } from "./usefulFunction";
 
 export const PlayerContext = createContext();
 export const PlayerState = ({ children }) => {
   const [user] = useAuthState(auth);
-
   const initialState = {
     isLoading: false,
     error: "",
-    player: {
-      isAMember: false,
-      isInQueue: false,
-      isPlaying: false,
-      playerName: "",
-      playerUuid: "",
-      isPlayingAgainst: "",
-    },
+    player: {},
     room: {},
-    gameRooms: [],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+
   const livePlayer = async (playerUuid) => {
     try {
       // create live instance of player
@@ -62,10 +55,26 @@ export const PlayerState = ({ children }) => {
     }
   }, [state.room.roomUuid]);
 
-  const resetGame = async () => {
+  const playAgain = async (room, player) => {
     dispatch({ type: "IS_LOADING", payload: true });
+    const data = {
+      ...room,
+      game: ticTacToeRoomStart,
+      winner: "",
+      playerTurn: "",
+      player1Weapon: "",
+      player2Weapon: "",
+      turn: 0,
+      roomStatus: "",
+    };
+    player1(room, player.playerUuid)
+      ? (data.player1Message = `${player.playerName} wants a rematch.`)
+      : (data.player2Message = `${player.playerName} wants a rematch.`);
+
     try {
-      dispatch({ type: "RESET_GAME", payload: "data" });
+      // reset the room
+      if (player1(room, player.playerUuid))
+        gameRoomRef.doc(room.roomUuid).set({ data }, { merge: true });
     } catch (e) {
       dispatch({ type: "SET_ERROR", payload: "Could not reset game" });
     }
@@ -118,6 +127,66 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", dispatch: "Error swaping turns" });
     }
   };
+  const addPlayer1 = async (room, player) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    try {
+      gameRoomRef.doc(room.roomUuid).set(
+        {
+          ...room,
+          player1Ready: false,
+          player1IsPlaying: false,
+          player1Uuid: player.playerUuid,
+          player1Name: player.playerName,
+        },
+        { merge: true }
+      );
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", dispatch: "Could not add player1" });
+    }
+  };
+  const addPlayer2 = async (room, player) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    try {
+      gameRoomRef.doc(room.roomUuid).set(
+        {
+          ...room,
+          player2Ready: false,
+          player2IsPlaying: false,
+          player2Uuid: player.playerUuid,
+          player2Name: player.playerName,
+        },
+        { merge: true }
+      );
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", dispatch: "Could not add player2" });
+    }
+  };
+  const playerReady = async (room, playerUuid) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    try {
+      if (player1(room, playerUuid)) {
+        gameRoomRef.doc(room.roomUuid).set(
+          {
+            ...room,
+            player1Ready: true,
+          },
+          { merge: true }
+        );
+      } else {
+        gameRoomRef.doc(room.roomUuid).set(
+          {
+            ...room,
+            player2Ready: true,
+          },
+          { merge: true }
+        );
+      }
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", dispatch: "Could not add player2" });
+    }
+    try {
+    } catch (e) {}
+  };
 
   return (
     <PlayerContext.Provider
@@ -126,10 +195,13 @@ export const PlayerState = ({ children }) => {
         player: state.player,
         room: state.room,
         game: state.game,
-        resetGame,
+        playAgain,
         playMove,
         liveRoom,
         swapTurn,
+        addPlayer1,
+        addPlayer2,
+        playerReady,
       }}>
       {children}
     </PlayerContext.Provider>

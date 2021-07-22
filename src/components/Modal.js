@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { PlayerContext } from "../utlils/PlayerContext";
 
 const Modal = ({ data }) => {
-  const { resetGame } = useContext(PlayerContext);
+  const { playAgain, room, player } = useContext(PlayerContext);
   return (
     <div
       className={data.show ? "modal d-block" : "modal d-none"}
@@ -18,13 +18,15 @@ const Modal = ({ data }) => {
               {data.title}
             </h5>
           </div>
-          <div className="modal-body">{data.message}</div>
+          <div className="modal-body">
+            <p>{data.message}</p>
+            <p>{room.rematchMessage}</p>
+          </div>
           <div className="modal-footer">
             <button
               type="button"
               className="btn btn-primary"
-              // onClick={() => resetGame()}
-            >
+              onClick={() => playAgain(room, player)}>
               Play Again
             </button>
           </div>
