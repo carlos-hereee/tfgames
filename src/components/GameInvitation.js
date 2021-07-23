@@ -5,7 +5,7 @@ const GameInvitation = () => {
   const history = useHistory();
   return (
     <Formik
-      initialValues={{ inviteCode: null }}
+      initialValues={{ inviteCode: "" }}
       onSubmit={(values, actions) => {
         history.push(`/tictactoe/invite?code=${values.inviteCode}`);
         actions.resetForm();

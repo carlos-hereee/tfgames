@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useEffect, useState } from "react/cjs/react.development";
 import { PlayerContext } from "../utlils/PlayerContext";
 
-const GameResultModal = ({ data }) => {
+const GameResultModal = () => {
   const { playAgain, room, player } = useContext(PlayerContext);
   const [gameStatus, setGameStatus] = useState({
     show: false,
@@ -38,8 +38,8 @@ const GameResultModal = ({ data }) => {
   }, [room.winner]);
 
   const handlePlayAgain = (room, player) => {
-    setGameStatus({ ...gameStatus, show: false });
     playAgain(room, player);
+    setGameStatus({ ...gameStatus, show: false });
   };
   return (
     <div

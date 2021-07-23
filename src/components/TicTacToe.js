@@ -52,7 +52,9 @@ const TicTacToe = ({ history }) => {
     // if player1 and player 2 are in the room
     if (player1Uuid && player2Uuid) {
       // the match can begin
-      if (room.player1Ready && room.player2Ready) startGame(room);
+      if (room.player1Ready && room.player2Ready && !room.gameStart) {
+        startGame(room);
+      }
       // both players should respond to ready checks
       if (!room.player1Ready || !room.player2Ready) playersReady(room);
     }

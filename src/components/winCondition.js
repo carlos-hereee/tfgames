@@ -57,8 +57,8 @@ export const gameResult = (game, turn, weapon) => {
       // handle bottom to top diagnol corners
       if (
         (room.x === 1 && room.y === 3) ||
-        (room.x === 3 && room.y === 1) ||
-        (room.x === 2 && room.y === 2)
+        (room.x === 2 && room.y === 2) ||
+        (room.x === 3 && room.y === 1)
       ) {
         possibleWinners.diagnolBotTop += 1;
       }

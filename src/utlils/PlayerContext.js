@@ -65,7 +65,6 @@ export const PlayerState = ({ children }) => {
       ...room,
       isEmpty: false,
       winner: null,
-      playerTurn: "",
       player1Weapon: "",
       player2Weapon: "",
       turn: 0,
@@ -74,7 +73,8 @@ export const PlayerState = ({ children }) => {
     if (isPlayer1(room, player.playerUuid)) {
       data.rematchMessage = `${player.playerName} wants a rematch.`;
       data.player1Ready = true;
-    } else {
+    }
+    if (isPlayer2(room, player.playerUuid)) {
       data.rematchMessage = `${player.playerName} wants a rematch.`;
       data.player2Ready = true;
     }
