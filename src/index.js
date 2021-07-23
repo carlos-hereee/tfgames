@@ -9,7 +9,7 @@ import "./stylesheets/index.scss";
 ReactDOM.render(
   <React.StrictMode>
     <PlayerState>
-      <BrowserRouter>
+      <BrowserRouter basename="/">
         <App />
       </BrowserRouter>
     </PlayerState>
