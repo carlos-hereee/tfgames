@@ -63,19 +63,17 @@ export const PlayerState = ({ children }) => {
   const playAgain = async (room, player) => {
     const data = {
       ...room,
-      player1Weapon: "",
-      player2Weapon: "",
-      turn: 0,
-      roomStatus: "",
       rematchMessage: `${player.playerName} wants a rematch.`,
     };
-    isPlayer1(room, player.playerUuid)
-      ? (data.player1Ready = true)
-      : (data.player2Ready = true);
     try {
       // reset the room
-      if (isPlayer1(room, player.playerUuid))
+      if (isPlayer1(room, player.playerUuid)) {
+        data.player1Ready = true;
         gameRoomRef.doc(room.roomUuid).set({ ...data }, { merge: true });
+      } else {
+        data.player2Ready = true;
+        gameRoomRef.doc(room.roomUuid).set({ ...data }, { merge: true });
+      }
     } catch (e) {
       dispatch({ type: "SET_ERROR", payload: "Could not reset game" });
     }
@@ -219,6 +217,9 @@ export const PlayerState = ({ children }) => {
       gameRoomRef.doc(room.roomUuid).set(
         {
           ...room,
+          player1Weapon: "",
+          player2Weapon: "",
+          turn: 0,
           player1Ready: false,
           player2Ready: false,
           gameStart: false,
