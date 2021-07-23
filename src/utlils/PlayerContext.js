@@ -2,7 +2,12 @@ import React, { createContext, useEffect, useReducer } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, gameRoomRef, usersRef } from "./firebase";
 import { reducer } from "./reducer";
-import { isPlayer1, randomBoolean, ticTacToeRoomStart } from "./usefulFunction";
+import {
+  isPlayer1,
+  isPlayer2,
+  randomBoolean,
+  ticTacToeRoomStart,
+} from "./usefulFunction";
 
 export const PlayerContext = createContext();
 export const PlayerState = ({ children }) => {
@@ -56,7 +61,6 @@ export const PlayerState = ({ children }) => {
   }, [state.room.roomUuid]);
 
   const playAgain = async (room, player) => {
-    dispatch({ type: "IS_LOADING", payload: true });
     const data = {
       ...room,
       isEmpty: false,
@@ -84,7 +88,6 @@ export const PlayerState = ({ children }) => {
     }
   };
   const playMove = async (room, square) => {
-    dispatch({ type: "IS_LOADING", payload: true });
     const index = room.game.findIndex((item) => item === square);
     const gameBoard = [...room.game];
     gameBoard[index].piece =
@@ -106,7 +109,6 @@ export const PlayerState = ({ children }) => {
     }
   };
   const liveRoom = async (room) => {
-    dispatch({ type: "IS_LOADING", payload: true });
     try {
       dispatch({ type: "INITIALIZE_ROOM", payload: room });
     } catch (e) {
@@ -114,7 +116,6 @@ export const PlayerState = ({ children }) => {
     }
   };
   const swapTurn = async (room) => {
-    dispatch({ type: "IS_LOADING", payload: true });
     try {
       gameRoomRef.doc(room.roomUuid).set(
         {
@@ -132,7 +133,6 @@ export const PlayerState = ({ children }) => {
     }
   };
   const addPlayer1 = async (room, player) => {
-    dispatch({ type: "IS_LOADING", payload: true });
     try {
       gameRoomRef.doc(room.roomUuid).set(
         {
@@ -150,7 +150,6 @@ export const PlayerState = ({ children }) => {
     }
   };
   const addPlayer2 = async (room, player) => {
-    dispatch({ type: "IS_LOADING", payload: true });
     try {
       gameRoomRef.doc(room.roomUuid).set(
         {
@@ -168,7 +167,6 @@ export const PlayerState = ({ children }) => {
     }
   };
   const playerReady = async (room, playerUuid) => {
-    dispatch({ type: "IS_LOADING", payload: true });
     try {
       if (isPlayer1(room, playerUuid)) {
         gameRoomRef.doc(room.roomUuid).set(
@@ -178,7 +176,8 @@ export const PlayerState = ({ children }) => {
           },
           { merge: true }
         );
-      } else {
+      }
+      if (isPlayer2(room, playerUuid)) {
         gameRoomRef.doc(room.roomUuid).set(
           {
             ...room,
@@ -192,7 +191,6 @@ export const PlayerState = ({ children }) => {
     }
   };
   const startGame = async (room) => {
-    dispatch({ type: "IS_LOADING", payload: true });
     const playerTurnBool = randomBoolean();
     try {
       gameRoomRef.doc(room.roomUuid).set(
@@ -214,7 +212,6 @@ export const PlayerState = ({ children }) => {
     }
   };
   const roomIsEmpty = async (room) => {
-    dispatch({ type: "IS_LOADING", payload: true });
     try {
       gameRoomRef
         .doc(room.roomUuid)
@@ -224,7 +221,6 @@ export const PlayerState = ({ children }) => {
     }
   };
   const showWinnerModal = async (result, room) => {
-    dispatch({ type: "IS_LOADING", payload: true });
     try {
       gameRoomRef.doc(room.roomUuid).set(
         {
@@ -241,7 +237,6 @@ export const PlayerState = ({ children }) => {
     }
   };
   const playersReady = async (room) => {
-    dispatch({ type: "IS_LOADING", payload: true });
     try {
       gameRoomRef.doc(room.roomUuid).set(
         {
