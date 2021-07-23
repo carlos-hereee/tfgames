@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useContext } from "react";
-import shortid from "shortid";
 import { PlayerContext } from "../utlils/PlayerContext";
 import PlayerCard from "./PlayerCard";
 import { gameRoomRef } from "../utlils/firebase";
@@ -22,8 +21,7 @@ const TicTacToe = ({ history }) => {
     addPlayer2,
     startGame,
     roomIsEmpty,
-    showWinnerModal,
-    playersReady,
+    showResultModal,
   } = useContext(PlayerContext);
 
   const { player1Uuid, player2Uuid, roomUuid, playerTurn } = room;
@@ -55,30 +53,26 @@ const TicTacToe = ({ history }) => {
       if (room.player1Ready && room.player2Ready && !room.gameStart) {
         startGame(room);
       }
-      // both players should respond to ready checks
-      if (!room.player1Ready || !room.player2Ready) playersReady(room);
     }
   }, [roomUuid, room.player1Ready, room.player2Ready]);
 
   const playerMove = (square) => {
-    const { player1Weapon, player2Weapon, game, turn } = room;
-    // if its your turn and if that square is empty
-    if (playerTurn === player.playerUuid && !square.piece) {
-      // update the game board
-      playMove(room, square);
+    // update the game board if its player turn
+    if (playerTurn === player.playerUuid) {
+      if (!square.piece) playMove(room, square);
+      else console.log("illegal move");
       // check for win condition
       const status = gameResult(
-        game,
-        turn,
-        isPlayer1 ? player1Weapon || "X" : player2Weapon || "O"
+        room.game,
+        room.turn,
+        isPlayer1(room, player.playerUuid)
+          ? room.player1Weapon || "X"
+          : room.player2Weapon || "O"
       );
-      // if resutl is contine swap turns
+      // show results winner shows pop up continue swaps turns
       if (status.result === "continue") swapTurn(room);
-      else showWinnerModal(status.result, room);
-    } else {
-      // TODO: notification that's its not your turn
-      console.log("not your turn");
-    }
+      else showResultModal(status.result, room);
+    } else console.log("not your turn");
   };
   const player1 = {
     playerName: room.player1Name,
@@ -110,7 +104,7 @@ const TicTacToe = ({ history }) => {
               {room.game?.map((item) => (
                 <button
                   className={`room x-${item.x} y-${item.y} `}
-                  key={shortid.generate()}
+                  key={item.id}
                   onClick={() => playerMove(item)}
                   disabled={isLoading}>
                   {item.piece}

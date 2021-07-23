@@ -36,29 +36,27 @@ export const gameResult = (game, turn, weapon) => {
   };
   // if number of turns === total possible turns its a draw
   if (turn > 8) return { result: "draw" };
-  // traverse the array
-  game.forEach((room) => {
-    // if its the players move add to possible winners
-    if (room.piece === weapon) {
-      if (room.x === 1) possibleWinners.x1 += 1;
-      if (room.x === 2) possibleWinners.x2 += 1;
-      if (room.x === 3) possibleWinners.x3 += 1;
-      if (room.y === 1) possibleWinners.y1 += 1;
-      if (room.y === 2) possibleWinners.y2 += 1;
-      if (room.y === 3) possibleWinners.y3 += 1;
+  game.forEach((item) => {
+    if (item.piece === weapon) {
+      if (item.x === 1) possibleWinners.x1 += 1;
+      if (item.x === 2) possibleWinners.x2 += 1;
+      if (item.x === 3) possibleWinners.x3 += 1;
+      if (item.y === 1) possibleWinners.y1 += 1;
+      if (item.y === 2) possibleWinners.y2 += 1;
+      if (item.y === 3) possibleWinners.y3 += 1;
       // handle top to bottom diagnol corners
       if (
-        (room.x === 1 && room.y === 1) ||
-        (room.x === 2 && room.y === 2) ||
-        (room.x === 3 && room.y === 3)
+        (item.x === 1 && item.y === 1) ||
+        (item.x === 2 && item.y === 2) ||
+        (item.x === 3 && item.y === 3)
       ) {
         possibleWinners.diagnolTopBot += 1;
       }
       // handle bottom to top diagnol corners
       if (
-        (room.x === 1 && room.y === 3) ||
-        (room.x === 2 && room.y === 2) ||
-        (room.x === 3 && room.y === 1)
+        (item.x === 1 && item.y === 3) ||
+        (item.x === 2 && item.y === 2) ||
+        (item.x === 3 && item.y === 1)
       ) {
         possibleWinners.diagnolBotTop += 1;
       }

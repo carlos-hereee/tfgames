@@ -63,22 +63,15 @@ export const PlayerState = ({ children }) => {
   const playAgain = async (room, player) => {
     const data = {
       ...room,
-      isEmpty: false,
-      winner: null,
       player1Weapon: "",
       player2Weapon: "",
       turn: 0,
       roomStatus: "",
+      rematchMessage: `${player.playerName} wants a rematch.`,
     };
-    if (isPlayer1(room, player.playerUuid)) {
-      data.rematchMessage = `${player.playerName} wants a rematch.`;
-      data.player1Ready = true;
-    }
-    if (isPlayer2(room, player.playerUuid)) {
-      data.rematchMessage = `${player.playerName} wants a rematch.`;
-      data.player2Ready = true;
-    }
-
+    isPlayer1(room, player.playerUuid)
+      ? (data.player1Ready = true)
+      : (data.player2Ready = true);
     try {
       // reset the room
       if (isPlayer1(room, player.playerUuid))
@@ -202,6 +195,7 @@ export const PlayerState = ({ children }) => {
           player1Weapon: playerTurnBool ? "X" : "O",
           player2Weapon: playerTurnBool ? "O" : "X",
           roomMessage: "Game Start",
+          winner: "",
           rematchMessage: "",
           turn: 0,
         },
@@ -220,7 +214,7 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", dispatch: "Could not add player2" });
     }
   };
-  const showWinnerModal = async (result, room) => {
+  const showResultModal = async (result, room) => {
     try {
       gameRoomRef.doc(room.roomUuid).set(
         {
@@ -229,19 +223,6 @@ export const PlayerState = ({ children }) => {
           player2Ready: false,
           gameStart: false,
           winner: result === "draw" ? "draw" : room.playerTurn,
-        },
-        { merge: true }
-      );
-    } catch (e) {
-      dispatch({ type: "SET_ERROR", dispatch: "Could not show winner modal" });
-    }
-  };
-  const playersReady = async (room) => {
-    try {
-      gameRoomRef.doc(room.roomUuid).set(
-        {
-          ...room,
-          gameStart: false,
         },
         { merge: true }
       );
@@ -265,8 +246,7 @@ export const PlayerState = ({ children }) => {
         playerReady,
         startGame,
         roomIsEmpty,
-        showWinnerModal,
-        playersReady,
+        showResultModal,
       }}>
       {children}
     </PlayerContext.Provider>
