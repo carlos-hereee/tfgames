@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { faCheckCircle, faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react/cjs/react.development";
 import { copy } from "../utlils/usefulFunction";
 
 const GameInvitationButton = ({ invite }) => {

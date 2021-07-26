@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext } from "react";
-import { useEffect, useState } from "react/cjs/react.development";
+import { useContext, useEffect, useState } from "react";
 import { PlayerContext } from "../utlils/PlayerContext";
 
 const GameResultModal = () => {
@@ -43,22 +42,22 @@ const GameResultModal = () => {
   };
   return (
     <div
-      className={gameStatus.show ? "modal d-block" : "modal d-none"}
-      id={`${gameStatus.title}`}
+      className={gameStatus?.show ? "modal d-block" : "modal d-none"}
+      id={`${gameStatus?.title}`}
       tabIndex="-1"
       role="dialog"
-      aria-labelledby={`${gameStatus.modalTitle}`}
+      aria-labelledby={`${gameStatus?.modalTitle}`}
       aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id={`${gameStatus.modalTitle}Label`}>
-              {gameStatus.modalTitle}
+            <h5 className="modal-title" id={`${gameStatus?.modalTitle}Label`}>
+              {gameStatus?.modalTitle}
             </h5>
           </div>
           <div className="modal-body">
-            <p>{gameStatus.modalMessage}</p>
-            {/* <p>{room.rematchMessage}</p> */}
+            <p>{gameStatus?.modalMessage}</p>
+            <p>{room.rematchMessage}</p>
           </div>
           <div className="modal-footer">
             <button
