@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext } from "react";
-import { useEffect, useState } from "react/cjs/react.development";
+import { useContext, useEffect, useState } from "react";
 import { PlayerContext } from "../utlils/PlayerContext";
 
 const GameResultModal = () => {
