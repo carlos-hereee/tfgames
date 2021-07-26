@@ -7,13 +7,13 @@ import "firebase/analytics";
 if (!firebase.apps.length) {
   // Initialize Firebase
   firebase.initializeApp({
-    apiKey: "AIzaSyC7zl1G4ftZ4UitctRUL6cLuIzsMATqGqE",
-    authDomain: "take-five-6ea15.firebaseapp.com",
-    projectId: "take-five-6ea15",
-    storageBucket: "take-five-6ea15.appspot.com",
-    messagingSenderId: "823930985758",
-    appId: "1:823930985758:web:a2731d64527c35c77bfd0f",
-    measurementId: "G-JBXWGJ2XTM",
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUTCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
+    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
   });
   firebase.analytics();
 } else {
