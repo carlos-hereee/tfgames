@@ -11,7 +11,7 @@ const GameInvitation = () => {
         actions.resetForm();
       }}>
       <Form>
-        <label for="inviteCode"> Code:</label>
+        <label htmlFor="inviteCode"> Code:</label>
         <Field type="number" name="inviteCode" />
         <button type="submit" className="btn btn-secondary">
           Join Game
