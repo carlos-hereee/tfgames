@@ -187,6 +187,7 @@ export const PlayerState = ({ children }) => {
       gameRoomRef.doc(room.roomUuid).set(
         {
           ...room,
+          inUse: true,
           game: ticTacToeRoomStart,
           gameStart: true,
           playerTurn: playerTurnBool ? room.player1Uuid : room.player2Uuid,
