@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
 import { PlayerContext } from "../utlils/PlayerContext";
-import { isPlayer1 } from "../utlils/usefulFunction";
 
 const GameResultModal = () => {
   const { playAgain, room, player, leaveRoom } = useContext(PlayerContext);
@@ -10,7 +9,6 @@ const GameResultModal = () => {
     message: "",
     title: "",
   });
-
   useEffect(() => {
     if (room.winner) {
       if (room.winner === player.playerUuid) {
@@ -41,10 +39,6 @@ const GameResultModal = () => {
     playAgain(room, player);
     setGameStatus({ ...gameStatus, show: false });
   };
-  const handleLeaveRoom = (room, player) => {
-    leaveRoom(room, player);
-    setGameStatus({ ...gameStatus, show: false });
-  };
   return (
     <div
       className={gameStatus?.show ? "modal d-block" : "modal d-none"}
@@ -65,13 +59,14 @@ const GameResultModal = () => {
             <p>{room.rematchMessage}</p>
           </div>
           <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-primary"
-              data-dismiss="modal"
-              onClick={() => handleLeaveRoom(room, player)}>
-              Leave Room
-            </button>
+            <a href="/">
+              <button
+                className="btn btn-primary"
+                data-dismiss="modal"
+                onClick={() => leaveRoom(room, player)}>
+                Leave Room
+              </button>
+            </a>
             <button
               type="button"
               className="btn btn-primary"

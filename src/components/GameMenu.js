@@ -12,7 +12,6 @@ const GameMenu = () => {
   const { player, liveRoom, room, isLoading } = useContext(PlayerContext);
   const [gameMode, setGameMode] = useState("");
   const history = useHistory();
-  // const [roomInvatationCode, setRoomInvatationCode] = useState();
 
   useEffect(() => {
     if (room.roomUuid) {
@@ -85,7 +84,6 @@ const GameMenu = () => {
         <div>
           <GameInvitation />
         </div>
-        {/* <RandomName /> */}
       </div>
     </div>
   );

@@ -244,6 +244,7 @@ export const PlayerState = ({ children }) => {
               player2Weapon: "",
               player2Name: "",
               player2Uuid: "",
+              winner: "",
               rematchMessage: `${player.playerName} left the room`,
               inUse: false,
             },
@@ -257,6 +258,7 @@ export const PlayerState = ({ children }) => {
               player2Uuid: "",
               rematchMessage: `${player.playerName} left the room`,
               gameStart: false,
+              winner: "",
             },
             { merge: true }
           );

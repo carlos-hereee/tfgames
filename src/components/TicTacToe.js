@@ -22,36 +22,46 @@ const TicTacToe = ({ history }) => {
     startGame,
     roomIsEmpty,
     showResultModal,
+    leaveRoom,
   } = useContext(PlayerContext);
 
   const { player1Uuid, player2Uuid, roomUuid, playerTurn } = room;
   const { playerUuid } = player;
-  const inviteCode = parseInt(history.location.search.split("=").pop());
   useEffect(() => {
+    const inviteCode = parseInt(history.location.search.split("=").pop());
     const query = gameRoomRef.where("invitationCode", "==", inviteCode);
     // for invited users
     if (inviteCode) {
       query.get().then((item) => {
         // if invitecode doesnt match any room notify the player
         if (item.empty) {
-          // setGameStatus({ ...gameStatus, isEmpty: true });
           roomIsEmpty(room);
         }
         // if the room exits
         item.forEach((doc) => liveRoom(doc.data()));
       });
     }
-  }, [inviteCode]);
+  }, []);
   useEffect(() => {
-    // is player1 if player1 has not been chosen
-    if (!player1Uuid) addPlayer1(room, player);
-    // is player2 if is not player1 and player2 is empty
-    if (player1Uuid !== playerUuid && !player2Uuid) addPlayer2(room, player);
-    // if player1 and player 2 are in the room
-    if (player1Uuid && player2Uuid) {
-      // the match can begin
-      if (room.player1Ready && room.player2Ready && !room.gameStart) {
-        startGame(room);
+    if (roomUuid) {
+      if (!player1Uuid)
+        // is player1 if player1 has not been chosen
+        addPlayer1(room, player);
+      // is player2 if is not player1 and player2 is empty
+      if (player1Uuid !== playerUuid && !player2Uuid) addPlayer2(room, player);
+      // if player1 and player 2 are in the room
+      if (player1Uuid && player2Uuid) {
+        // the match can begin
+        if (room.player1Ready && room.player2Ready && !room.gameStart) {
+          startGame(room);
+        }
+      }
+      // handle error if player1 is also player2
+      if (player1Uuid === player2Uuid) {
+        leaveRoom(room, {
+          playerName: room.player2Name,
+          playerUuid: room.player2Uuid,
+        });
       }
     }
   }, [roomUuid, room.player1Ready, room.player2Ready]);
