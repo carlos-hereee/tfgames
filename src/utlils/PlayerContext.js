@@ -128,6 +128,7 @@ export const PlayerState = ({ children }) => {
       gameRoomRef.doc(room.roomUuid).set(
         {
           ...room,
+          inUse: true,
           player1Ready: false,
           player1IsPlaying: false,
           player1Uuid: player.playerUuid,
@@ -145,6 +146,7 @@ export const PlayerState = ({ children }) => {
       gameRoomRef.doc(room.roomUuid).set(
         {
           ...room,
+          inUse: true,
           player2Ready: false,
           player2IsPlaying: false,
           player2Uuid: player.playerUuid,
@@ -257,7 +259,6 @@ export const PlayerState = ({ children }) => {
               player2Name: "",
               player2Uuid: "",
               rematchMessage: `${player.playerName} left the room`,
-              gameStart: false,
               winner: "",
             },
             { merge: true }

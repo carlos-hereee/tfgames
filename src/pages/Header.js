@@ -20,12 +20,12 @@ const Header = () => (
             <a className="nav-link active" aria-current="page" href="/">
               Home
             </a>
-            <a className="nav-link" href="/profile">
+            {/* <a className="nav-link" href="/profile">
               Profile
             </a>
             <a className="nav-link" href="/leaderboard">
               Leaderboard
-            </a>
+            </a> */}
           </div>
         </div>
       </nav>

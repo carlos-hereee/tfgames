@@ -44,17 +44,13 @@ const TicTacToe = ({ history }) => {
   }, []);
   useEffect(() => {
     if (roomUuid) {
-      if (!player1Uuid)
-        // is player1 if player1 has not been chosen
-        addPlayer1(room, player);
+      // is player1 if player1 has not been chosen
+      if (!player1Uuid) addPlayer1(room, player);
       // is player2 if is not player1 and player2 is empty
       if (player1Uuid !== playerUuid && !player2Uuid) addPlayer2(room, player);
-      // if player1 and player 2 are in the room
-      if (player1Uuid && player2Uuid) {
-        // the match can begin
-        if (room.player1Ready && room.player2Ready && !room.gameStart) {
-          startGame(room);
-        }
+      // the match can begin when both players are ready
+      if (room.player1Ready && room.player2Ready && !room.gameStart) {
+        startGame(room);
       }
       // handle error if player1 is also player2
       if (player1Uuid === player2Uuid) {
