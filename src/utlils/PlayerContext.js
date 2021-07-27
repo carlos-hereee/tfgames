@@ -128,6 +128,7 @@ export const PlayerState = ({ children }) => {
       gameRoomRef.doc(room.roomUuid).set(
         {
           ...room,
+          inUse: true,
           player1Ready: false,
           player1IsPlaying: false,
           player1Uuid: player.playerUuid,
@@ -145,6 +146,7 @@ export const PlayerState = ({ children }) => {
       gameRoomRef.doc(room.roomUuid).set(
         {
           ...room,
+          inUse: true,
           player2Ready: false,
           player2IsPlaying: false,
           player2Uuid: player.playerUuid,
@@ -232,6 +234,39 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", dispatch: "Could not show winner modal" });
     }
   };
+  const leaveRoom = async (room, player) => {
+    try {
+      isPlayer1(room, player.playerUuid)
+        ? gameRoomRef.doc(room.roomUuid).set(
+            {
+              ...room,
+              player1Weapon: "",
+              player1Name: "",
+              player1Uuid: "",
+              player2Weapon: "",
+              player2Name: "",
+              player2Uuid: "",
+              winner: "",
+              rematchMessage: `${player.playerName} left the room`,
+              inUse: false,
+            },
+            { merge: true }
+          )
+        : gameRoomRef.doc(room.roomUuid).set(
+            {
+              ...room,
+              player2Weapon: "",
+              player2Name: "",
+              player2Uuid: "",
+              rematchMessage: `${player.playerName} left the room`,
+              winner: "",
+            },
+            { merge: true }
+          );
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", dispatch: "Could not leave room" });
+    }
+  };
   return (
     <PlayerContext.Provider
       value={{
@@ -249,6 +284,7 @@ export const PlayerState = ({ children }) => {
         startGame,
         roomIsEmpty,
         showResultModal,
+        leaveRoom,
       }}>
       {children}
     </PlayerContext.Provider>

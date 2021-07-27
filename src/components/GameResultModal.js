@@ -3,13 +3,12 @@ import { useContext, useEffect, useState } from "react";
 import { PlayerContext } from "../utlils/PlayerContext";
 
 const GameResultModal = () => {
-  const { playAgain, room, player } = useContext(PlayerContext);
+  const { playAgain, room, player, leaveRoom } = useContext(PlayerContext);
   const [gameStatus, setGameStatus] = useState({
     show: false,
     message: "",
     title: "",
   });
-
   useEffect(() => {
     if (room.winner) {
       if (room.winner === player.playerUuid) {
@@ -60,6 +59,14 @@ const GameResultModal = () => {
             <p>{room.rematchMessage}</p>
           </div>
           <div className="modal-footer">
+            <a href="/">
+              <button
+                className="btn btn-primary"
+                data-dismiss="modal"
+                onClick={() => leaveRoom(room, player)}>
+                Leave Room
+              </button>
+            </a>
             <button
               type="button"
               className="btn btn-primary"

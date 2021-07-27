@@ -16,7 +16,7 @@ const PlayerCard = ({ data }) => {
       </div>
       {/* if ready check needed show footer */}
       <div className="card-footer">
-        {!room.gameStart && (
+        {!room.gameStart && room.player1Ready && room.player2Ready && (
           <button
             className="btn btn-primary m-auto"
             onClick={() => playerReady(room, data.playerUuid)}
