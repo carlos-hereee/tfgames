@@ -17,6 +17,7 @@ export const PlayerState = ({ children }) => {
     error: "",
     player: {},
     room: {},
+    taunts: [],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -274,6 +275,7 @@ export const PlayerState = ({ children }) => {
         player: state.player,
         room: state.room,
         game: state.game,
+        taunts: state.taunts,
         playAgain,
         playMove,
         liveRoom,
