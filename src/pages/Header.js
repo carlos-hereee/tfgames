@@ -23,10 +23,9 @@ const Header = () => (
             <a className="nav-link" href="/profile">
               Profile
             </a>
-            {/* 
-            <a className="nav-link" href="/leaderboard">
-              Leaderboard
-            </a> */}
+            <a className="nav-link" href="/shop">
+              Shop
+            </a>
           </div>
         </div>
       </nav>

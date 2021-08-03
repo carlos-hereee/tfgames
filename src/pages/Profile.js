@@ -7,7 +7,6 @@ import { PlayerContext } from "../utlils/PlayerContext";
 
 const Profile = () => {
   const { player, taunts } = useContext(PlayerContext);
-  console.log("taunts", taunts);
   return (
     <div className="container">
       <PlayerCard data={player} />
@@ -22,9 +21,9 @@ const Profile = () => {
                 taunt
               </div>
             ))}
-          <button className="btn btn-secondary m-2">
+          <a href="/shop">
             <FontAwesomeIcon icon={faPlusSquare} size="10x" />
-          </button>
+          </a>
         </div>
       </div>
     </div>
