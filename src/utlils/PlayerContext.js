@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useEffect, useReducer } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, gameRoomRef, usersRef } from "./firebase";
+import { auth, gameRoomRef, usersRef, tauntsRef } from "./firebase";
 import { reducer } from "./reducer";
 import {
   isPlayer1,
@@ -31,6 +32,15 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", payload: "Couldnt make player instance" });
     }
   };
+  const getTaunts = async (playerUuid) => {
+    tauntsRef.doc(playerUuid).onSnapshot((snap) => {
+      if (!snap.exists) {
+        tauntsRef.doc(playerUuid).set({ taunts: [] }, { merge: true });
+        getTaunts(playerUuid);
+      }
+      dispatch({ type: "GET_TAUNTS", payload: snap.data() });
+    });
+  };
   useEffect(() => {
     if (!user) {
       // if theres no user loaded
@@ -48,7 +58,10 @@ export const PlayerState = ({ children }) => {
         );
       });
     }
-    user?.uid && livePlayer(user.uid);
+    if (user) {
+      livePlayer(user.uid);
+      getTaunts(user.uid);
+    }
   }, [user]);
   useEffect(() => {
     if (state.room.roomUuid) {

@@ -30,6 +30,13 @@ const initRoom = (state, action) => {
     room: action.payload,
   };
 };
+const getTaunts = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    taunts: action.payload.taunts,
+  };
+};
 
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -45,6 +52,8 @@ export const reducer = (state, action) => {
       return initPlayer(state, action);
     case "INITIALIZE_ROOM":
       return initRoom(state, action);
+    case "GET_TAUNTS":
+      return getTaunts(state, action);
     default:
       return state;
   }
