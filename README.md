@@ -10,7 +10,7 @@ Take Five with friends
 ## Documentation
 
 Link to
-[notion.so](https://www.notion.so/Manigames-0d905872689349ee8321e6abf90153bd)
+[notion.so](https://utopian-bit-fdc.notion.site/Take-Five-717cf4058b2146b7a85d807b08c2b2e6)
 
 ## Classname Style Guide
 

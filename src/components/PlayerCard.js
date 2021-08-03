@@ -6,15 +6,12 @@ import { PlayerContext } from "../utlils/PlayerContext";
 const PlayerCard = ({ data }) => {
   const { player, playerReady, room } = useContext(PlayerContext);
   return (
-    <div
-      className={`card mb-4 p-1 shadow-sm ${
-        data.ready ? "ready" : "not-ready"
-      }`}>
-      <div className="card-body">
+    <div className="card mb-4 p-1 shadow-sm">
+      <div className="card-header">
         <h3 className="card-title">{data.playerName}</h3>
-        <p className="card-text">Playing as {data.playerWeapon}</p>
       </div>
       {/* if ready check needed show footer */}
+      <div className="card-body"></div>
       <div className="card-footer">
         {!room.gameStart && room.player1Ready && room.player2Ready && (
           <button

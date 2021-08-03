@@ -3,6 +3,7 @@ import Header from "./pages/Header";
 import Footer from "./pages/Footer";
 import Homepage from "./pages/Homepage";
 import TicTacToe from "./components/TicTacToe";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route exact path="/" component={Homepage} />
         <Route path="/home" component={Homepage} />
         <Route path="/tictactoe" component={TicTacToe} />
+        <Route path="/profile" component={Profile} />
       </Switch>
       <Footer />
     </div>
