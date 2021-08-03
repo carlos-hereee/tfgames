@@ -30,7 +30,7 @@ export const ticTacToeRoomStart = [
   { x: 3, y: 2, piece: null, id: shortid.generate() },
   { x: 3, y: 3, piece: null, id: shortid.generate() },
 ];
-export const createInvitationCode = () => {
+export const randomNum = () => {
   return randomNumber({ min: 1000, max: 9999, integer: true });
 };
 export const copy = (txt) => copyText(txt);

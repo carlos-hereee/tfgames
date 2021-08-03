@@ -4,6 +4,7 @@ import Footer from "./pages/Footer";
 import Homepage from "./pages/Homepage";
 import TicTacToe from "./components/TicTacToe";
 import Profile from "./pages/Profile";
+import Shop from "./pages/Shop";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/home" component={Homepage} />
         <Route path="/tictactoe" component={TicTacToe} />
         <Route path="/profile" component={Profile} />
+        <Route path="/shop" component={Shop} />
       </Switch>
       <Footer />
     </div>
