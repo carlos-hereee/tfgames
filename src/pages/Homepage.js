@@ -5,7 +5,7 @@ import GameMenu from "../components/GameMenu";
 const Homepage = () => {
   // const { player } = useContext(PlayerContext);
   return (
-    <main>
+    <main className="container">
       <GameMenu />
     </main>
   );

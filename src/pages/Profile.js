@@ -11,8 +11,8 @@ const Profile = () => {
   return (
     <div className="container">
       <PlayerCard data={player} />
-      <div class="card">
-        <div class="card-header">
+      <div className="card">
+        <div className="card-header">
           <h3 className="card-title">Taunts/Emojis</h3>
         </div>
         <div class="card-body d-flex justify-content-start">

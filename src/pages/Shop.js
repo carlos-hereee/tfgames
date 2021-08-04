@@ -13,7 +13,7 @@ const Shop = () => {
           {Array(3)
             .fill({
               src: "https://cdn1.iconfinder.com/data/icons/education-160/100/user_free-512.png",
-              title: "avatart",
+              title: "avatar",
               cost: randomNum(),
               id: shortid.generate(),
             })

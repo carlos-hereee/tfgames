@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useContext } from "react";
 import { PlayerContext } from "../utlils/PlayerContext";
-import PlayerCard from "./PlayerCard";
+import PlayerCard from "../components/PlayerCard";
 import { gameRoomRef } from "../utlils/firebase";
-import GameInvitation from "./GameInvitation";
-import GameInvitationButton from "./GameInvitationButton";
-import { gameResult } from "./winCondition";
-import GameResultModal from "./GameResultModal";
+import GameInvitation from "../components/GameInvitation";
+import GameInvitationButton from "../components/GameInvitationButton";
+import { gameResult } from "../components/winCondition";
+import GameResultModal from "../components/GameResultModal";
 import { isPlayer1 } from "../utlils/usefulFunction";
 
 const TicTacToe = ({ history }) => {
@@ -94,7 +94,7 @@ const TicTacToe = ({ history }) => {
   };
 
   return (
-    <div className="container">
+    <main className="container">
       {room.isEmpty ? (
         <div className="card">
           <div className="card-body text-center">
@@ -131,7 +131,7 @@ const TicTacToe = ({ history }) => {
         </div>
       )}
       <GameResultModal />
-    </div>
+    </main>
   );
 };
 export default TicTacToe;

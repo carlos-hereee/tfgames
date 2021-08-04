@@ -7,7 +7,7 @@ const GameResultModal = () => {
   const [gameStatus, setGameStatus] = useState({
     show: false,
     message: "",
-    title: "",
+    modalTitle: "",
   });
   useEffect(() => {
     if (room.winner) {
