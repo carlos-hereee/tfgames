@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { copy } from "../utlils/usefulFunction";
 
 const GameInvitationButton = ({ invite }) => (
-  <div className="card mb-4 p-1 shadow-sm">
+  <div className="card mb-3 p-1 shadow-sm">
     <div className="card-body">
-      <p className="card-text ">Invite a Friend</p>
+      <p className="card-text">Invite a Friend</p>
       <button
         className="btn btn-primary game-invitation"
         onClick={() => copy(invite.invitationCode)}>

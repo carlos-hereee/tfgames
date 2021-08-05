@@ -104,7 +104,7 @@ const TicTacToe = ({ history }) => {
         </div>
       ) : (
         <div className="card-deck mb-3 text-center">
-          <div className="card mb-4 p-1 shadow-sm">
+          <div className="card mb-3 p-1 shadow-sm">
             <h4 className="card-title">{room.roomMessage}</h4>
             <div className="tictactoe">
               {room.game?.map((item) => (
