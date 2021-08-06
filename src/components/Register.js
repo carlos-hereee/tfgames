@@ -14,51 +14,65 @@ const Register = () => {
         actions.resetForm();
       }}>
       {({ errors }) => (
-        <Form className="form-group">
-          {errors.username && <div className="validate">{errors.username}</div>}
-          <label htmlFor="username">Username </label>
-          <Field
-            className="form-control"
-            type="text"
-            name="username"
-            required
-          />
-          {errors.password && <div className="validate">{errors.password}</div>}
-          <label htmlFor="password">Password </label>
-          <div className="password">
-            <Field
-              className="form-control"
-              type={canSeePassword ? "text" : "password"}
-              name="password"
-              required
-            />
-            <button
-              type="button"
-              onClick={() => setCanSeePassword(!canSeePassword)}>
-              {canSeePassword ? (
-                <FontAwesomeIcon icon={faEyeSlash} />
-              ) : (
-                <FontAwesomeIcon icon={faEye} />
-              )}
-            </button>
+        <Form>
+          <div className="form-group">
+            {errors.username && (
+              <div className="validate">{errors.username}</div>
+            )}
+            <label htmlFor="username">Username </label>
+            <div className="input-group">
+              <Field
+                type="text"
+                className="form-control"
+                name="username"
+                required
+              />
+            </div>
           </div>
-          <div className="password">
+          {errors.password && <div className="validate">{errors.password}</div>}
+          <div className="form-group">
+            <label htmlFor="password">Password </label>
+            <div className="input-group">
+              <Field
+                className="form-control"
+                type={canSeePassword ? "text" : "password"}
+                name="password"
+                required
+              />
+              <button
+                type="button"
+                className="input-group-prepend"
+                onClick={() => setCanSeePassword(!canSeePassword)}>
+                {canSeePassword ? (
+                  <FontAwesomeIcon icon={faEyeSlash} size="2x" />
+                ) : (
+                  <FontAwesomeIcon icon={faEye} size="2x" />
+                )}
+              </button>
+            </div>
+          </div>
+          <div className="form-group">
             <label htmlFor="password">Confirm password </label>
-            <Field
-              className="form-control"
-              type={canSeeConfirmPassword ? "text" : "password"}
-              name="password"
-              required
-            />
-            <button
-              type="button"
-              onClick={() => setCanConfirmSeePassword(!canSeeConfirmPassword)}>
-              {canSeeConfirmPassword ? (
-                <FontAwesomeIcon icon={faEyeSlash} />
-              ) : (
-                <FontAwesomeIcon icon={faEye} />
-              )}
-            </button>
+            <div className="input-group">
+              <Field
+                className="form-control"
+                type={canSeeConfirmPassword ? "text" : "password"}
+                name="password"
+                required
+              />
+              <button
+                type="button"
+                className="input-group-prepend"
+                onClick={() =>
+                  setCanConfirmSeePassword(!canSeeConfirmPassword)
+                }>
+                {canSeeConfirmPassword ? (
+                  <FontAwesomeIcon icon={faEyeSlash} size="2x" />
+                ) : (
+                  <FontAwesomeIcon icon={faEye} size="2x" />
+                )}
+              </button>
+            </div>
           </div>
           <button type="submit" className="btn btn-primary">
             Register In With Google
