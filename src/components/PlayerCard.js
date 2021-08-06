@@ -10,11 +10,14 @@ const PlayerCard = ({ data }) => {
   const [url, setUrl] = useState();
 
   useEffect(() => {
-    storageRef
-      .child("avatars/Take5-linda-2.png")
-      .getDownloadURL()
-      .then((url) => setUrl(url));
-  }, []);
+    if (player?.avatarPath) {
+      storageRef
+        .child(player.avatarPath)
+        .getDownloadURL()
+        .then((url) => setUrl(url));
+    }
+  }, [player?.avatarPath]);
+  console.log("player", player);
   return (
     <div className="card mb-3 hadow-sm">
       <div className="card-header">

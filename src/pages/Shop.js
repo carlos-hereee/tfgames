@@ -1,10 +1,12 @@
 import shortid from "shortid";
+import Coins from "../components/Coins";
 import Frame from "../components/Frame";
 import { randomNum } from "../utlils/usefulFunction";
 
 const Shop = () => {
   return (
     <div className="container">
+      <Coins />
       <div className="card">
         <div className="card-header">
           <h3 className="card-title">Avatars</h3>

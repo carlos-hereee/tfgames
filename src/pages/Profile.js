@@ -5,11 +5,13 @@ import shortid from "shortid";
 import PlayerCard from "../components/PlayerCard";
 import { PlayerContext } from "../utlils/PlayerContext";
 import Frame from "../components/Frame";
+import Coins from "../components/Coins";
 
 const Profile = () => {
   const { player, taunts } = useContext(PlayerContext);
   return (
     <div className="container">
+      <Coins />
       <PlayerCard data={player} />
       <div className="card">
         <div className="card-header">
