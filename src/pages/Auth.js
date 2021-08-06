@@ -8,7 +8,7 @@ const Auth = () => {
   return (
     <div className="container">
       <div className="card">
-        <div className="card-header">
+        <div className="card-header d-flex justify-content-around">
           <button
             type="button"
             onClick={() => setIsLogin(true)}

@@ -5,7 +5,6 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
   const [canSeePassword, setCanSeePassword] = useState(false);
-
   return (
     <Formik
       initialValues={{ username: "", password: "" }}
@@ -14,36 +13,48 @@ const Login = () => {
         actions.resetForm();
       }}>
       {({ errors }) => (
-        <Form className="form-group">
-          {errors.username && <div className="validate">{errors.username}</div>}
-          <label htmlFor="username">Username </label>
-          <Field
-            className="form-control"
-            type="text"
-            name="username"
-            required
-          />
-          {errors.password && <div className="validate">{errors.password}</div>}
-          <label htmlFor="password">Password </label>
-          <div className="password">
-            <Field
-              className="form-control"
-              type={canSeePassword ? "text" : "password"}
-              name="password"
-              required
-            />
-            <button
-              type="button"
-              onClick={() => setCanSeePassword(!canSeePassword)}>
-              {canSeePassword ? (
-                <FontAwesomeIcon icon={faEyeSlash} />
-              ) : (
-                <FontAwesomeIcon icon={faEye} />
-              )}
-            </button>
+        <Form>
+          <div className="form-group">
+            {errors.username && (
+              <div className="validate">{errors.username}</div>
+            )}
+            <label htmlFor="username">Username </label>
+            <div className="input-group">
+              <Field
+                type="text"
+                className="form-control"
+                name="username"
+                required
+              />
+            </div>
           </div>
-          <button type="submit">
-            {/* {!isLoading ? "Sign In" : "spinner "} */}
+          {errors.password && <div className="validate">{errors.password}</div>}
+          <div className="form-group">
+            <label htmlFor="password">Password </label>
+            <div className="input-group">
+              <Field
+                className="form-control"
+                type={canSeePassword ? "text" : "password"}
+                name="password"
+                required
+              />
+              <button
+                type="button"
+                className="input-group-prepend"
+                onClick={() => setCanSeePassword(!canSeePassword)}>
+                {canSeePassword ? (
+                  <FontAwesomeIcon icon={faEyeSlash} size="2x" />
+                ) : (
+                  <FontAwesomeIcon icon={faEye} size="2x" />
+                )}
+              </button>
+            </div>
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Sign In With Google
+          </button>
+          <button type="submit" className="btn btn-primary">
+            Sign In
           </button>
         </Form>
       )}
