@@ -19,7 +19,7 @@ function App() {
         <div className="card mb-3">
           <div className="card-body d-flex justify-content-end">
             <FontAwesomeIcon icon={faCoins} size="3x" />
-            <p className="font-weight-bold coin ml-3">{player.coins || 0}</p>
+            <p className="font-weight-bold coin ml-3">{player?.coins || 0}</p>
           </div>
         </div>
       </div>
