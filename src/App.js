@@ -6,6 +6,7 @@ import TicTacToe from "./pages/TicTacToe";
 import Profile from "./pages/Profile";
 import Shop from "./pages/Shop";
 import PrivateRoute from "./utlils/PriviteRoute";
+import LogIn from "./components/Login";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/tictactoe" component={TicTacToe} />
+        <Route path="/login" component={LogIn} />
         <PrivateRoute path="/profile" component={Profile} />
         <PrivateRoute path="/shop" component={Shop} />
       </Switch>
