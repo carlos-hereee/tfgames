@@ -25,7 +25,7 @@ const Header = () => {
               <a className="nav-link active" aria-current="page" href="/">
                 Home
               </a>
-              {player.isAMember ? (
+              {player?.isAMember ? (
                 <>
                   <a className="nav-link" href="/profile">
                     Profile

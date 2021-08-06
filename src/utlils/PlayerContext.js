@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import generate from "project-name-generator";
 import React, { createContext, useEffect, useReducer } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import shortid from "shortid";
 import { auth, gameRoomRef, usersRef, tauntsRef } from "./firebase";
 import { reducer } from "./reducer";
 import {
@@ -46,16 +44,18 @@ export const PlayerState = ({ children }) => {
   useEffect(() => {
     if (!user) {
       // if theres no user loaded
-      dispatch({
-        type: "INITIALIZE_PLAYER",
-        payload: {
-          playerUuid: shortid.generate(),
-          isAMember: false,
-          isInQueue: false,
-          isPlaying: false,
-          isPlayingAgainst: "",
-          playerName: generate({ words: 3 }).dashed,
-        },
+      auth.signInAnonymously().then((data) => {
+        usersRef.doc(data.user.uid).set(
+          {
+            playerUuid: data.user.uid,
+            isAMember: false,
+            isInQueue: false,
+            isPlaying: false,
+            isPlayingAgainst: "",
+            // playerName: generate({ words: 3 }).dashed,
+          },
+          { merge: true }
+        );
       });
     }
     if (user) {
