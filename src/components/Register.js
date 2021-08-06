@@ -3,7 +3,7 @@ import { Formik, Form, Field } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-const Login = () => {
+const Register = () => {
   const [canSeePassword, setCanSeePassword] = useState(false);
 
   return (
@@ -50,4 +50,4 @@ const Login = () => {
     </Formik>
   );
 };
-export default Login;
+export default Register;
