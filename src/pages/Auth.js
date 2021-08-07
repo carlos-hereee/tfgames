@@ -8,17 +8,18 @@ const Auth = () => {
   return (
     <div className="container">
       <div className="card">
-        <div className="card-header d-flex justify-content-around">
+        <div className="card-header d-flex justify-content-around align-items-center">
           <button
             type="button"
             onClick={() => setIsLogin(true)}
-            className="btn btn-primary">
+            className="btn btn-secondary">
             <h3>Login</h3>
           </button>
+          or
           <button
             type="button"
             onClick={() => setIsLogin(false)}
-            className="btn btn-primary">
+            className="btn btn-secondary">
             <h3>Register</h3>
           </button>
         </div>

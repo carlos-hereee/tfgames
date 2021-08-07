@@ -19,7 +19,12 @@
     min-width: auto;
   }
 }
-
+.btn {
+  height: 3rem;
+}
+.form-control {
+  height: 3rem;
+}
 // for accessibiblity
 @media (prefers-reduced-motion: reduce) {
   *,

@@ -11,7 +11,7 @@ const Header = () => {
             <h1 className="display-4">Take Five</h1>
           </a>
           <button
-            className="navbar-toggler"
+            className="navbar-toggler btn"
             type="button"
             data-toggle="collapse"
             data-target="#navbarNavAltMarkup"

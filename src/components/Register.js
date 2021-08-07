@@ -37,7 +37,7 @@ const Register = () => {
               />
               <button
                 type="button"
-                className="input-group-prepend"
+                className="input-group-prepend btn"
                 onClick={() => setCanSeePassword(!canSeePassword)}>
                 {canSeePassword ? (
                   <FontAwesomeIcon icon={faEyeSlash} size="2x" />
@@ -57,7 +57,7 @@ const Register = () => {
               />
               <button
                 type="button"
-                className="input-group-prepend"
+                className="input-group-prepend btn"
                 onClick={() =>
                   setCanConfirmSeePassword(!canSeeConfirmPassword)
                 }>
@@ -69,10 +69,12 @@ const Register = () => {
               </button>
             </div>
           </div>
-          <GoogleSignButton />
-          <button type="submit" className="btn btn-primary">
-            Register
-          </button>
+          <div className="d-flex justify-content-between">
+            <GoogleSignButton />
+            <button type="submit" className="btn btn-primary">
+              Register
+            </button>
+          </div>
         </Form>
       )}
     </Formik>

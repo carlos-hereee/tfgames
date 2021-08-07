@@ -26,7 +26,16 @@ export const GoogleSignButton = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   };
-  return <button onClick={signInWithGoogle}>Sign In With Google</button>;
+  return (
+    <button onClick={signInWithGoogle} className="g-sign-in-button btn">
+      <img
+        src="https://developers.google.com/identity/images/g-logo.png"
+        className="icon"
+        alt="google sign-in"
+      />
+      <span className="buttonText"> Sign In With Google</span>
+    </button>
+  );
 };
 export const SignOut = () => {
   return (
