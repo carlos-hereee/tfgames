@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { GoogleSignButton } from "../utlils/firebase";
 
 const Register = () => {
   const [canSeePassword, setCanSeePassword] = useState(false);
@@ -21,12 +22,7 @@ const Register = () => {
             )}
             <label htmlFor="username">Username </label>
             <div className="input-group">
-              <Field
-                type="text"
-                className="form-control"
-                name="username"
-                required
-              />
+              <Field type="text" className="form-control" name="username" />
             </div>
           </div>
           {errors.password && <div className="validate">{errors.password}</div>}
@@ -52,13 +48,12 @@ const Register = () => {
             </div>
           </div>
           <div className="form-group">
-            <label htmlFor="password">Confirm password </label>
+            <label htmlFor="confirmPassword">Confirm Password</label>
             <div className="input-group">
               <Field
                 className="form-control"
                 type={canSeeConfirmPassword ? "text" : "password"}
-                name="password"
-                required
+                name="confirmPassword"
               />
               <button
                 type="button"
@@ -74,9 +69,7 @@ const Register = () => {
               </button>
             </div>
           </div>
-          <button type="submit" className="btn btn-primary">
-            Register In With Google
-          </button>
+          <GoogleSignButton />
           <button type="submit" className="btn btn-primary">
             Register
           </button>

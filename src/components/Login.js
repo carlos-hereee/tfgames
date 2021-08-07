@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { GoogleSignButton } from "../utlils/firebase";
 
 const Login = () => {
   const [canSeePassword, setCanSeePassword] = useState(false);
@@ -50,9 +51,7 @@ const Login = () => {
               </button>
             </div>
           </div>
-          <button type="submit" className="btn btn-primary">
-            Sign In With Google
-          </button>
+          <GoogleSignButton />
           <button type="submit" className="btn btn-primary">
             Sign In
           </button>

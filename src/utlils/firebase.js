@@ -21,6 +21,18 @@ if (!firebase.apps.length) {
   firebase.app();
 }
 
+export const GoogleSignButton = () => {
+  const signInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider);
+  };
+  return <button onClick={signInWithGoogle}>Sign In With Google</button>;
+};
+export const SignOut = () => {
+  return (
+    auth.currentUser && <button onClick={() => auth.signOut()}>Sign Out</button>
+  );
+};
 export const auth = firebase.auth();
 export const db = firebase.firestore();
 export const serverTimeStamp = firebase.firestore.FieldValue.serverTimestamp();

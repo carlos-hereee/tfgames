@@ -3,6 +3,7 @@
 @import "./headerfooter.scss";
 @import "./tictactoe.scss";
 @import "./profile.scss";
+@import "./auth.scss";
 
 .app {
   background-color: whitesmoke;
@@ -10,6 +11,7 @@
   flex-direction: column;
   max-width: 1100px;
   margin: auto;
+  font-family: "Roboto", sans-serif;
 }
 .card {
   min-width: 300px;
