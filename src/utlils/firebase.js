@@ -27,7 +27,7 @@ const uiConfig = {
   signInSuccessUrl: "/signedIn",
   signInOptions: [
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
   ],
 };
 export const GoogleSignButton = () => {
@@ -46,4 +46,3 @@ export const serverTimeStamp = firebase.firestore.FieldValue.serverTimestamp();
 export const storageRef = firebase.storage().ref();
 export const gameRoomRef = db.collection("game-rooms");
 export const usersRef = db.collection("users");
-export const tauntsRef = db.collection("taunts");

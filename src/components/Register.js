@@ -3,10 +3,14 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { auth, GoogleSignButton, usersRef } from "../utlils/firebase";
+import {
+  auth,
+  GoogleSignButton,
+  tauntsRef,
+  usersRef,
+} from "../utlils/firebase";
 import { useContext } from "react/cjs/react.development";
 import { PlayerContext } from "../utlils/PlayerContext";
-import generate from "project-name-generator";
 import ErrorMessage from "./ErrorMessage";
 
 const Schema = Yup.object().shape({
@@ -20,34 +24,13 @@ const Schema = Yup.object().shape({
   }),
 });
 const Register = () => {
-  const { livePlayer } = useContext(PlayerContext);
+  const { register, error } = useContext(PlayerContext);
   const [canSeePassword, setCanSeePassword] = useState(false);
   const [canSeeConfirmPassword, setCanConfirmSeePassword] = useState(false);
-  const [error, setError] = useState("");
   return (
     <Formik
       initialValues={{ email: "", password: "", confirmPassword: "" }}
-      onSubmit={({ email, password }, _) => {
-        auth
-          .createUserWithEmailAndPassword(email, password)
-          .then((userCredential) => {
-            const playerUuid = userCredential.user.uid;
-            usersRef.doc(playerUuid).set(
-              {
-                isAMember: true,
-                playerUuid: playerUuid,
-                playerName: generate({ words: 3 }).dashed,
-              },
-              { merge: true }
-            );
-            livePlayer(userCredential.user.uid);
-          })
-          .catch((error) => {
-            if (error.code) {
-              setError("You have entered an");
-            }
-          });
-      }}
+      onSubmit={({ email, password }, _) => register(email, password)}
       validationSchema={Schema}>
       <Form>
         <div className="form-group">

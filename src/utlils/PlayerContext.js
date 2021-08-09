@@ -1,7 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import generate from "project-name-generator";
 import React, { createContext, useEffect, useReducer } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, gameRoomRef, usersRef, tauntsRef } from "./firebase";
+import { useHistory } from "react-router-dom";
+import shortid from "shortid";
+import { auth, gameRoomRef, usersRef } from "./firebase";
 import { reducer } from "./reducer";
 import {
   isPlayer1,
@@ -13,53 +16,35 @@ import {
 export const PlayerContext = createContext();
 export const PlayerState = ({ children }) => {
   const [user] = useAuthState(auth);
+  const history = useHistory();
   const initialState = {
     isLoading: false,
     error: "",
-    player: {},
+    player: {
+      isAMember: false,
+      playerUuid: shortid.generate(),
+      playerName: generate({ words: 3 }).dashed,
+    },
     room: {},
     taunts: [],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
-
   const livePlayer = async (playerUuid) => {
     try {
       // create live instance of player
       usersRef.doc(playerUuid).onSnapshot((snap) => {
-        dispatch({ type: "INITIALIZE_PLAYER", payload: snap.data() });
+        if (snap.exists) {
+          dispatch({ type: "INITIALIZE_PLAYER", payload: snap.data() });
+        }
       });
     } catch (e) {
       dispatch({ type: "SET_ERROR", payload: "Couldnt make player instance" });
     }
   };
-  const getTaunts = async (playerUuid) => {
-    tauntsRef.doc(playerUuid).onSnapshot((snap) => {
-      if (!snap.exists) {
-        tauntsRef.doc(playerUuid).set({ taunts: [] }, { merge: true });
-        getTaunts(playerUuid);
-      }
-      dispatch({ type: "GET_TAUNTS", payload: snap.data() });
-    });
-  };
   useEffect(() => {
-    if (!user) {
-      // if theres no user loaded
-      auth.signInAnonymously().then((data) => {
-        usersRef.doc(data.user.uid).set(
-          {
-            playerUuid: data.user.uid,
-            isAMember: false,
-            isInQueue: false,
-            isPlaying: false,
-            isPlayingAgainst: "",
-          },
-          { merge: true }
-        );
-      });
-    }
-    if (user) {
+    console.log("user", user);
+    if (user?.uid) {
       livePlayer(user.uid);
-      getTaunts(user.uid);
     }
   }, [user]);
   useEffect(() => {
@@ -72,7 +57,32 @@ export const PlayerState = ({ children }) => {
       return () => unsubscribe();
     }
   }, [state.room.roomUuid]);
-
+  const signIn = async (email, password) => {
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      // history.push("/profile");
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", dispatch: "Sign error try again later" });
+    }
+  };
+  const register = async (email, password) => {
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      usersRef.doc(user.uid).set(
+        {
+          isAMember: true,
+          playerUuid: user.uid,
+          playerName: generate({ words: 3 }).dashed,
+        },
+        { merge: true }
+      );
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", dispatch: "Sign error try again later" });
+    }
+  };
   const playAgain = async (room, player) => {
     const data = {
       ...room,
@@ -299,6 +309,8 @@ export const PlayerState = ({ children }) => {
         roomIsEmpty,
         showResultModal,
         leaveRoom,
+        signIn,
+        register,
       }}>
       {children}
     </PlayerContext.Provider>
