@@ -2,7 +2,6 @@
 import generate from "project-name-generator";
 import React, { createContext, useEffect, useReducer } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useHistory } from "react-router-dom";
 import shortid from "shortid";
 import { auth, gameRoomRef, usersRef } from "./firebase";
 import { reducer } from "./reducer";
@@ -16,7 +15,6 @@ import {
 export const PlayerContext = createContext();
 export const PlayerState = ({ children }) => {
   const [user] = useAuthState(auth);
-  const history = useHistory();
   const initialState = {
     isLoading: false,
     error: "",
@@ -42,7 +40,6 @@ export const PlayerState = ({ children }) => {
     }
   };
   useEffect(() => {
-    console.log("user", user);
     if (user?.uid) {
       livePlayer(user.uid);
     }

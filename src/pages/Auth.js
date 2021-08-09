@@ -1,9 +1,19 @@
 import { useState } from "react";
+import { useEffect } from "react/cjs/react.development";
 import Login from "../components/Login";
 import Register from "../components/Register";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../utlils/firebase";
 
-const Auth = () => {
+const Auth = ({ history }) => {
   const [isLogin, setIsLogin] = useState(true);
+  const [user] = useAuthState(auth);
+
+  useEffect(() => {
+    if (user) {
+      history.push("/");
+    }
+  }, [user]);
   return (
     <div className="container">
       <div className="card">
