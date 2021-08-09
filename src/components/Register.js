@@ -2,16 +2,32 @@ import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { GoogleSignButton } from "../utlils/firebase";
+import { auth, GoogleSignButton } from "../utlils/firebase";
+import { useContext } from "react/cjs/react.development";
+import { PlayerContext } from "../utlils/PlayerContext";
 
 const Register = () => {
+  const { livePlayer } = useContext(PlayerContext);
   const [canSeePassword, setCanSeePassword] = useState(false);
   const [canSeeConfirmPassword, setCanConfirmSeePassword] = useState(false);
   return (
     <Formik
       initialValues={{ username: "", password: "", confirmPassword: "" }}
-      onSubmit={(values, actions) => {
-        // signIn(values);
+      onSubmit={({ username, password }, actions) => {
+        auth
+          .createUserWithEmailAndPassword(username, password)
+          .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+            console.log("userCredential", userCredential);
+            // ...
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ..
+          });
+
         actions.resetForm();
       }}>
       {({ errors }) => (
@@ -22,7 +38,12 @@ const Register = () => {
             )}
             <label htmlFor="username">Username </label>
             <div className="input-group">
-              <Field type="text" className="form-control" name="username" />
+              <Field
+                type="text"
+                className="form-control"
+                name="username"
+                required
+              />
             </div>
           </div>
           {errors.password && <div className="validate">{errors.password}</div>}
@@ -54,6 +75,7 @@ const Register = () => {
                 className="form-control"
                 type={canSeeConfirmPassword ? "text" : "password"}
                 name="confirmPassword"
+                required
               />
               <button
                 type="button"

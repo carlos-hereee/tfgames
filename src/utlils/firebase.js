@@ -1,8 +1,10 @@
 import firebase from "firebase/app";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/analytics";
 import "firebase/storage";
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 if (!firebase.apps.length) {
@@ -20,21 +22,17 @@ if (!firebase.apps.length) {
 } else {
   firebase.app();
 }
-
+const uiConfig = {
+  signInFlow: "popup",
+  signInSuccessUrl: "/signedIn",
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+  ],
+};
 export const GoogleSignButton = () => {
-  const signInWithGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
-  };
   return (
-    <button onClick={signInWithGoogle} className="g-sign-in-button btn">
-      <img
-        src="https://developers.google.com/identity/images/g-logo.png"
-        className="icon"
-        alt="google sign-in"
-      />
-      <span className="buttonText"> Sign In With Google</span>
-    </button>
+    <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
   );
 };
 export const SignOut = () => {

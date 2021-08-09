@@ -4,26 +4,28 @@ import Register from "../components/Register";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(false);
-
   return (
     <div className="container">
       <div className="card">
         <div className="card-header d-flex justify-content-around align-items-center">
-          <button
-            type="button"
-            onClick={() => setIsLogin(true)}
-            className="btn btn-secondary">
-            <h3>Login</h3>
-          </button>
-          or
-          <button
-            type="button"
-            onClick={() => setIsLogin(false)}
-            className="btn btn-secondary">
-            <h3>Register</h3>
-          </button>
+          {isLogin ? (
+            <h3 className="card-title">Login</h3>
+          ) : (
+            <h3 className="card-title">Create New Account</h3>
+          )}
         </div>
         <div className="card-body">{isLogin ? <Login /> : <Register />}</div>
+        <div className="card-footer text-center">
+          {isLogin ? (
+            <button className="btn" onClick={() => setIsLogin(!isLogin)}>
+              Dont have an account?
+            </button>
+          ) : (
+            <button className="btn" onClick={() => setIsLogin(!isLogin)}>
+              Already have an account?
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

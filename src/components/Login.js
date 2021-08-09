@@ -41,7 +41,7 @@ const Login = () => {
               />
               <button
                 type="button"
-                className="input-group-prepend"
+                className="input-group-prepend btn"
                 onClick={() => setCanSeePassword(!canSeePassword)}>
                 {canSeePassword ? (
                   <FontAwesomeIcon icon={faEyeSlash} size="2x" />
@@ -51,10 +51,12 @@ const Login = () => {
               </button>
             </div>
           </div>
-          <GoogleSignButton />
-          <button type="submit" className="btn btn-primary">
-            Sign In
-          </button>
+          <div className="d-flex justify-content-between">
+            <GoogleSignButton />
+            <button type="submit" className="btn btn-primary">
+              Sign In
+            </button>
+          </div>
         </Form>
       )}
     </Formik>
