@@ -58,7 +58,7 @@ const GameMenu = () => {
           Some game modes are under development
         </div> */}
         <div
-          className="d-grid gap-2 col-6 mx-auto"
+          className="d-grid gap-2 col-6 m-auto"
           aria-label="play vs computer or friend">
           {/* <button
             className="btn btn-secondary btn-lg btn-block"
@@ -73,13 +73,13 @@ const GameMenu = () => {
             PVP
           </button> */}
           <button
-            className="btn btn-primary btn-lg btn-block mb-3"
+            className="btn btn-primary btn-lg btn-block mb-3 m-auto"
             disabled={isLoading}
             onClick={() => handleGameMode("Friend")}>
             Play Friend
           </button>
         </div>
-        <div>
+        <div className="w-50 m-auto">
           <GameInvitation />
         </div>
       </div>

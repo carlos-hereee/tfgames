@@ -3,11 +3,11 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 
 const Auth = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   return (
     <div className="container">
       <div className="card">
-        <div className="card-header d-flex justify-content-around align-items-center">
+        <div className="card-header">
           {isLogin ? (
             <h3 className="card-title">Login</h3>
           ) : (

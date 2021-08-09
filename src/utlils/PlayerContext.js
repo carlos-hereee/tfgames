@@ -52,7 +52,6 @@ export const PlayerState = ({ children }) => {
             isInQueue: false,
             isPlaying: false,
             isPlayingAgainst: "",
-            // playerName: generate({ words: 3 }).dashed,
           },
           { merge: true }
         );

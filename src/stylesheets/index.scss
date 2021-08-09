@@ -3,7 +3,6 @@
 @import "./headerfooter.scss";
 @import "./tictactoe.scss";
 @import "./profile.scss";
-@import "./auth.scss";
 
 .app {
   background-color: whitesmoke;
@@ -20,7 +19,8 @@
   }
 }
 .btn {
-  height: 3rem;
+  max-width: 220px;
+  min-height: 40px;
 }
 .form-control {
   height: 3rem;
