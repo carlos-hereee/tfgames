@@ -1,8 +1,6 @@
-import { useContext } from "react/cjs/react.development";
-import { PlayerContext } from "../utlils/PlayerContext";
+import { useIsPlayerLoggedIn } from "../utlils/hooks";
 
 const Header = () => {
-  const { player } = useContext(PlayerContext);
   return (
     <header>
       <div className="jumbotron">
@@ -25,21 +23,19 @@ const Header = () => {
               <a className="nav-link active" aria-current="page" href="/">
                 Home
               </a>
-              {player?.isAMember ? (
+              {useIsPlayerLoggedIn() ? (
                 <>
-                  <a className="nav-link" href="/profile">
-                    Profile
+                  <a className="nav-link" href="/dashboard">
+                    Dashboard
                   </a>
                   <a className="nav-link" href="/shop">
                     Shop
                   </a>
                 </>
               ) : (
-                <>
-                  <a className="nav-link" href="/login">
-                    Login / Register
-                  </a>
-                </>
+                <a className="nav-link" href="/login">
+                  Login / Register
+                </a>
               )}
             </div>
           </div>

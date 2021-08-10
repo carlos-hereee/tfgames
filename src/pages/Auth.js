@@ -11,9 +11,10 @@ const Auth = ({ history }) => {
 
   useEffect(() => {
     if (user) {
-      history.push("/");
+      history.push("/dashboard");
     }
   }, [user]);
+
   return (
     <div className="container">
       <div className="card">

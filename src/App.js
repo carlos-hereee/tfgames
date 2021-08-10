@@ -3,7 +3,7 @@ import Header from "./pages/Header";
 import Footer from "./pages/Footer";
 import Homepage from "./pages/Homepage";
 import TicTacToe from "./pages/TicTacToe";
-import Profile from "./pages/Profile";
+import Dashboard from "./pages/Dashboard";
 import Shop from "./pages/Shop";
 import PrivateRoute from "./utlils/PriviteRoute";
 import Auth from "./pages/Auth";
@@ -16,7 +16,7 @@ function App() {
         <Route exact path="/" component={Homepage} />
         <Route path="/tictactoe" component={TicTacToe} />
         <Route path="/login" component={Auth} />
-        <PrivateRoute path="/profile" component={Profile} />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/shop" component={Shop} />
       </Switch>
       <Footer />

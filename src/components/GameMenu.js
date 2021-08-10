@@ -54,7 +54,7 @@ const GameMenu = () => {
     <div className="card">
       <div className="card-body text-center">
         <h3 className="card-title">Play TicTacToe</h3>
-        {/* <div class="alert alert-warning" role="alert">
+        {/* <div className="alert alert-warning" role="alert">
           Some game modes are under development
         </div> */}
         <div
