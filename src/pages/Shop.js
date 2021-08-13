@@ -12,8 +12,8 @@ const Shop = () => {
       const avatars = await storageRef.child("avatars").listAll();
       avatars.items.forEach(async (avatar) => {
         const avatarUrl = await avatar.getDownloadURL();
-
-        setAvatarsArray([
+        setAvatarsArray((prevState) => [
+          ...prevState,
           {
             cost: 2000,
             path: avatarUrl,
@@ -25,6 +25,9 @@ const Shop = () => {
     };
     getAvatarUrl();
   }, []);
+  const onlyUnique = (value, index, self) => {
+    return self.indexOf(value) === index;
+  };
   return (
     <div className="container">
       <Coins />
@@ -33,11 +36,11 @@ const Shop = () => {
           <h3 className="card-title">Avatars</h3>
         </div>
         <div className="card-body d-flex flex-wrap justify-content-around">
-          {avatarsArray.map((item) => (
+          {avatarsArray.filter(onlyUnique).map((item) => (
             <div key={item.id}>
               <Frame data={{ src: item.path, title: item.name }} />
               <p>{item.name?.split(".")[0]}</p>
-              <button> {item.cost}</button>
+              <button>{item.cost}</button>
             </div>
           ))}
         </div>
