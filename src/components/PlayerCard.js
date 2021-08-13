@@ -2,22 +2,10 @@ import { faCheckCircle, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { PlayerContext } from "../utlils/PlayerContext";
-import { storageRef } from "../utlils/firebase";
-import { useEffect, useState } from "react/cjs/react.development";
 
 const PlayerCard = ({ data }) => {
   const { player, playerReady, room } = useContext(PlayerContext);
-  const [url, setUrl] = useState();
 
-  useEffect(() => {
-    if (player?.avatarPath) {
-      storageRef
-        .child(player.avatarPath)
-        .getDownloadURL()
-        .then((url) => setUrl(url));
-    }
-  }, [player?.avatarPath]);
-  console.log("player", player);
   return (
     <div className="card mb-3 hadow-sm">
       <div className="card-header">
@@ -25,8 +13,8 @@ const PlayerCard = ({ data }) => {
       </div>
       {/* if ready check needed show footer */}
       <div className="card-body d-flex flex-row">
-        {url ? (
-          <img className="frame" src={url} alt="player avatar" />
+        {player.avatarUrl ? (
+          <img className="frame" src={player.avatarUrl} alt="player avatar" />
         ) : (
           <FontAwesomeIcon icon={faUser} size="5x" />
         )}

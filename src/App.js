@@ -17,7 +17,7 @@ function App() {
         <Route path="/tictactoe" component={TicTacToe} />
         <Route path="/login" component={Auth} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
-        <PrivateRoute path="/shop" component={Shop} />
+        <Route path="/shop" component={Shop} />
       </Switch>
       <Footer />
     </div>

@@ -8,7 +8,7 @@ import Frame from "../components/Frame";
 import Coins from "../components/Coins";
 
 const Dashbaord = () => {
-  const { player, taunts } = useContext(PlayerContext);
+  const { player } = useContext(PlayerContext);
   return (
     <div className="container">
       <Coins />
@@ -18,11 +18,11 @@ const Dashbaord = () => {
           <h3 className="card-title">Taunts/Emojis</h3>
         </div>
         <div className="card-body d-flex justify-content-start">
-          {taunts?.map(
+          {player.taunts?.map(
             (item) => item && <Frame data={item} key={shortid.generate()} />
           )}
           <a href="/shop">
-            <FontAwesomeIcon icon={faPlusSquare} size="10x" />
+            <FontAwesomeIcon icon={faPlusSquare} size="7x" />
           </a>
         </div>
       </div>

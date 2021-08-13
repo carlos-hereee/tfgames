@@ -26,6 +26,7 @@
 .form-control {
   height: 3rem;
 }
+
 // for accessibiblity
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -37,5 +38,16 @@
     background-attachment: initial !important;
     transition-duration: 0s !important;
     transition-delay: 0s !important;
+  }
+}
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
   }
 }

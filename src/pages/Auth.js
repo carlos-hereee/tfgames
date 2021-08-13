@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react/cjs/react.development";
+import { useState, useEffect } from "react";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import { useAuthState } from "react-firebase-hooks/auth";

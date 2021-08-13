@@ -1,9 +1,30 @@
-import shortid from "shortid";
+import { useContext, useEffect, useState } from "react";
 import Coins from "../components/Coins";
 import Frame from "../components/Frame";
-import { randomNum } from "../utlils/usefulFunction";
+import { storageRef } from "../utlils/firebase";
+import { PlayerContext } from "../utlils/PlayerContext";
 
 const Shop = () => {
+  // const { player } = useContext(PlayerContext);
+  const [avatarsArray, setAvatarsArray] = useState([]);
+  useEffect(() => {
+    const getAvatarUrl = async () => {
+      const avatars = await storageRef.child("avatars").listAll();
+      avatars.items.forEach(async (avatar) => {
+        const avatarUrl = await avatar.getDownloadURL();
+
+        setAvatarsArray([
+          {
+            cost: 2000,
+            path: avatarUrl,
+            id: avatar.fullPath,
+            name: avatar.name,
+          },
+        ]);
+      });
+    };
+    getAvatarUrl();
+  }, []);
   return (
     <div className="container">
       <Coins />
@@ -12,43 +33,13 @@ const Shop = () => {
           <h3 className="card-title">Avatars</h3>
         </div>
         <div className="card-body d-flex flex-wrap justify-content-around">
-          {Array(3)
-            .fill({
-              src: "https://cdn1.iconfinder.com/data/icons/education-160/100/user_free-512.png",
-              title: "avatar",
-              cost: randomNum(),
-              id: shortid.generate(),
-            })
-            .map((i) => (
-              <div key={i.id} className="d-flex flex-column">
-                <Frame data={i} />
-                <button type="button" className="btn btn-primary m-1">
-                  {i.cost}
-                </button>
-              </div>
-            ))}
-        </div>
-      </div>
-      <div className="card">
-        <div className="card-header">
-          <h3 className="card-title">Taunts/Emojis</h3>
-        </div>
-        <div className="card-body d-flex flex-wrap justify-content-around">
-          {Array(2)
-            .fill({
-              src: "https://www.rocksdigital.com/wp-content/uploads/2018/02/emoji-marketing-tips-1.jpg",
-              title: "emoji/taunt",
-              cost: randomNum(),
-              id: shortid.generate(),
-            })
-            .map((i) => (
-              <div key={i.id} className="d-flex flex-column">
-                <Frame data={i} />
-                <button type="button" className="btn btn-primary m-1">
-                  {i.cost}
-                </button>
-              </div>
-            ))}
+          {avatarsArray.map((item) => (
+            <div key={item.id}>
+              <Frame data={{ src: item.path, title: item.name }} />
+              <p>{item.name?.split(".")[0]}</p>
+              <button> {item.cost}</button>
+            </div>
+          ))}
         </div>
       </div>
     </div>
