@@ -1,33 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import Coins from "../components/Coins";
 import Frame from "../components/Frame";
-import { storageRef } from "../utlils/firebase";
+import { storageRef, avatarRef } from "../utlils/firebase";
 import { PlayerContext } from "../utlils/PlayerContext";
+import { avatarsArray } from "../data/shop";
 
 const Shop = () => {
   // const { player } = useContext(PlayerContext);
-  const [avatarsArray, setAvatarsArray] = useState([]);
-  useEffect(() => {
-    const getAvatarUrl = async () => {
-      const avatars = await storageRef.child("avatars").listAll();
-      avatars.items.forEach(async (avatar) => {
-        const avatarUrl = await avatar.getDownloadURL();
-        setAvatarsArray((prevState) => [
-          ...prevState,
-          {
-            cost: 2000,
-            path: avatarUrl,
-            id: avatar.fullPath,
-            name: avatar.name,
-          },
-        ]);
-      });
-    };
-    getAvatarUrl();
-  }, []);
-  const onlyUnique = (value, index, self) => {
-    return self.indexOf(value) === index;
-  };
+
   return (
     <div className="container">
       <Coins />
@@ -36,11 +16,12 @@ const Shop = () => {
           <h3 className="card-title">Avatars</h3>
         </div>
         <div className="card-body d-flex flex-wrap justify-content-around">
-          {avatarsArray.filter(onlyUnique).map((item) => (
+          <img src="../assets/rocky.svg" />
+          {avatarsArray.map((item) => (
             <div key={item.id}>
-              <Frame data={{ src: item.path, title: item.name }} />
+              {item.path}
               <p>{item.name?.split(".")[0]}</p>
-              <button>{item.cost}</button>
+              <button className="btn btn-primary">{item.cost}</button>
             </div>
           ))}
         </div>
