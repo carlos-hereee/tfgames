@@ -1,0 +1,36 @@
+$rotate-deg: -25deg;
+$rotate-shoulder-speed: 3s;
+$rotate-elbow-speed: 2s;
+
+.App {
+  background-color: rgb(179, 174, 174);
+}
+.scene {
+  overflow: visible;
+}
+
+// #r-arm-hand {
+//   transform-box: fill-box;
+//   transform-origin: top left;
+//   animation: rotateShoulder $rotate-shoulder-speed forwards;
+// }
+
+#r-hand {
+  transform-box: fill-box;
+  transform-origin: top left;
+  // animation: rotateElbow $rotate-elbow-speed alternate infinite;
+}
+
+@keyframes rotateShoulder {
+  to {
+    transform: translateY(2px) rotate(-20deg);
+  }
+}
+@keyframes rotateElbow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-45deg);
+  }
+}
