@@ -16,7 +16,6 @@ const Shop = () => {
           <h3 className="card-title">Avatars</h3>
         </div>
         <div className="card-body d-flex flex-wrap justify-content-around">
-          <img src="../assets/rocky.svg" />
           {avatarsArray.map((item) => (
             <div key={item.id}>
               {item.path}
