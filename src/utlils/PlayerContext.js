@@ -3,7 +3,7 @@ import generate from "project-name-generator";
 import React, { createContext, useEffect, useReducer } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import shortid from "shortid";
-import { auth, gameRoomRef, usersRef } from "./firebase";
+import { auth, gameRoomRef, serverTimeStamp, usersRef } from "./firebase";
 import { reducer } from "./reducer";
 import {
   isPlayer1,
@@ -24,6 +24,7 @@ export const PlayerState = ({ children }) => {
       playerName: generate({ words: 3 }).dashed,
     },
     room: {},
+    ownedAvatars: [],
     taunts: [],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -39,9 +40,32 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", payload: "Couldnt make player instance" });
     }
   };
+  const loadAvatar = async (playerUuid) => {
+    try {
+      // create live instance of player
+      usersRef
+        .doc(playerUuid)
+        .collection("avatars")
+        .get()
+        .then((snap) => {
+          if (snap.empty) {
+            snap.docs.map(() =>
+              dispatch({ type: "GET_OWNED_AVATARS", payload: [] })
+            );
+          } else {
+            snap.docs.map((x) =>
+              dispatch({ type: "GET_OWNED_AVATARS", payload: x.data() })
+            );
+          }
+        });
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", payload: "Couldnt load avatars" });
+    }
+  };
   useEffect(() => {
     if (user?.uid) {
       livePlayer(user.uid);
+      loadAvatar(user.uid);
     }
   }, [user]);
   useEffect(() => {
@@ -287,6 +311,23 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", dispatch: "Could not leave room" });
     }
   };
+  const purchaseAvatar = async (player, avatar) => {
+    try {
+      usersRef.doc(player.playerUuid).collection("avatars").doc(avatar.id).set(
+        {
+          name: avatar.name,
+          id: avatar.id,
+          cost: avatar.cost,
+          own: true,
+          mainAvatar: false,
+          purchasedAt: serverTimeStamp,
+        },
+        { merge: true }
+      );
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", dispatch: "Could not leave room" });
+    }
+  };
   return (
     <PlayerContext.Provider
       value={{
@@ -295,6 +336,7 @@ export const PlayerState = ({ children }) => {
         room: state.room,
         game: state.game,
         taunts: state.taunts,
+        ownedAvatars: state.ownedAvatars,
         playAgain,
         playMove,
         liveRoom,
@@ -308,6 +350,7 @@ export const PlayerState = ({ children }) => {
         leaveRoom,
         signIn,
         register,
+        purchaseAvatar,
       }}>
       {children}
     </PlayerContext.Provider>

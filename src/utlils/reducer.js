@@ -37,6 +37,13 @@ const getTaunts = (state, action) => {
     taunts: action.payload.taunts,
   };
 };
+const getOwnedAvatars = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    ownedAvatars: [...state.ownedAvatars, action.payload],
+  };
+};
 
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -54,6 +61,8 @@ export const reducer = (state, action) => {
       return initRoom(state, action);
     case "GET_TAUNTS":
       return getTaunts(state, action);
+    case "GET_OWNED_AVATARS":
+      return getOwnedAvatars(state, action);
     default:
       return state;
   }

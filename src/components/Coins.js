@@ -5,7 +5,6 @@ import { faCoins } from "@fortawesome/free-solid-svg-icons";
 
 const Coins = () => {
   const { player } = useContext(PlayerContext);
-
   return (
     <div className="card mb-3">
       <div className="card-body d-flex justify-content-end">

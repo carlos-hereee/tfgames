@@ -1,9 +1,25 @@
+import { useContext } from "react";
 import Coins from "../components/Coins";
+import Notification from "../components/Notification";
 import { avatarsArray } from "../data/shop";
+import { PlayerContext } from "../utlils/PlayerContext";
 
 const Shop = () => {
-  // const { player } = useContext(PlayerContext);
+  const { player, purchaseAvatar, ownedAvatars } = useContext(PlayerContext);
 
+  // check if client can buy the item
+  const addToCart = (avatar) => {
+    // purchaseAvatar(player, avatar);
+    // if (player?.coins >= avatar.cost) {
+    // } else {
+    //   console.log("not enough coins play some games");
+    // }
+    return <Notification />;
+  };
+  // find out if the client owns an avatar
+  const isOwned = (array, id) => {
+    return array.filter((i) => i.id === id).length;
+  };
   return (
     <div className="container">
       <Coins />
@@ -14,12 +30,15 @@ const Shop = () => {
         <div className="card-body d-flex flex-wrap justify-content-around">
           {avatarsArray.map((item) => (
             <div key={item.id} className="card mb-3">
-              <div>
-                <h3 className="card-header">{item.name?.split(".")[0]}</h3>
-              </div>
+              <h3 className="card-header">{item.name?.split(".")[0]}</h3>
               <div className="card-body text-center">{item.path}</div>
               <div className="card-footer text-center">
-                <button className="btn btn-primary">{item.cost}</button>
+                <button
+                  className="btn btn-primary"
+                  disabled={isOwned(ownedAvatars, item.id)}
+                  onClick={() => addToCart(item)}>
+                  {isOwned(ownedAvatars, item.id) ? "Sold Out" : item.cost}
+                </button>
               </div>
             </div>
           ))}
