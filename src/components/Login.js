@@ -4,19 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { GoogleSignButton } from "../utlils/firebase";
 import { PlayerContext } from "../utlils/PlayerContext";
-import ErrorMessage from "./ErrorMessage";
+import Notification from "./Notification";
 
 const Login = () => {
   const [canSeePassword, setCanSeePassword] = useState(false);
-  const { player, signIn, error } = useContext(PlayerContext);
-  console.log("player", player);
+  const { signIn, error } = useContext(PlayerContext);
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
       onSubmit={({ email, password }, _) => signIn(email, password)}>
       <Form>
         <div className="form-group">
-          {error && <ErrorMessage message={error} />}
+          {error && <Notification message={error} />}
           <label htmlFor="email">Email </label>
           <div className="input-group">
             <Field type="text" className="form-control" name="email" required />

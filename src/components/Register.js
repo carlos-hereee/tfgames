@@ -3,15 +3,10 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import {
-  auth,
-  GoogleSignButton,
-  tauntsRef,
-  usersRef,
-} from "../utlils/firebase";
+import { GoogleSignButton } from "../utlils/firebase";
 import { useContext } from "react/cjs/react.development";
 import { PlayerContext } from "../utlils/PlayerContext";
-import ErrorMessage from "./ErrorMessage";
+import Notification from "./Notification";
 
 const Schema = Yup.object().shape({
   password: Yup.string().required("This field is required"),
@@ -34,7 +29,7 @@ const Register = () => {
       validationSchema={Schema}>
       <Form>
         <div className="form-group">
-          {error && <ErrorMessage message={error} />}
+          {error && <Notification message={error} />}
           <label htmlFor="email">Email </label>
           <div className="input-group">
             <Field type="text" className="form-control" name="email" required />

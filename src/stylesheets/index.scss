@@ -1,4 +1,5 @@
 @import "./variables.scss";
+@import "./keyframes.scss";
 @import "./homepage.scss";
 @import "./headerfooter.scss";
 @import "./tictactoe.scss";
@@ -26,6 +27,13 @@
 .form-control {
   height: 3rem;
 }
+.notification {
+  order: 999;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  animation: fadeOut 10s forwards;
+}
 
 // for accessibiblity
 @media (prefers-reduced-motion: reduce) {
@@ -38,16 +46,5 @@
     background-attachment: initial !important;
     transition-duration: 0s !important;
     transition-delay: 0s !important;
-  }
-}
-@keyframes blink {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
   }
 }

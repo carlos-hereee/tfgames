@@ -104,6 +104,9 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", dispatch: "Sign error try again later" });
     }
   };
+  const setError = (message) => {
+    dispatch({ type: "SET_ERROR", payload: message });
+  };
   const playAgain = async (room, player) => {
     const data = {
       ...room,
@@ -332,11 +335,13 @@ export const PlayerState = ({ children }) => {
     <PlayerContext.Provider
       value={{
         isLoading: state.isLoading,
+        error: state.error,
         player: state.player,
         room: state.room,
         game: state.game,
         taunts: state.taunts,
         ownedAvatars: state.ownedAvatars,
+        setError,
         playAgain,
         playMove,
         liveRoom,

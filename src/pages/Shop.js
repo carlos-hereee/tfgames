@@ -1,20 +1,18 @@
 import { useContext } from "react";
 import Coins from "../components/Coins";
-import Notification from "../components/Notification";
 import { avatarsArray } from "../data/shop";
 import { PlayerContext } from "../utlils/PlayerContext";
 
 const Shop = () => {
-  const { player, purchaseAvatar, ownedAvatars } = useContext(PlayerContext);
-
+  const { player, purchaseAvatar, ownedAvatars, setError } =
+    useContext(PlayerContext);
   // check if client can buy the item
   const addToCart = (avatar) => {
-    // purchaseAvatar(player, avatar);
-    // if (player?.coins >= avatar.cost) {
-    // } else {
-    //   console.log("not enough coins play some games");
-    // }
-    return <Notification />;
+    if (player?.coins >= avatar.cost) {
+      purchaseAvatar(player, avatar);
+    } else {
+      setError("not enough coins play some games");
+    }
   };
   // find out if the client owns an avatar
   const isOwned = (array, id) => {

@@ -7,10 +7,12 @@ import Dashboard from "./pages/Dashboard";
 import Shop from "./pages/Shop";
 import PrivateRoute from "./utlils/PriviteRoute";
 import Auth from "./pages/Auth";
+import Notification from "./components/Notification";
 
 function App() {
   return (
     <div className="app">
+      <Notification />
       <Header />
       <Switch>
         <Route exact path="/" component={Homepage} />
