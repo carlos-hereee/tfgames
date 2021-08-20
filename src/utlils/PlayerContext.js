@@ -17,7 +17,7 @@ export const PlayerState = ({ children }) => {
   const [user] = useAuthState(auth);
   const initialState = {
     isLoading: false,
-    error: "",
+    error: [],
     player: {
       isAMember: false,
       playerUuid: shortid.generate(),
@@ -106,6 +106,9 @@ export const PlayerState = ({ children }) => {
   };
   const setError = (message) => {
     dispatch({ type: "SET_ERROR", payload: message });
+  };
+  const clearError = () => {
+    state.error.pop();
   };
   const playAgain = async (room, player) => {
     const data = {
@@ -342,6 +345,7 @@ export const PlayerState = ({ children }) => {
         taunts: state.taunts,
         ownedAvatars: state.ownedAvatars,
         setError,
+        clearError,
         playAgain,
         playMove,
         liveRoom,

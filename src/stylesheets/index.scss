@@ -27,11 +27,8 @@
 .form-control {
   height: 3rem;
 }
+
 .notification {
-  order: 999;
-  position: absolute;
-  bottom: 10%;
-  left: 50%;
   animation: fadeOut 10s forwards;
 }
 

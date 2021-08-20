@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import Coins from "../components/Coins";
+import Notification from "../components/Notification";
 import { avatarsArray } from "../data/shop";
 import { PlayerContext } from "../utlils/PlayerContext";
 
@@ -21,6 +22,7 @@ const Shop = () => {
   return (
     <div className="container">
       <Coins />
+      <Notification />
       <div className="card">
         <div className="card-header">
           <h3 className="card-title">Avatars</h3>
