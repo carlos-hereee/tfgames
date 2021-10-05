@@ -104,8 +104,12 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", dispatch: "Sign error try again later" });
     }
   };
-  const setError = (message) => {
-    dispatch({ type: "SET_ERROR", payload: message });
+  const setError = async (message) => {
+    try {
+      dispatch({ type: "SET_ERROR", payload: message });
+    } catch {
+      dispatch({ type: "SET_ERROR", payload: message });
+    }
   };
   const clearError = () => {
     state.error.pop();

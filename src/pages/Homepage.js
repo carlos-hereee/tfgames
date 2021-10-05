@@ -6,7 +6,9 @@ const Homepage = () => {
   // const { player } = useContext(PlayerContext);
   return (
     <main className="container">
-      <GameMenu />
+      {/* <GameMenu /> */}
+
+      <h1>Welcome!</h1>
     </main>
   );
 };

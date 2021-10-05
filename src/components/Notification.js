@@ -5,12 +5,11 @@ import { PlayerContext } from "../utlils/PlayerContext";
 const Notification = () => {
   const { error } = useContext(PlayerContext);
   return (
-    error.length > 0 &&
-    error?.map((i) => (
-      <div className="alert alert-danger notification" key={shortid.generate()}>
-        <p className="text-center">{i}</p>
-      </div>
-    ))
+    <div className="alert alert-danger">
+      <p key={shortid.generate()} className="text-center">
+        {error}
+      </p>
+    </div>
   );
 };
 

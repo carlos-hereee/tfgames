@@ -4,13 +4,11 @@ import { useContext } from "react/cjs/react.development";
 import shortid from "shortid";
 import { PlayerContext } from "../utlils/PlayerContext";
 import Frame from "../components/Frame";
-import Coins from "../components/Coins";
 
 const Dashbaord = () => {
   const { player } = useContext(PlayerContext);
   return (
     <div className="container">
-      <Coins />
       <div className="card">
         <div className="card-header">
           <h3 className="card-title">Taunts/Emojis</h3>
