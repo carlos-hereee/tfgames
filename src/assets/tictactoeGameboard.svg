@@ -1,0 +1,6 @@
+<svg viewBox="0 0 427 456" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="GameBoard">
+<rect id="background" rx="20" fill="#F3F5F5"/>
+<path id="tictactoe-board" d="M138.5 27V419.5M276 27V419.5M28 160H387M28 297H387" stroke="#7D4141" stroke-width="10"/>
+</g>
+</svg>

@@ -5,13 +5,16 @@
 @import "./tictactoe.scss";
 @import "./profile.scss";
 
-.app {
+#root {
   background-color: whitesmoke;
+}
+.app {
   display: flex;
   flex-direction: column;
-  max-width: 1100px;
-  margin: auto;
+  background-color: #03060a;
   font-family: "Roboto", sans-serif;
+  margin: auto;
+  max-width: 1100px;
 }
 .card {
   min-width: 300px;
