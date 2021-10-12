@@ -1,10 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { GoogleSignButton } from "../utlils/firebase";
-import { useContext } from "react/cjs/react.development";
 import { PlayerContext } from "../utlils/PlayerContext";
 import Notification from "./Notification";
 
@@ -81,7 +79,6 @@ const Register = () => {
           <button type="submit" className="btn btn-primary w-100 m-auto">
             Register
           </button>
-          <GoogleSignButton />
         </div>
       </Form>
     </Formik>

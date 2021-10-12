@@ -1,7 +1,7 @@
 import randomNumber from "random-number";
 import copyText from "copy-to-clipboard";
 import shortid from "shortid";
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 
 export const randomBoolean = () => Math.random() >= 0.5;
 export const allCharactersSame = (s) => {

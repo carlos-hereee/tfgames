@@ -2,7 +2,6 @@
 import { useEffect, useContext } from "react";
 import { PlayerContext } from "../utlils/PlayerContext";
 import PlayerCard from "../components/PlayerCard";
-import { gameRoomRef } from "../utlils/firebase";
 import GameInvitation from "../components/GameInvitation";
 import GameInvitationButton from "../components/GameInvitationButton";
 import { gameResult } from "../components/winCondition";
@@ -29,18 +28,7 @@ const TicTacToe = ({ history }) => {
   const { playerUuid } = player;
   useEffect(() => {
     const inviteCode = parseInt(history.location.search.split("=").pop());
-    const query = gameRoomRef.where("invitationCode", "==", inviteCode);
     // for invited users
-    if (inviteCode) {
-      query.get().then((item) => {
-        // if invitecode doesnt match any room notify the player
-        if (item.empty) {
-          roomIsEmpty(room);
-        }
-        // if the room exits
-        item.forEach((doc) => liveRoom(doc.data()));
-      });
-    }
   }, []);
   useEffect(() => {
     if (roomUuid) {

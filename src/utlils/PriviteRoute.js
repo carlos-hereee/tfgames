@@ -1,14 +1,6 @@
 import { Route, Redirect } from "react-router-dom";
-import { useIsPlayerLoggedIn } from "./hooks";
+
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const isLoggedIn = useIsPlayerLoggedIn();
-  return (
-    <Route
-      {...rest}
-      component={(props) =>
-        isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />
-      }
-    />
-  );
+  return <Route {...rest} component={(props) => <Component {...props} />} />;
 };
 export default PrivateRoute;

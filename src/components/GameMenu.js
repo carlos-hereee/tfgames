@@ -2,7 +2,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import shortid from "shortid";
-import { gameRoomRef, usersRef } from "../utlils/firebase";
 import { PlayerContext } from "../utlils/PlayerContext";
 import { randomNum } from "../utlils/usefulFunction";
 import GameInvitation from "./GameInvitation";
@@ -26,29 +25,19 @@ const GameMenu = () => {
         isPlaying: true,
         isPlayingInRoom: room.roomUuid,
       };
-      usersRef.doc(player.playerUuid).set(playerData, { merge: true });
-      gameRoomRef.doc(room.roomUuid).set(roomData, { merge: true });
       history.push(`/tictactoe/invite?code=${room.invitationCode}`);
     }
   }, [room.roomUuid]);
 
   const newLiveRoom = () => {
     const roomUuid = shortid.generate();
-    gameRoomRef.doc(roomUuid).set({ roomUuid, inUse: false });
     liveRoom({ roomUuid, inUse: false });
   };
   const handleGameMode = (mode) => {
     setGameMode(mode);
     // // search for an empty room
-    const query = gameRoomRef.where("inUse", "==", false).limit(1);
     // TODO: if all rooms are full
     // make a live instance of the server
-    query.get().then((item) => {
-      if (item.empty) {
-        newLiveRoom();
-      }
-      item.forEach((doc) => liveRoom(doc.data()));
-    });
   };
   return (
     <div className="card">

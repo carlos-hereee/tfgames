@@ -1,18 +1,9 @@
 import { useState, useEffect } from "react";
 import Login from "../components/Login";
 import Register from "../components/Register";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../utlils/firebase";
 
 const Auth = ({ history }) => {
   const [isLogin, setIsLogin] = useState(true);
-  const [user] = useAuthState(auth);
-
-  useEffect(() => {
-    if (user) {
-      history.push("/dashboard");
-    }
-  }, [user]);
 
   return (
     <div className="container">

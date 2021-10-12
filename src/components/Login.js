@@ -2,7 +2,6 @@ import { useState, useContext } from "react";
 import { Formik, Form, Field } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { GoogleSignButton } from "../utlils/firebase";
 import { PlayerContext } from "../utlils/PlayerContext";
 import Notification from "./Notification";
 
@@ -46,7 +45,6 @@ const Login = () => {
           <button type="submit" className="btn btn-primary w-100 m-auto">
             Login
           </button>
-          <GoogleSignButton />
         </div>
       </Form>
     </Formik>
