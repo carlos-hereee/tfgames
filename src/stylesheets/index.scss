@@ -11,10 +11,11 @@
 .app {
   display: flex;
   flex-direction: column;
-  background-color: #03060a;
+  background-color: #3d3b3d;
   font-family: "Roboto", sans-serif;
   margin: auto;
   max-width: 1100px;
+  height: 100vh;
 }
 .card {
   min-width: 300px;

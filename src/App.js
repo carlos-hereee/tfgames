@@ -6,6 +6,7 @@ import TicTacToe from "./pages/TicTacToe";
 import Dashboard from "./pages/Dashboard";
 import Shop from "./pages/Shop";
 import PrivateRoute from "./utlils/PriviteRoute";
+import Lobby from "./pages/Lobby";
 import Auth from "./pages/Auth";
 
 function App() {
@@ -14,8 +15,8 @@ function App() {
       <Header />
       <Switch>
         <Route exact path="/" component={Homepage} />
-        <Route path="/tictactoe" component={TicTacToe} />
-        <Route path="/login" component={Auth} />
+        <Route path="/lobby" component={Lobby} />
+        {/* <Route path="/login" component={Auth} /> */}
         {/* <PrivateRoute path="/dashboard" component={Dashboard} /> */}
         {/* <Route path="/shop" component={Shop} /> */}
       </Switch>

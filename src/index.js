@@ -5,14 +5,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { PlayerState } from "./utlils/PlayerContext";
 import "./stylesheets/index.scss";
+import { GameState } from "./utlils/GameContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <PlayerState>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </PlayerState>
+    <GameState>
+      <PlayerState>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PlayerState>
+    </GameState>
   </React.StrictMode>,
   document.getElementById("root")
 );

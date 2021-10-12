@@ -1,5 +1,5 @@
 const Footer = () => (
-  <footer className="text-muted">
+  <footer className="footer text-muted">
     <div className="container">
       <small>Take Five © {new Date().getFullYear()}</small>
     </div>

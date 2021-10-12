@@ -62,48 +62,48 @@ export const PlayerState = ({ children }) => {
       dispatch({ type: "SET_ERROR", payload: "Couldnt load avatars" });
     }
   };
-  useEffect(() => {
-    if (user?.uid) {
-      livePlayer(user.uid);
-      loadAvatar(user.uid);
-    }
-  }, [user]);
-  useEffect(() => {
-    if (state.room.roomUuid) {
-      const unsubscribe = gameRoomRef
-        .doc(state.room.roomUuid)
-        .onSnapshot((snap) => {
-          dispatch({ type: "INITIALIZE_ROOM", payload: snap.data() });
-        });
-      return () => unsubscribe();
-    }
-  }, [state.room.roomUuid]);
-  const signIn = async (email, password) => {
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      // history.push("/profile");
-    } catch (e) {
-      dispatch({ type: "SET_ERROR", dispatch: "Sign error try again later" });
-    }
-  };
-  const register = async (email, password) => {
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      usersRef.doc(user.uid).set(
-        {
-          isAMember: true,
-          playerUuid: user.uid,
-          playerName: generate({ words: 3 }).dashed,
-        },
-        { merge: true }
-      );
-    } catch (e) {
-      dispatch({ type: "SET_ERROR", dispatch: "Sign error try again later" });
-    }
-  };
+  // useEffect(() => {
+  //   if (user?.uid) {
+  //     livePlayer(user.uid);
+  //     loadAvatar(user.uid);
+  //   }
+  // }, [user]);
+  // useEffect(() => {
+  //   if (state.room.roomUuid) {
+  //     const unsubscribe = gameRoomRef
+  //       .doc(state.room.roomUuid)
+  //       .onSnapshot((snap) => {
+  //         dispatch({ type: "INITIALIZE_ROOM", payload: snap.data() });
+  //       });
+  //     return () => unsubscribe();
+  //   }
+  // }, [state.room.roomUuid]);
+  // const signIn = async (email, password) => {
+  //   try {
+  //     await auth.signInWithEmailAndPassword(email, password);
+  //     // history.push("/profile");
+  //   } catch (e) {
+  //     dispatch({ type: "SET_ERROR", dispatch: "Sign error try again later" });
+  //   }
+  // };
+  // const register = async (email, password) => {
+  //   try {
+  //     const { user } = await auth.createUserWithEmailAndPassword(
+  //       email,
+  //       password
+  //     );
+  //     usersRef.doc(user.uid).set(
+  //       {
+  //         isAMember: true,
+  //         playerUuid: user.uid,
+  //         playerName: generate({ words: 3 }).dashed,
+  //       },
+  //       { merge: true }
+  //     );
+  //   } catch (e) {
+  //     dispatch({ type: "SET_ERROR", dispatch: "Sign error try again later" });
+  //   }
+  // };
   const setError = async (message) => {
     try {
       dispatch({ type: "SET_ERROR", payload: message });
@@ -361,8 +361,8 @@ export const PlayerState = ({ children }) => {
         roomIsEmpty,
         showResultModal,
         leaveRoom,
-        signIn,
-        register,
+        // signIn,
+        // register,
         purchaseAvatar,
       }}>
       {children}
