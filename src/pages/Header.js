@@ -1,15 +1,17 @@
+import { useContext } from "react";
 import logo from "../assets/logo.svg";
+import { AuthContext } from "../utlils/AuthContext";
 
 const Header = () => {
+  const { user } = useContext(AuthContext);
+
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="header-logo">
+        <a href="/" className="header-logo">
           <img src={logo} alt="logo - controller" />
-          <a href="/" className="navbar-brand">
-            <h1 className="display-4">Take Five</h1>
-          </a>
-        </div>
+          <h1 className="display-4">Take Five</h1>
+        </a>
         <button
           className="navbar-toggler btn"
           type="button"
@@ -25,9 +27,15 @@ const Header = () => {
             <a className="nav-link" aria-current="page" href="/">
               Home
             </a>
-            <a className="nav-link" aria-current="page" href="/profile">
-              Profile
-            </a>
+            {user?.uid ? (
+              <a className="nav-link" aria-current="page" href="/profile">
+                Profile
+              </a>
+            ) : (
+              <a className="nav-link" aria-current="page" href="/login">
+                Sign In
+              </a>
+            )}
             {/* {useIsPlayerLoggedIn() ? (
               <>
                 <a className="nav-link" href="/dashboard">

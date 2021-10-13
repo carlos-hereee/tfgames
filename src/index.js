@@ -6,16 +6,19 @@ import reportWebVitals from "./reportWebVitals";
 import { PlayerState } from "./utlils/PlayerContext";
 import "./stylesheets/index.scss";
 import { GameState } from "./utlils/GameContext";
+import { AuthState } from "./utlils/AuthContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <GameState>
-      <PlayerState>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </PlayerState>
-    </GameState>
+    <BrowserRouter>
+      <AuthState>
+        <GameState>
+          <PlayerState>
+            <App />
+          </PlayerState>
+        </GameState>
+      </AuthState>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

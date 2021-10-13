@@ -1,34 +1,75 @@
-import { useState, useEffect } from "react";
-import Login from "../components/Login";
-import Register from "../components/Register";
+import { Field, Form, Formik } from "formik";
+import { useState, useEffect, useContext } from "react";
+import Notification from "../components/Notification";
+import { AuthContext } from "../utlils/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import { accessToken } from "../utlils/axios";
 
 const Auth = ({ history }) => {
-  const [isLogin, setIsLogin] = useState(true);
+  const { signIn, error } = useContext(AuthContext);
+  const [canSeePassword, setCanSeePassword] = useState(false);
+  console.log("accessToken", accessToken);
 
   return (
-    <div className="container">
+    <section className="auth">
       <div className="card">
         <div className="card-header">
-          {isLogin ? (
-            <h3 className="card-title">Login</h3>
-          ) : (
-            <h3 className="card-title">Create New Account</h3>
-          )}
+          <h3 className="card-title">Login</h3>
         </div>
-        <div className="card-body">{isLogin ? <Login /> : <Register />}</div>
+        <div className="card-body">
+          <Formik
+            initialValues={{ username: "", password: "" }}
+            onSubmit={({ username, password }, _) =>
+              signIn(username, password)
+            }>
+            <Form>
+              <div className="form-group">
+                <label htmlFor="username">Username </label>
+                <div className="input-group">
+                  <Field
+                    type="text"
+                    className="form-control"
+                    name="username"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password </label>
+                <div className="input-group">
+                  <Field
+                    className="form-control"
+                    type={canSeePassword ? "text" : "password"}
+                    name="password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="input-group-prepend btn"
+                    onClick={() => setCanSeePassword(!canSeePassword)}>
+                    {canSeePassword ? (
+                      <FontAwesomeIcon icon={faEyeSlash} size="2x" />
+                    ) : (
+                      <FontAwesomeIcon icon={faEye} size="2x" />
+                    )}
+                  </button>
+                </div>
+              </div>
+              <div className="d-flex justify-content-center flex-column">
+                <button type="submit" className="btn button">
+                  Login
+                </button>
+              </div>
+            </Form>
+          </Formik>
+        </div>
         <div className="card-footer text-center">
-          {isLogin ? (
-            <button className="btn" onClick={() => setIsLogin(!isLogin)}>
-              Dont have an account?
-            </button>
-          ) : (
-            <button className="btn" onClick={() => setIsLogin(!isLogin)}>
-              Already have an account?
-            </button>
-          )}
+          <Link to="register">Already have an account?</Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 export default Auth;

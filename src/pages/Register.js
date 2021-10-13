@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { PlayerContext } from "../utlils/PlayerContext";
-import Notification from "./Notification";
+import Notification from "../components/Notification";
 
 const Schema = Yup.object().shape({
   password: Yup.string().required("This field is required"),
@@ -22,15 +22,20 @@ const Register = () => {
   const [canSeeConfirmPassword, setCanConfirmSeePassword] = useState(false);
   return (
     <Formik
-      initialValues={{ email: "", password: "", confirmPassword: "" }}
-      onSubmit={({ email, password }, _) => register(email, password)}
+      initialValues={{ username: "", password: "", confirmPassword: "" }}
+      onSubmit={({ username, password }, _) => register(username, password)}
       validationSchema={Schema}>
       <Form>
         <div className="form-group">
           {error && <Notification message={error} />}
-          <label htmlFor="email">Email </label>
+          <label htmlFor="username">Username </label>
           <div className="input-group">
-            <Field type="text" className="form-control" name="email" required />
+            <Field
+              type="text"
+              className="form-control"
+              name="username"
+              required
+            />
           </div>
         </div>
         <div className="form-group">

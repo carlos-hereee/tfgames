@@ -55,32 +55,7 @@ export const PlayerState = ({ children }) => {
   //     return () => unsubscribe();
   //   }
   // }, [state.room.roomUuid]);
-  // const signIn = async (email, password) => {
-  //   try {
-  //     await auth.signInWithEmailAndPassword(email, password);
-  //     // history.push("/profile");
-  //   } catch (e) {
-  //     dispatch({ type: "SET_ERROR", dispatch: "Sign error try again later" });
-  //   }
-  // };
-  // const register = async (email, password) => {
-  //   try {
-  //     const { user } = await auth.createUserWithEmailAndPassword(
-  //       email,
-  //       password
-  //     );
-  //     usersRef.doc(user.uid).set(
-  //       {
-  //         isAMember: true,
-  //         playerUuid: user.uid,
-  //         playerName: generate({ words: 3 }).dashed,
-  //       },
-  //       { merge: true }
-  //     );
-  //   } catch (e) {
-  //     dispatch({ type: "SET_ERROR", dispatch: "Sign error try again later" });
-  //   }
-  // };
+
   const setError = async (message) => {
     try {
       dispatch({ type: "SET_ERROR", payload: message });
@@ -200,8 +175,7 @@ export const PlayerState = ({ children }) => {
         roomIsEmpty,
         showResultModal,
         leaveRoom,
-        // signIn,
-        // register,
+
         purchaseAvatar,
       }}>
       {children}
