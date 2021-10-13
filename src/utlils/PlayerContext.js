@@ -15,11 +15,6 @@ export const PlayerState = ({ children }) => {
   const initialState = {
     isLoading: false,
     error: [],
-    player: {
-      isAMember: false,
-      playerUuid: shortid.generate(),
-      playerName: generate({ words: 3 }).dashed,
-    },
     room: {},
     ownedAvatars: [],
     taunts: [],

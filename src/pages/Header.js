@@ -1,17 +1,18 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import { AuthContext } from "../utlils/AuthContext";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
-
+  console.log("user", user);
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a href="/" className="header-logo">
+        <Link to="/" className="header-logo">
           <img src={logo} alt="logo - controller" />
           <h1 className="display-4">Take Five</h1>
-        </a>
+        </Link>
         <button
           className="navbar-toggler btn"
           type="button"
@@ -24,31 +25,29 @@ const Header = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav">
-            <a className="nav-link" aria-current="page" href="/">
+            <Link className="nav-link" aria-current="page" to="/">
               Home
-            </a>
+            </Link>
             {user?.uid ? (
-              <a className="nav-link" aria-current="page" href="/profile">
+              <Link className="nav-link" aria-current="page" to="/profile">
                 Profile
-              </a>
+              </Link>
             ) : (
-              <a className="nav-link" aria-current="page" href="/login">
+              <Link className="nav-link" aria-current="page" to="/login">
                 Sign In
-              </a>
+              </Link>
             )}
             {/* {useIsPlayerLoggedIn() ? (
               <>
-                <a className="nav-link" href="/dashboard">
-                  Dashboard
-                </a>
-                <a className="nav-link" href="/shop">
-                  Shop
-                </a>
+                <Link className="nav-link" href="/dashboard">
+                  Dashboardto</Link>
+                <Link className="nav-link" href="/shop">
+                  Shopto</Link>
               </>
             ) : (
-              <a className="nav-link" href="/login">
-                Login / Register
-              </a>
+              <Link className="nav-link" href="/login">
+                Loginto Register
+              </Link>
             )} */}
           </div>
         </div>

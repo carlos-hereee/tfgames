@@ -6,6 +6,7 @@ import tictactoeGameboard from "../assets/tictactoeGameboard.svg";
 import { useContext } from "react";
 import { PlayerContext } from "../utlils/PlayerContext";
 import { GameContext } from "../utlils/GameContext";
+import { AuthContext } from "../utlils/AuthContext";
 
 const games = [
   {
@@ -15,12 +16,12 @@ const games = [
   },
 ];
 const Homepage = () => {
+  const { getUser } = useContext(AuthContext);
   // const { player } = useContext(PlayerContext);
   // const { toLobby } = useContext(GameContext);
   const image = {
     tictactoeGameboard,
   };
-
   return (
     <main className="homepage">
       {games.map((game) => (

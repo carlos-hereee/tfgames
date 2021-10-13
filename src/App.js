@@ -1,3 +1,4 @@
+import { useContext, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Header from "./pages/Header";
 import Footer from "./pages/Footer";
@@ -8,19 +9,15 @@ import Shop from "./pages/Shop";
 import PrivateRoute from "./utlils/PriviteRoute";
 import Lobby from "./pages/Lobby";
 import Auth from "./pages/Auth";
-import { useEffect, useState } from "react";
-import { accessToken, axiosWithOutAuth, setAccessToken } from "./utlils/axios";
+import { AuthContext } from "./utlils/AuthContext";
+import { accessToken } from "./utlils/axios";
 
 function App() {
-  const [loading, setLoading] = useState(true);
-
+  const { isLoading, getAccessToken } = useContext(AuthContext);
   useEffect(() => {
-    axiosWithOutAuth.post("/users/refresh-token").then(({ data }) => {
-      setLoading(false);
-      setAccessToken(data.accessToken);
-    });
+    getAccessToken();
   }, []);
-  if (loading) {
+  if (isLoading) {
     return <div>loading...</div>;
   }
   return (

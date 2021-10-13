@@ -1,17 +1,17 @@
 import { Field, Form, Formik } from "formik";
-import { useState, useEffect, useContext } from "react";
-import Notification from "../components/Notification";
+import { useState, useContext } from "react";
 import { AuthContext } from "../utlils/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { accessToken } from "../utlils/axios";
+import { getToken } from "../utlils/axios";
 
 const Auth = ({ history }) => {
-  const { signIn, error } = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
   const [canSeePassword, setCanSeePassword] = useState(false);
-  console.log("accessToken", accessToken);
-
+  if (getToken()) {
+    history.push("/dashboard");
+  }
   return (
     <section className="auth">
       <div className="card">
