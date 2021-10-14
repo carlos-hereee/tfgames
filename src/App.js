@@ -14,14 +14,16 @@ import { AuthContext } from "./utlils/AuthContext";
 import GameMenu from "./components/GameMenu";
 import { accessToken } from "./utlils/axios";
 import Loading from "./components/Loading";
+import { PlayerContext } from "./utlils/PlayerContext";
 
 function App() {
-  const { isLoading, getAccessToken, getUser } = useContext(AuthContext);
+  const { isLoading, getAccessToken } = useContext(AuthContext);
+  const { getPlayer } = useContext(PlayerContext);
   useEffect(() => {
     if (!accessToken) {
       getAccessToken();
     } else {
-      getUser();
+      getPlayer();
     }
   }, [accessToken]);
   if (isLoading) {

@@ -1,12 +1,11 @@
-import { faCheckCircle, faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 const PlayerCard = ({ data }) => {
   return (
-    <div className="player-card">
-      <img src={data.avatarSrc} alt="player avatar" />
+    <div className="card">
+      <div className="avatar-frame">
+        <img src={data.avatarSrc} alt="player avatar" className="avatar" />
+      </div>
       <h3 className="card-title">{data.username?.toUpperCase()}</h3>
-      <p>Elo: {data.elo}</p>
+      {data?.elo && <p>{data.elo}</p>}
     </div>
   );
 };

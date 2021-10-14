@@ -2,16 +2,20 @@ import generate from "project-name-generator";
 import React, { useContext, useEffect } from "react";
 import shortid from "shortid";
 import PlayerCard from "../components/PlayerCard";
-import { AuthContext } from "../utlils/AuthContext";
+import PlayerLobbyStatus from "../components/PlayerLobbyStatus";
+import { PlayerContext } from "../utlils/PlayerContext";
 
 export default function Lobby() {
-  const { user } = useContext(AuthContext);
+  const { player, opponent } = useContext(PlayerContext);
+
   return (
-    <div className="lobby-container">
-      <PlayerCard data={user} />
-      <div>Player Status</div>
-      <div>Oponent Status</div>
+    <section className="lobby">
+      <div className="lobby-player">
+        <PlayerCard data={player} />
+        <PlayerLobbyStatus />
+      </div>
+      {/* <PlayerCard data={opponent} /> */}
       <div>Opponent card</div>
-    </div>
+    </section>
   );
 }

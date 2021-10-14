@@ -11,15 +11,6 @@ export const AuthState = ({ children }) => {
     user: {},
   };
   const [state, dispatch] = useReducer(reducer, initialState);
-  const getUser = async () => {
-    dispatch({ type: "IS_LOADING", payload: true });
-    try {
-      const { data } = await axiosWithAuth.get("/users");
-      dispatch({ type: "GET_USER", payload: data.message });
-    } catch (e) {
-      dispatch({ type: "IS_LOADING", payload: false });
-    }
-  };
   const getAccessToken = async () => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
@@ -70,7 +61,6 @@ export const AuthState = ({ children }) => {
         signUpError: state.signUpError,
         user: state.user,
         getAccessToken,
-        getUser,
         signIn,
         register,
       }}>

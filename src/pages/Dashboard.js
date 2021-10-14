@@ -4,25 +4,16 @@ import { useContext } from "react";
 import shortid from "shortid";
 import { PlayerContext } from "../utlils/PlayerContext";
 import Frame from "../components/Frame";
+import { AuthContext } from "../utlils/AuthContext";
+import PlayerCard from "../components/PlayerCard";
 
 const Dashbaord = () => {
   // const { player } = useContext(PlayerContext);
+  const { user } = useContext(AuthContext);
   return (
-    <div className="container">
-      <div className="card">
-        <div className="card-header">
-          <h3 className="card-title">Taunts/Emojis</h3>
-        </div>
-        <div className="card-body d-flex justify-content-start">
-          {/* {player.taunts?.map(
-            (item) => item && <Frame data={item} key={shortid.generate()} />
-          )}
-          <a href="/shop">
-            <FontAwesomeIcon icon={faPlusSquare} size="7x" />
-          </a> */}
-        </div>
-      </div>
-    </div>
+    <section className="dashboard">
+      <PlayerCard data={user} />
+    </section>
   );
 };
 export default Dashbaord;
