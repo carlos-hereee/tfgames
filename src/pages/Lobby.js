@@ -1,18 +1,14 @@
 import generate from "project-name-generator";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import shortid from "shortid";
 import PlayerCard from "../components/PlayerCard";
+import { AuthContext } from "../utlils/AuthContext";
 
-const player1 = {
-  isAMember: false,
-  uid: shortid.generate(),
-  name: generate({ words: 3 }).dashed,
-  avatarSrc: "",
-};
 export default function Lobby() {
+  const { user } = useContext(AuthContext);
   return (
     <div className="lobby-container">
-      <PlayerCard data={player1} />
+      <PlayerCard data={user} />
       <div>Player Status</div>
       <div>Oponent Status</div>
       <div>Opponent card</div>

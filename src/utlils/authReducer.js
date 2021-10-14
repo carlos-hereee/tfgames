@@ -8,7 +8,14 @@ const setError = (state, action) => {
   return {
     ...state,
     isLoading: false,
-    error: [...state.error, action.payload],
+    error: action.payload,
+  };
+};
+const setSignUPError = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    signUpError: action.payload,
   };
 };
 const getUser = (state, action) => {
@@ -31,6 +38,8 @@ export const reducer = (state, action) => {
       return isLoading(state, action);
     case "SET_ERROR":
       return setError(state, action);
+    case "SET_SIGNUP_ERROR":
+      return setSignUPError(state, action);
     case "GET_USER":
       return getUser(state, action);
     case "SET_LOGIN":

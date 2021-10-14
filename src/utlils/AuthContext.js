@@ -6,7 +6,8 @@ export const AuthContext = createContext();
 export const AuthState = ({ children }) => {
   const initialState = {
     isLoading: false,
-    error: [],
+    error: "",
+    signUpError: "",
     user: {},
   };
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -24,7 +25,6 @@ export const AuthState = ({ children }) => {
     try {
       const { data } = await axiosWithOutAuth.post("/users/refresh-token");
       setAccessToken(data.accessToken);
-      getUser();
       dispatch({ type: "IS_LOADING", payload: false });
     } catch {
       dispatch({ type: "IS_LOADING", payload: false });
@@ -37,17 +37,29 @@ export const AuthState = ({ children }) => {
         username,
         password,
       });
-      console.log("data.user", data.user);
       setAccessToken(data.accessToken);
       dispatch({ type: "SET_LOGIN", payload: data.user });
     } catch (e) {
-      dispatch({ type: "SET_ERROR", payload: "Sign error try again later" });
+      dispatch({
+        type: "SET_ERROR",
+        payload: JSON.parse(e.request.response).message,
+      });
     }
   };
-  const register = async (email, password) => {
+  const register = async (username, password) => {
+    dispatch({ type: "IS_LOADING", payload: true });
     try {
+      const { data } = await axiosWithOutAuth.post("/users/register", {
+        username,
+        password,
+      });
+      setAccessToken(data.accessToken);
+      dispatch({ type: "SET_LOGIN", payload: data.user });
     } catch (e) {
-      dispatch({ type: "SET_ERROR", payload: "Sign error try again later" });
+      dispatch({
+        type: "SET_SIGNUP_ERROR",
+        payload: JSON.parse(e.request.response).message,
+      });
     }
   };
   return (
@@ -55,6 +67,7 @@ export const AuthState = ({ children }) => {
       value={{
         isLoading: state.isLoading,
         error: state.error,
+        signUpError: state.signUpError,
         user: state.user,
         getAccessToken,
         getUser,

@@ -6,29 +6,37 @@ import Homepage from "./pages/Homepage";
 import TicTacToe from "./pages/TicTacToe";
 import Dashboard from "./pages/Dashboard";
 import Shop from "./pages/Shop";
-import PrivateRoute from "./utlils/PriviteRoute";
+import PrivateRoute from "./utlils/PrivateRoute";
+import Register from "./pages/Register";
 import Lobby from "./pages/Lobby";
 import Auth from "./pages/Auth";
 import { AuthContext } from "./utlils/AuthContext";
+import GameMenu from "./components/GameMenu";
 import { accessToken } from "./utlils/axios";
+import Loading from "./components/Loading";
 
 function App() {
-  const { isLoading, getAccessToken } = useContext(AuthContext);
+  const { isLoading, getAccessToken, getUser } = useContext(AuthContext);
   useEffect(() => {
-    getAccessToken();
-  }, []);
+    if (!accessToken) {
+      getAccessToken();
+    } else {
+      getUser();
+    }
+  }, [accessToken]);
   if (isLoading) {
-    return <div>loading...</div>;
+    return <Loading />;
   }
   return (
     <div className="app">
       <Header />
       <Switch>
         <Route exact path="/" component={Homepage} />
-        <Route path="/lobby" component={Lobby} />
         <Route path="/login" component={Auth} />
-        {/* <Route path="/login" component={Auth} /> */}
-        {/* <PrivateRoute path="/dashboard" component={Dashboard} /> */}
+        <Route path="/signup" component={Register} />
+        <Route path="/game" component={GameMenu} />
+        <Route path="/lobby" component={Lobby} />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
         {/* <Route path="/shop" component={Shop} /> */}
       </Switch>
       <Footer />

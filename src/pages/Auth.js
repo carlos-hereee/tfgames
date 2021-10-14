@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { getToken } from "../utlils/axios";
 
 const Auth = ({ history }) => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, error } = useContext(AuthContext);
   const [canSeePassword, setCanSeePassword] = useState(false);
   if (getToken()) {
     history.push("/dashboard");
@@ -26,6 +26,7 @@ const Auth = ({ history }) => {
             }>
             <Form>
               <div className="form-group">
+                <p>{error}</p>
                 <label htmlFor="username">Username </label>
                 <div className="input-group">
                   <Field
@@ -58,7 +59,7 @@ const Auth = ({ history }) => {
                 </div>
               </div>
               <div className="d-flex justify-content-center flex-column">
-                <button type="submit" className="btn button">
+                <button type="submit" className="btn btn-primary">
                   Login
                 </button>
               </div>
@@ -66,7 +67,7 @@ const Auth = ({ history }) => {
           </Formik>
         </div>
         <div className="card-footer text-center">
-          <Link to="register">Already have an account?</Link>
+          <Link to="signup">Already have an account?</Link>
         </div>
       </div>
     </section>

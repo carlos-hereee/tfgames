@@ -5,7 +5,7 @@ const PlayerCard = ({ data }) => {
   return (
     <div className="player-card">
       <img src={data.avatarSrc} alt="player avatar" />
-      <h3 className="card-title">{data.name.toUpperCase()}</h3>
+      <h3 className="card-title">{data.username?.toUpperCase()}</h3>
       <p>Elo: {data.elo}</p>
     </div>
   );

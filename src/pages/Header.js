@@ -5,7 +5,6 @@ import { AuthContext } from "../utlils/AuthContext";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
-  console.log("user", user);
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -29,8 +28,8 @@ const Header = () => {
               Home
             </Link>
             {user?.uid ? (
-              <Link className="nav-link" aria-current="page" to="/profile">
-                Profile
+              <Link className="nav-link" aria-current="page" to="/dashboard">
+                Dashboard
               </Link>
             ) : (
               <Link className="nav-link" aria-current="page" to="/login">
