@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { PlayerContext } from "../utlils/PlayerContext";
 import { GameContext } from "../utlils/GameContext";
 import { AuthContext } from "../utlils/AuthContext";
+import { Link } from "react-router-dom";
 
 const games = [
   {
@@ -16,22 +17,27 @@ const games = [
   },
 ];
 const Homepage = () => {
-  const { getUser } = useContext(AuthContext);
   // const { player } = useContext(PlayerContext);
   // const { toLobby } = useContext(GameContext);
   const image = {
     tictactoeGameboard,
   };
+  const handleClick = (g) => {};
   return (
     <main className="homepage">
       {games.map((game) => (
-        <a
-          href={`/lobby?game=${game.name}`}
+        <Link
+          to={`/lobby?game=${game.name}`}
           key={game.key}
           className="game-card">
-          <h2>{game.name.toUpperCase()}</h2>
-          <img src={image[game.imageName]} alt="tictactoe board" />
-        </a>
+          <button
+            type="button"
+            onClick={() => handleClick(game)}
+            className="button-transparent">
+            <h2>{game.name.toUpperCase()}</h2>
+            <img src={image[game.imageName]} alt={game.imageName} />
+          </button>
+        </Link>
       ))}
     </main>
   );

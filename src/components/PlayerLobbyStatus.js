@@ -1,10 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { PlayerContext } from "../utlils/PlayerContext";
+import { io } from "socket.io-client";
 
-export default function PlayerLobbyStatus() {
+export default function PlayerLobbyStatus({ data }) {
+  const { player } = useContext(PlayerContext);
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [toggleMenu, setToggleMenu] = useState(false);
+
+  let socket;
+  socket = io("http://localhost:1200");
+  const enterRoomData = {
+    player: player,
+    gameName: data,
+  };
   useEffect(() => {
     if (isRunning) {
       setSeconds(0);
@@ -12,6 +22,23 @@ export default function PlayerLobbyStatus() {
       return () => window.clearInterval(id);
     }
   }, [isRunning]);
+  useEffect(() => {
+    socket.on("message", (message) => {
+      console.log("message", message);
+    });
+  }, []);
+  const joinLobby = () => {
+    setIsRunning(true);
+    socket.emit("join", enterRoomData, (cb) => {
+      console.log("cb", cb);
+    });
+  };
+  const leaveLobby = () => {
+    setIsRunning(false);
+    socket.emit("leave");
+    socket.off();
+  };
+
   return (
     <div className="card">
       <div className="lobby-buttons">
@@ -19,14 +46,14 @@ export default function PlayerLobbyStatus() {
           <button
             type="button"
             className="btn btn-danger"
-            onClick={() => setIsRunning(false)}>
+            onClick={() => leaveLobby()}>
             Cancel
           </button>
         ) : (
           <button
             type="button"
             className="btn btn-success"
-            onClick={() => setIsRunning(true)}>
+            onClick={() => joinLobby()}>
             Ready
           </button>
         )}

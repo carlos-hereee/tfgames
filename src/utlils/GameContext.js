@@ -5,6 +5,7 @@ export const GameContext = createContext();
 export const GameState = ({ children }) => {
   const initialState = {
     isLoading: false,
+    lobby: {},
     game: {
       name: "",
       status: "",

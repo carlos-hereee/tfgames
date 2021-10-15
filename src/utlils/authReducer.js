@@ -11,7 +11,7 @@ const setError = (state, action) => {
     error: action.payload,
   };
 };
-const setSignUPError = (state, action) => {
+const setSignUpError = (state, action) => {
   return {
     ...state,
     isLoading: false,
@@ -39,7 +39,7 @@ export const reducer = (state, action) => {
     case "SET_ERROR":
       return setError(state, action);
     case "SET_SIGNUP_ERROR":
-      return setSignUPError(state, action);
+      return setSignUpError(state, action);
     case "GET_USER":
       return getUser(state, action);
     case "SET_LOGIN":

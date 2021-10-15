@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import { axiosWithAuth, axiosWithOutAuth, setAccessToken } from "./axios";
+import { axiosWithOutAuth, setAccessToken } from "./axios";
 import { reducer } from "./authReducer";
 export const AuthContext = createContext();
 
@@ -8,7 +8,6 @@ export const AuthState = ({ children }) => {
     isLoading: false,
     error: "",
     signUpError: "",
-    user: {},
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const getAccessToken = async () => {
@@ -59,7 +58,6 @@ export const AuthState = ({ children }) => {
         isLoading: state.isLoading,
         error: state.error,
         signUpError: state.signUpError,
-        user: state.user,
         getAccessToken,
         signIn,
         register,
