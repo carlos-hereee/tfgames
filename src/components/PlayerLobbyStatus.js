@@ -10,6 +10,7 @@ export default function PlayerLobbyStatus({ data }) {
   const [isRunning, setIsRunning] = useState(false);
   const [toggleMenu, setToggleMenu] = useState(false);
   const [isPlayer1, setIsPlayer1] = useState(false);
+  let lobbyId = localStorage.getItem("take-five-id");
 
   useEffect(() => {
     if (isRunning) {
@@ -21,14 +22,10 @@ export default function PlayerLobbyStatus({ data }) {
   const player1 = {
     nickname: "player1",
     uid: "thi-is-player1-uuid",
-    lobbyId: "fcf801eb-3c78-4d55-999a-c2812c2dbd50",
-    lookingForOpponent: true,
   };
   const player2 = {
     nickname: "second player",
     uid: "2222222222",
-    lobbyId: "",
-    lookingForOpponent: true,
   };
   const game = {
     gameName: data,

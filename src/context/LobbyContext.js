@@ -11,19 +11,17 @@ export const LobbyState = ({ children }) => {
   useEffect(() => {
     if (!socket) return;
     socket.on("receive-message", (message) => {
-      console.log(message);
-      // addToLog(message)
+      addToLog(message);
     });
   }, [socket]);
 
   const addToLog = async (message) => {
-    console.log(message);
-    // socket.emit("send-message", message);
-    // dispatch({ type: "IS_LOADING", payload: true });
-    // dispatch({ type: "ADD_TO_LOG", payload: message });
+    dispatch({ type: "IS_LOADING", payload: true });
+    dispatch({ type: "ADD_TO_LOG", payload: message });
   };
   const startSearch = async ({ player, game }) => {
-    console.log(player, game);
+    let lobbyId = localStorage.getItem("take-five-id");
+    player.lobbyId = lobbyId;
     socket.emit("search-match", { player, game });
   };
   return (

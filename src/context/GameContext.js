@@ -1,5 +1,6 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useEffect, useReducer } from "react";
 import { reducer } from "./reducer";
+import { useSocket } from "./SocketContext";
 export const GameContext = createContext();
 
 export const GameState = ({ children }) => {
@@ -10,7 +11,17 @@ export const GameState = ({ children }) => {
     log: [],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const socket = useSocket();
 
+  useEffect(() => {
+    if (!socket) return;
+    socket.on("game-start", (game) => {
+      startGame(game);
+    });
+  }, [socket]);
+  const startGame = (game) => {
+    console.log(game);
+  };
   const toLobby = (game) => {};
   return (
     <GameContext.Provider
