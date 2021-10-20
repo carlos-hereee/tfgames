@@ -20,10 +20,10 @@ function App() {
   const { isLoading, getAccessToken } = useContext(AuthContext);
   const { getPlayer } = useContext(PlayerContext);
   useEffect(() => {
-    if (!accessToken) {
-      getAccessToken();
-    } else {
+    if (accessToken) {
       getPlayer();
+    } else {
+      getAccessToken();
     }
   }, [accessToken]);
   if (isLoading) {
@@ -31,7 +31,7 @@ function App() {
   }
   return (
     <div className="app">
-      <Header />
+      {/* <Header /> */}
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/login" component={Auth} />

@@ -6,23 +6,7 @@ export const GameState = ({ children }) => {
   const initialState = {
     isLoading: false,
     lobby: {},
-    game: {
-      name: "",
-      status: "",
-      playerTurn: "",
-      message: "",
-      roomId: "",
-    },
-    player1: {
-      name: "",
-      uid: "",
-      elo: "",
-    },
-    player2: {
-      name: "",
-      uid: "",
-      elo: "",
-    },
+    game: {},
     log: [],
   };
   const [state, dispatch] = useReducer(reducer, initialState);

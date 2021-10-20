@@ -2,19 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PlayerContext } from "../utlils/PlayerContext";
 import { io } from "socket.io-client";
+import { LobbyContext } from "../utlils/LobbyContext";
+import generate from "project-name-generator";
 
 export default function PlayerLobbyStatus({ data }) {
   const { player } = useContext(PlayerContext);
+  const { addToLobbyLog } = useContext(LobbyContext);
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [toggleMenu, setToggleMenu] = useState(false);
-
-  let socket;
-  socket = io("http://localhost:1200");
-  const enterRoomData = {
-    player: player,
-    gameName: data,
-  };
+  const [lobbyId, setLobbyId] = useState("");
   useEffect(() => {
     if (isRunning) {
       setSeconds(0);
@@ -22,23 +19,6 @@ export default function PlayerLobbyStatus({ data }) {
       return () => window.clearInterval(id);
     }
   }, [isRunning]);
-  useEffect(() => {
-    socket.on("message", (message) => {
-      console.log("message", message);
-    });
-  }, []);
-  const joinLobby = () => {
-    setIsRunning(true);
-    socket.emit("join", enterRoomData, (cb) => {
-      console.log("cb", cb);
-    });
-  };
-  const leaveLobby = () => {
-    setIsRunning(false);
-    socket.emit("leave");
-    socket.off();
-  };
-
   return (
     <div className="card">
       <div className="lobby-buttons">
@@ -46,14 +26,16 @@ export default function PlayerLobbyStatus({ data }) {
           <button
             type="button"
             className="btn btn-danger"
-            onClick={() => leaveLobby()}>
+            // onClick={() => leaveLobby()}
+          >
             Cancel
           </button>
         ) : (
           <button
             type="button"
             className="btn btn-success"
-            onClick={() => joinLobby()}>
+            // onClick={() => joinLobby()}
+          >
             Ready
           </button>
         )}
@@ -68,7 +50,7 @@ export default function PlayerLobbyStatus({ data }) {
       {toggleMenu && (
         <nav className="lobby-toggle-menu">
           <Link to="/">
-            <button className="btn btn-danger">Quit</button>
+            <button className="btn btn-danger">Leave</button>
           </Link>
         </nav>
       )}
