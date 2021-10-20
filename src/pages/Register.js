@@ -3,7 +3,6 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { PlayerContext } from "../context/PlayerContext";
 import { Link } from "react-router-dom";
 import { getToken } from "../utlils/axios";
 import { AuthContext } from "../context/AuthContext";

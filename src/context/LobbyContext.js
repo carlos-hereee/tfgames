@@ -1,14 +1,30 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useEffect, useReducer } from "react";
 import { reducer } from "./lobbyReducer";
+import { useSocket } from "./SocketContext";
 export const LobbyContext = createContext();
 
 export const LobbyState = ({ children }) => {
   const initialState = { isLoading: false, lobby: {}, log: [] };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const socket = useSocket();
 
-  const addToLobbyLog = async (message) => {
-    dispatch({ type: "IS_LOADING", payload: true });
-    dispatch({ type: "ADD_TO_LOG", payload: message });
+  useEffect(() => {
+    if (!socket) return;
+    socket.on("receive-message", (message) => {
+      console.log(message);
+      // addToLog(message)
+    });
+  }, [socket]);
+
+  const addToLog = async (message) => {
+    console.log(message);
+    // socket.emit("send-message", message);
+    // dispatch({ type: "IS_LOADING", payload: true });
+    // dispatch({ type: "ADD_TO_LOG", payload: message });
+  };
+  const startSearch = async ({ player, game }) => {
+    console.log(player, game);
+    socket.emit("search-match", { player, game });
   };
   return (
     <LobbyContext.Provider
@@ -16,7 +32,8 @@ export const LobbyState = ({ children }) => {
         lobby: state.lobby,
         isLoading: state.isLoading,
         log: state.log,
-        addToLobbyLog,
+        addToLog,
+        startSearch,
       }}>
       {children}
     </LobbyContext.Provider>

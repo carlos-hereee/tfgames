@@ -14,13 +14,13 @@ export default function Lobby({ location }) {
   return (
     <section className="lobby">
       <div className="lobby-player">
-        {/* <PlayerCard data={player} /> */}
+        <PlayerCard data={player} />
         <PlayerLobbyStatus data={game} />
       </div>
-      <div className="card mt-3 logger">
+      <div className="card logger">
         <Logger data={log} />
       </div>
-      {opponent?.uid && <PlayerCard data={opponent} />}
+      {/* {opponent?.uid && <PlayerCard data={opponent} />} */}
 
       {/* <PlayerCard data={opponent} /> */}
     </section>
