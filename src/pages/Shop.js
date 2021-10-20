@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Coins from "../components/Coins";
 import Notification from "../components/Notification";
 import { avatarsArray } from "../data/shop";
-import { PlayerContext } from "../utlils/PlayerContext";
+import { PlayerContext } from "../context/PlayerContext";
 
 const Shop = () => {
   const { player, purchaseAvatar, ownedAvatars, setError } =

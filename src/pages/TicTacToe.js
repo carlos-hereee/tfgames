@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useContext } from "react";
-import { PlayerContext } from "../utlils/PlayerContext";
+import { PlayerContext } from "../context/PlayerContext";
 import PlayerCard from "../components/PlayerCard";
 import GameInvitation from "../components/GameInvitation";
 import GameInvitationButton from "../components/GameInvitationButton";

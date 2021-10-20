@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import shortid from "shortid";
-import { PlayerContext } from "../utlils/PlayerContext";
+import { PlayerContext } from "../context/PlayerContext";
 import { randomNum } from "../utlils/usefulFunction";
 import GameInvitation from "./GameInvitation";
 // import RandomName from "./RandomName";

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { PlayerContext } from "../utlils/PlayerContext";
+import { PlayerContext } from "../context/PlayerContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import Notification from "./Notification";

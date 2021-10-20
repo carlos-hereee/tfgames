@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { PlayerContext } from "../utlils/PlayerContext";
+import { PlayerContext } from "../context/PlayerContext";
 import { io } from "socket.io-client";
-import { LobbyContext } from "../utlils/LobbyContext";
+import { LobbyContext } from "../context/LobbyContext";
 import generate from "project-name-generator";
 
 export default function PlayerLobbyStatus({ data }) {

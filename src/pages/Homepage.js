@@ -1,12 +1,12 @@
 // import { useContext } from "react";
-// import { PlayerContext } from "../utlils/PlayerContext";
+// import { PlayerContext } from "../context/PlayerContext";
 import shortid from "shortid";
 import GameMenu from "../components/GameMenu";
 import tictactoeGameboard from "../assets/tictactoeGameboard.svg";
 import { useContext } from "react";
-import { PlayerContext } from "../utlils/PlayerContext";
-import { GameContext } from "../utlils/GameContext";
-import { AuthContext } from "../utlils/AuthContext";
+import { PlayerContext } from "../context/PlayerContext";
+import { GameContext } from "../context/GameContext";
+import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 const games = [

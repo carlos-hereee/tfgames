@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { PlayerState } from "./utlils/PlayerContext";
+import { PlayerState } from "./context/PlayerContext";
 import "./stylesheets/index.scss";
-import { GameState } from "./utlils/GameContext";
-import { AuthState } from "./utlils/AuthContext";
-import { LobbyState } from "./utlils/LobbyContext";
-import { SocketState } from "./utlils/SocketContext";
+import { GameState } from "./context/GameContext";
+import { AuthState } from "./context/AuthContext";
+import { LobbyState } from "./context/LobbyContext";
+import { SocketState } from "./context/SocketContext";
 
 ReactDOM.render(
   <React.StrictMode>

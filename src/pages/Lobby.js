@@ -2,9 +2,9 @@ import PlayerCard from "../components/PlayerCard";
 import PlayerLobbyStatus from "../components/PlayerLobbyStatus";
 import queryString from "query-string";
 import { useContext } from "react";
-import { PlayerContext } from "../utlils/PlayerContext";
+import { PlayerContext } from "../context/PlayerContext";
 import Logger from "../components/Logger";
-import { LobbyContext } from "../utlils/LobbyContext";
+import { LobbyContext } from "../context/LobbyContext";
 
 export default function Lobby({ location }) {
   const { player, opponent } = useContext(PlayerContext);

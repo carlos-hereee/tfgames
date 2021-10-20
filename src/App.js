@@ -10,15 +10,16 @@ import PrivateRoute from "./utlils/PrivateRoute";
 import Register from "./pages/Register";
 import Lobby from "./pages/Lobby";
 import Auth from "./pages/Auth";
-import { AuthContext } from "./utlils/AuthContext";
+import { AuthContext } from "./context/AuthContext";
 import GameMenu from "./components/GameMenu";
 import { accessToken } from "./utlils/axios";
 import Loading from "./components/Loading";
-import { PlayerContext } from "./utlils/PlayerContext";
+import { PlayerContext } from "./context/PlayerContext";
 
 function App() {
   const { isLoading, getAccessToken } = useContext(AuthContext);
   const { getPlayer } = useContext(PlayerContext);
+
   useEffect(() => {
     if (accessToken) {
       getPlayer();

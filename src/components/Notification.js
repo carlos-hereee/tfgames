@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { PlayerContext } from "../utlils/PlayerContext";
+import { PlayerContext } from "../context/PlayerContext";
 
 const Notification = () => {
   const { error } = useContext(PlayerContext);

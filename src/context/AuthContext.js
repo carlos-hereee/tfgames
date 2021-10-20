@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import { axiosWithOutAuth, setAccessToken } from "./axios";
+import { axiosWithOutAuth, setAccessToken } from "../utlils/axios";
 import { reducer } from "./authReducer";
 export const AuthContext = createContext();
 

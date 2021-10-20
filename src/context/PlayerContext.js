@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useReducer } from "react";
-import { axiosWithAuth } from "./axios";
+import { axiosWithAuth } from "../utlils/axios";
 import { reducer } from "./playerReducer";
 
 export const PlayerContext = createContext();
