@@ -29,8 +29,8 @@ export const GameState = ({ children }) => {
     <GameContext.Provider
       value={{
         isLoading: state.isLoading,
-        game: state.game,
         gameStart: state.gameStart,
+        game: state.game,
       }}>
       {children}
     </GameContext.Provider>

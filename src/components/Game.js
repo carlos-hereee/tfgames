@@ -1,13 +1,17 @@
 import React, { useContext } from "react";
-import TicTacToe from "../components/TicTacToe";
 import { GameContext } from "../context/GameContext";
+import TicTacToe from "./games/TicTacToe";
 
 export default function Game() {
   const { game } = useContext(GameContext);
+  const boards = {
+    tictactoe: <TicTacToe />,
+  };
   return (
     <section className="game">
-      <div>
-        <h1>{game.gameName}</h1>
+      <div className="card">
+        <h1>{game.board?.gameName.toUpperCase()}</h1>
+        {boards[game.board?.gameName]}
       </div>
     </section>
   );
