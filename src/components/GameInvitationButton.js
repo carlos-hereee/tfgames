@@ -1,6 +1,6 @@
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { copy } from "../utlils/usefulFunction";
+import { copy } from "../utils/usefulFunction";
 
 const GameInvitationButton = ({ invite }) => (
   <div className="card mb-3 p-1 shadow-sm">

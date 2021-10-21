@@ -1,10 +1,6 @@
 import axios from "axios";
 
-export let accessToken = "";
-export const setAccessToken = (str) => {
-  accessToken = str;
-};
-export const getToken = () => accessToken;
+export let accessToken = localStorage.getItem("access-token");
 export const axiosWithAuth = axios.create({
   baseURL: process.env.REACT_APP_DB_BASE_URL,
   withCredentials: true,

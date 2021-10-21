@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useReducer } from "react";
-import { axiosWithAuth } from "../utlils/axios";
+import { axiosWithAuth } from "../utils/axios";
 import { reducer } from "./playerReducer";
 
 export const PlayerContext = createContext();
@@ -9,7 +9,6 @@ export const PlayerState = ({ children }) => {
     isLoading: false,
     error: [],
     player: {},
-    ownedAvatars: [],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -17,6 +16,7 @@ export const PlayerState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
       const { data } = await axiosWithAuth.get("/users");
+      console.log(data);
       dispatch({ type: "GET_PLAYER", payload: data.message });
     } catch (e) {
       dispatch({ type: "IS_LOADING", payload: false });

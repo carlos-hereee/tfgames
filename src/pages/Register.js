@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { getToken } from "../utlils/axios";
+import { accessToken } from "../utils/axios";
 import { AuthContext } from "../context/AuthContext";
 
 const Schema = Yup.object().shape({
@@ -21,7 +21,7 @@ const Register = ({ history }) => {
   const { register, signUpError } = useContext(AuthContext);
   const [canSeePassword, setCanSeePassword] = useState(false);
   const [canSeeConfirmPassword, setCanConfirmSeePassword] = useState(false);
-  if (getToken()) {
+  if (accessToken) {
     history.push("/dashboard");
   }
   return (

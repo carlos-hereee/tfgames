@@ -1,7 +1,6 @@
 // import { useContext } from "react";
 // import { PlayerContext } from "../context/PlayerContext";
 import shortid from "shortid";
-import GameMenu from "../components/GameMenu";
 import tictactoeGameboard from "../assets/tictactoeGameboard.svg";
 import { useContext } from "react";
 import { PlayerContext } from "../context/PlayerContext";

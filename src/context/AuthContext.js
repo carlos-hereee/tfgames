@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import { axiosWithOutAuth, setAccessToken } from "../utlils/axios";
+import { axiosWithOutAuth } from "../utils/axios";
 import { reducer } from "./authReducer";
 export const AuthContext = createContext();
 
@@ -14,7 +14,8 @@ export const AuthState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
       const { data } = await axiosWithOutAuth.post("/users/refresh-token");
-      setAccessToken(data.accessToken);
+      localStorage.setItem("take-five-player-id", data.user.uid);
+      localStorage.setItem("access-token", data.accessToken);
       dispatch({ type: "IS_LOADING", payload: false });
     } catch {
       dispatch({ type: "IS_LOADING", payload: false });
@@ -27,7 +28,8 @@ export const AuthState = ({ children }) => {
         username,
         password,
       });
-      setAccessToken(data.accessToken);
+      localStorage.setItem("take-five-player-id", data.user.uid);
+      localStorage.setItem("access-token", data.accessToken);
       dispatch({ type: "SET_LOGIN", payload: data.user });
     } catch (e) {
       dispatch({
@@ -43,7 +45,8 @@ export const AuthState = ({ children }) => {
         username,
         password,
       });
-      setAccessToken(data.accessToken);
+      localStorage.setItem("take-five-player-id", data.user.uid);
+      localStorage.setItem("access-token", data.accessToken);
       dispatch({ type: "SET_LOGIN", payload: data.user });
     } catch (e) {
       dispatch({

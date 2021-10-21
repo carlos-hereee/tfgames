@@ -1,10 +1,8 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
-import { AuthContext } from "../context/AuthContext";
+import { accessToken } from "../utils/axios";
 
 const Header = () => {
-  const { user } = useContext(AuthContext);
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,7 +25,7 @@ const Header = () => {
             <Link className="nav-link" aria-current="page" to="/">
               Home
             </Link>
-            {user?.uid ? (
+            {accessToken ? (
               <Link className="nav-link" aria-current="page" to="/dashboard">
                 Dashboard
               </Link>
@@ -36,18 +34,6 @@ const Header = () => {
                 Sign In
               </Link>
             )}
-            {/* {useIsPlayerLoggedIn() ? (
-              <>
-                <Link className="nav-link" href="/dashboard">
-                  Dashboardto</Link>
-                <Link className="nav-link" href="/shop">
-                  Shopto</Link>
-              </>
-            ) : (
-              <Link className="nav-link" href="/login">
-                Loginto Register
-              </Link>
-            )} */}
           </div>
         </div>
       </nav>

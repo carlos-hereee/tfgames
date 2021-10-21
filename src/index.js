@@ -1,28 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import App from "./App";
-import { PlayerState } from "./context/PlayerContext";
-import "./stylesheets/index.scss";
 import { GameState } from "./context/GameContext";
 import { AuthState } from "./context/AuthContext";
 import { LobbyState } from "./context/LobbyContext";
-import { SocketState } from "./context/SocketContext";
+import { PlayerState } from "./context/PlayerContext";
+import App from "./App";
+import "./stylesheets/index.scss";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <SocketState>
-        <AuthState>
-          <PlayerState>
-            <LobbyState>
-              <GameState>
-                <App />
-              </GameState>
-            </LobbyState>
-          </PlayerState>
-        </AuthState>
-      </SocketState>
+      <AuthState>
+        <PlayerState>
+          <LobbyState>
+            <GameState>
+              <App />
+            </GameState>
+          </LobbyState>
+        </PlayerState>
+      </AuthState>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

@@ -6,7 +6,7 @@ import GameInvitation from "./GameInvitation";
 import GameInvitationButton from "./GameInvitationButton";
 import { gameResult } from "./winCondition";
 import GameResultModal from "./GameResultModal";
-import { isPlayer1 } from "../utlils/usefulFunction";
+import { isPlayer1 } from "../utils/usefulFunction";
 
 const TicTacToe = ({ history }) => {
   const {

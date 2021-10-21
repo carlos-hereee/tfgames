@@ -7,10 +7,10 @@ export const useSocket = () => useContext(SocketContext);
 export const SocketState = ({ children }) => {
   const [socket, setSocket] = useState();
   useEffect(() => {
-    let serverId = localStorage.getItem("take-five-id");
+    let serverId = localStorage.getItem("take-five-player-id");
     if (serverId === null) {
       const newId = uuidv4();
-      localStorage.setItem("take-five-id", newId);
+      localStorage.setItem("take-five-player-id", newId);
       serverId = newId;
     }
     const newSocket = io("http://localhost:1200", {

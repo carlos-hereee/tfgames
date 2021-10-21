@@ -4,12 +4,12 @@ import { AuthContext } from "../context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { getToken } from "../utlils/axios";
+import { accessToken } from "../utils/axios";
 
 const Auth = ({ history }) => {
   const { signIn, error } = useContext(AuthContext);
   const [canSeePassword, setCanSeePassword] = useState(false);
-  if (getToken()) {
+  if (accessToken) {
     history.push("/dashboard");
   }
   return (
