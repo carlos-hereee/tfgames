@@ -7,19 +7,22 @@ import { LobbyState } from "./context/LobbyContext";
 import { PlayerState } from "./context/PlayerContext";
 import App from "./App";
 import "./stylesheets/index.scss";
+import { SocketState } from "./context/SocketContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthState>
-        <PlayerState>
-          <LobbyState>
-            <GameState>
-              <App />
-            </GameState>
-          </LobbyState>
-        </PlayerState>
-      </AuthState>
+      <SocketState>
+        <AuthState>
+          <PlayerState>
+            <LobbyState>
+              <GameState>
+                <App />
+              </GameState>
+            </LobbyState>
+          </PlayerState>
+        </AuthState>
+      </SocketState>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

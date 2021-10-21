@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Switch, Route } from "react-router-dom";
 import Header from "./pages/Header";
 import Footer from "./pages/Footer";
@@ -10,17 +10,10 @@ import Lobby from "./pages/Lobby";
 import Auth from "./pages/Auth";
 import { AuthContext } from "./context/AuthContext";
 import Loading from "./components/Loading";
-import { PlayerContext } from "./context/PlayerContext";
-import { accessToken } from "./utils/axios";
 
 function App() {
   const { isLoading } = useContext(AuthContext);
-  const { getPlayer } = useContext(PlayerContext);
-  useEffect(() => {
-    if (accessToken) {
-      getPlayer();
-    }
-  }, [accessToken]);
+
   if (isLoading) {
     return <Loading />;
   }

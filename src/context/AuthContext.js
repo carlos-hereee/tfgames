@@ -14,7 +14,7 @@ export const AuthState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
       const { data } = await axiosWithOutAuth.post("/users/refresh-token");
-      localStorage.setItem("take-five-player-id", data.user.uid);
+      localStorage.setItem("take-five-player", data.user);
       localStorage.setItem("access-token", data.accessToken);
       dispatch({ type: "IS_LOADING", payload: false });
     } catch {
@@ -28,7 +28,7 @@ export const AuthState = ({ children }) => {
         username,
         password,
       });
-      localStorage.setItem("take-five-player-id", data.user.uid);
+      localStorage.setItem("take-five-player", data.user);
       localStorage.setItem("access-token", data.accessToken);
       dispatch({ type: "SET_LOGIN", payload: data.user });
     } catch (e) {
@@ -45,7 +45,7 @@ export const AuthState = ({ children }) => {
         username,
         password,
       });
-      localStorage.setItem("take-five-player-id", data.user.uid);
+      localStorage.setItem("take-five-player", data.user);
       localStorage.setItem("access-token", data.accessToken);
       dispatch({ type: "SET_LOGIN", payload: data.user });
     } catch (e) {

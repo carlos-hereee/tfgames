@@ -18,6 +18,13 @@ const getPlayer = (state, action) => {
     player: action.payload,
   };
 };
+const saveLocalPlayer = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    player: action.payload,
+  };
+};
 
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -27,6 +34,8 @@ export const reducer = (state, action) => {
       return setError(state, action);
     case "GET_PLAYER":
       return getPlayer(state, action);
+    case "SAVE_LOCAL_PLAYER":
+      return saveLocalPlayer(state, action);
     default:
       return state;
   }

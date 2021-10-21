@@ -1,23 +1,19 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { v4 as uuidv4 } from "uuid";
 
 export const SocketContext = createContext();
 export const useSocket = () => useContext(SocketContext);
 export const SocketState = ({ children }) => {
   const [socket, setSocket] = useState();
   useEffect(() => {
-    let serverId = localStorage.getItem("take-five-player-id");
-    if (serverId === null) {
-      const newId = uuidv4();
-      localStorage.setItem("take-five-player-id", newId);
-      serverId = newId;
+    let id = localStorage.getItem("take-five-player-id");
+    if (id) {
+      const newSocket = io("http://localhost:1200", {
+        query: { id },
+      });
+      setSocket(newSocket);
+      return () => newSocket.close();
     }
-    const newSocket = io("http://localhost:1200", {
-      query: { id: serverId },
-    });
-    setSocket(newSocket);
-    return () => newSocket.close();
   }, []);
 
   return (
