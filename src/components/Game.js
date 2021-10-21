@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { GameContext } from "../context/GameContext";
 import TicTacToe from "./games/TicTacToe";
+import PlayerCard from "./PlayerCard";
 
 export default function Game() {
   const { game } = useContext(GameContext);
@@ -11,7 +12,17 @@ export default function Game() {
     <section className="game">
       <div className="card">
         <h1>{game.board?.gameName.toUpperCase()}</h1>
-        {boards[game.board?.gameName]}
+        <div className="game-content">
+          {boards[game.board?.gameName]}
+          <div className="game-players">
+            <div className={game.turn === "player1" && "glow"}>
+              <PlayerCard data={game.player1} />
+            </div>
+            <div className={game.turn === "player2" && "glow"}>
+              <PlayerCard data={game.player2} />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
