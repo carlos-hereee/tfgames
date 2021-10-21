@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useContext } from "react";
 import { PlayerContext } from "../context/PlayerContext";
-import PlayerCard from "../components/PlayerCard";
-import GameInvitation from "../components/GameInvitation";
-import GameInvitationButton from "../components/GameInvitationButton";
-import { gameResult } from "../components/winCondition";
-import GameResultModal from "../components/GameResultModal";
+import PlayerCard from "./PlayerCard";
+import GameInvitation from "./GameInvitation";
+import GameInvitationButton from "./GameInvitationButton";
+import { gameResult } from "./winCondition";
+import GameResultModal from "./GameResultModal";
 import { isPlayer1 } from "../utlils/usefulFunction";
 
 const TicTacToe = ({ history }) => {

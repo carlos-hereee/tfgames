@@ -5,24 +5,26 @@ import { useContext } from "react";
 import { PlayerContext } from "../context/PlayerContext";
 import Logger from "../components/Logger";
 import { LobbyContext } from "../context/LobbyContext";
+import { GameContext } from "../context/GameContext";
+import Game from "../components/Game";
 
 export default function Lobby({ location }) {
-  const { player, opponent } = useContext(PlayerContext);
-  const { lobby, log } = useContext(LobbyContext);
-  const { game } = queryString.parse(location.search);
+  const { player } = useContext(PlayerContext);
+  const { log } = useContext(LobbyContext);
+  const { name } = queryString.parse(location.search);
+  const { gameStart } = useContext(GameContext);
 
-  return (
+  return gameStart ? (
+    <Game />
+  ) : (
     <section className="lobby">
       <div className="lobby-player">
         <PlayerCard data={player} />
-        <PlayerLobbyStatus data={game} />
+        <PlayerLobbyStatus data={name} />
       </div>
       <div className="card logger">
         <Logger data={log} />
       </div>
-      {/* {opponent?.uid && <PlayerCard data={opponent} />} */}
-
-      {/* <PlayerCard data={opponent} /> */}
     </section>
   );
 }
