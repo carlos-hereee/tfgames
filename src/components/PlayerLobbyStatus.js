@@ -10,7 +10,6 @@ export default function PlayerLobbyStatus({ data }) {
   const [isRunning, setIsRunning] = useState(false);
   const [toggleMenu, setToggleMenu] = useState(false);
 
-  console.log(player);
   useEffect(() => {
     if (isRunning) {
       setSeconds(0);
@@ -33,7 +32,7 @@ export default function PlayerLobbyStatus({ data }) {
           <button
             type="button"
             className="btn btn-success"
-            onClick={() => startSearch(data, player)}>
+            onClick={() => startSearch({ player, game: data })}>
             Ready
           </button>
         )}

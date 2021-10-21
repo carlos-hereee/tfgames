@@ -11,7 +11,7 @@ import Game from "../components/Game";
 export default function Lobby({ location }) {
   const { player } = useContext(PlayerContext);
   const { log } = useContext(LobbyContext);
-  const { name } = queryString.parse(location.search);
+  const { game } = queryString.parse(location.search);
   const { gameStart } = useContext(GameContext);
 
   return gameStart ? (
@@ -20,7 +20,7 @@ export default function Lobby({ location }) {
     <section className="lobby">
       <div className="lobby-player">
         <PlayerCard data={player} />
-        <PlayerLobbyStatus data={name} />
+        <PlayerLobbyStatus data={game} />
       </div>
       <div className="card logger">
         <Logger data={log} />

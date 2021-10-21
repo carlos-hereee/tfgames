@@ -14,10 +14,13 @@ export const GameState = ({ children }) => {
 
   useEffect(() => {
     if (!socket) return;
-    socket.on("game-start", (game) => {
-      startGame(game);
-    });
+    socket.on("game-start", (game) => startGame(game));
+    socket.on("game-data", (game) => updateGameData(game));
   }, [socket]);
+  const updateGameData = (game) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    dispatch({ type: "GAME_UPDATE", payload: game });
+  };
   const startGame = (game) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_START", payload: game });

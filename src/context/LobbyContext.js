@@ -20,8 +20,6 @@ export const LobbyState = ({ children }) => {
     dispatch({ type: "ADD_TO_LOG", payload: message });
   };
   const startSearch = async ({ player, game }) => {
-    let lobbyId = localStorage.getItem("take-five-id");
-    player.lobbyId = lobbyId;
     socket.emit("search-match", { player, game });
   };
   return (

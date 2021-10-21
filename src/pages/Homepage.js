@@ -1,11 +1,5 @@
-// import { useContext } from "react";
-// import { PlayerContext } from "../context/PlayerContext";
 import shortid from "shortid";
 import tictactoeGameboard from "../assets/tictactoeGameboard.svg";
-import { useContext } from "react";
-import { PlayerContext } from "../context/PlayerContext";
-import { GameContext } from "../context/GameContext";
-import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 const games = [
@@ -16,12 +10,9 @@ const games = [
   },
 ];
 const Homepage = () => {
-  // const { player } = useContext(PlayerContext);
-  // const { toLobby } = useContext(GameContext);
   const image = {
     tictactoeGameboard,
   };
-  const handleClick = (g) => {};
   return (
     <main className="homepage">
       {games.map((game) => (
@@ -29,13 +20,8 @@ const Homepage = () => {
           to={`/lobby?game=${game.name}`}
           key={game.key}
           className="game-card">
-          <button
-            type="button"
-            onClick={() => handleClick(game)}
-            className="button-transparent">
-            <h2>{game.name.toUpperCase()}</h2>
-            <img src={image[game.imageName]} alt={game.imageName} />
-          </button>
+          <h2>{game.name.toUpperCase()}</h2>
+          <img src={image[game.imageName]} alt={game.imageName} />
         </Link>
       ))}
     </main>
