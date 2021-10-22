@@ -15,10 +15,10 @@ export default function Game() {
         <div className="game-content">
           {boards[game.gameName]}
           <div className="game-players">
-            <div className={game.turn === "player1" && "glow"}>
+            <div className={game.turn === "player1" ? "glow" : ""}>
               <PlayerCard data={game.player1} />
             </div>
-            <div className={game.turn === "player2" && "glow"}>
+            <div className={game.turn === "player2" ? "glow" : ""}>
               <PlayerCard data={game.player2} />
             </div>
           </div>

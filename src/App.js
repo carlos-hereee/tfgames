@@ -19,7 +19,7 @@ function App() {
   }
   return (
     <div className="app">
-      <Header />
+      {/* <Header /> */}
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/login" component={Auth} />
