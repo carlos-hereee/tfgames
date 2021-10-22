@@ -7,6 +7,7 @@ const isLoading = (state, action) => {
 const gameStart = (state, action) => {
   return {
     ...state,
+    isLoading: false,
     game: action.payload,
     gameStart: true,
   };
@@ -14,8 +15,16 @@ const gameStart = (state, action) => {
 const gameUpdate = (state, action) => {
   return {
     ...state,
+    isLoading: false,
     game: action.payload,
     gameStart: true,
+  };
+};
+const postResult = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    gameResult: action.payload,
   };
 };
 export const reducer = (state, action) => {
@@ -26,6 +35,8 @@ export const reducer = (state, action) => {
       return gameStart(state, action);
     case "GAME_UPDATE":
       return gameUpdate(state, action);
+    case "POST_RESULT":
+      return postResult(state, action);
     default:
       return state;
   }

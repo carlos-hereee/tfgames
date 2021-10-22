@@ -12,7 +12,6 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  cursor: pointer;
 }
 .tictactoe {
   .x-1 {
@@ -45,10 +44,6 @@
 }
 .y-3 {
   grid-row: 3;
-}
-.exes,
-.circle {
-  cursor: not-allowed;
 }
 .exes::before,
 .exes::after {
@@ -111,4 +106,8 @@
   width: 5rem;
   height: 5rem;
   background-color: white;
+}
+.board .exes,
+.board .circle {
+  cursor: not-allowed;
 }

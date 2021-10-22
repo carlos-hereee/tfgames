@@ -1,24 +1,18 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { GameContext } from "../../context/GameContext";
 import { PlayerContext } from "../../context/PlayerContext";
 
 const TicTacToe = () => {
-  const { game, placeMark } = useContext(GameContext);
+  const { game, placeMark, gameResult } = useContext(GameContext);
   const { player } = useContext(PlayerContext);
-  const [turn, setTurn] = useState(false);
   const isPlayer1 = player.uid === game.players.player1.uid ? true : false;
   const isPlayer2 = player.uid === game.players.player2.uid ? true : false;
 
-  useEffect(() => {
-    if (game.turnCount) {
-      setTurn(!turn);
-    }
-  }, [game.turnCount]);
   const checkLegalMove = (cell) => {
-    if (game.turn === "player1" && isPlayer1) {
+    if (cell.isEmpty && game.turn === "player1" && isPlayer1 && !gameResult) {
       placeMark(game, cell);
     }
-    if (game.turn === "player2" && isPlayer2) {
+    if (cell.isEmpty && game.turn === "player2" && isPlayer2 && !gameResult) {
       placeMark(game, cell);
     }
   };
