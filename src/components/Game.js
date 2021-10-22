@@ -11,9 +11,9 @@ export default function Game() {
   return (
     <section className="game">
       <div className="card">
-        <h1>{game.board?.gameName.toUpperCase()}</h1>
+        <h1>{game.gameName.toUpperCase()}</h1>
         <div className="game-content">
-          {boards[game.board?.gameName]}
+          {boards[game.gameName]}
           <div className="game-players">
             <div className={game.turn === "player1" && "glow"}>
               <PlayerCard data={game.player1} />

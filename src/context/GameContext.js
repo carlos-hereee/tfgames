@@ -25,12 +25,16 @@ export const GameState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_START", payload: game });
   };
+  const placeMark = (game, cell) => {
+    socket.emit("place-mark", { game, cell });
+  };
   return (
     <GameContext.Provider
       value={{
         isLoading: state.isLoading,
         gameStart: state.gameStart,
         game: state.game,
+        placeMark,
       }}>
       {children}
     </GameContext.Provider>

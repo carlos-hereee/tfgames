@@ -12,9 +12,7 @@ const PlayerCard = ({ data }) => {
         />
       </div>
       <h3 className="card-title">
-        {data?.nickname?.toUpperCase() ||
-          data?.username?.toUpperCase() ||
-          generator({ words: 2 }).spaced}
+        {data?.nickname?.toUpperCase() || generator({ words: 2 }).spaced}
       </h3>
       {data?.elo && <p>{data.elo}</p>}
     </div>
