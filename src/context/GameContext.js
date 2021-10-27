@@ -9,6 +9,7 @@ export const GameState = ({ children }) => {
     gameStart: false,
     game: {},
     gameResult: "",
+    rematchResponse: "",
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const socket = useSocket();
@@ -18,7 +19,12 @@ export const GameState = ({ children }) => {
     socket.on("game-start", (game) => startGame(game));
     socket.on("game-data", (game) => updateGameData(game));
     socket.on("game-results", (res) => postResults(res));
+    socket.on("rematch-response", (res) => rematchResponse(res));
   }, [socket]);
+  const rematchResponse = (res) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    dispatch({ type: "REMATCH_RESPONSE", payload: res });
+  };
   const updateGameData = (game) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_UPDATE", payload: game });
@@ -34,6 +40,14 @@ export const GameState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "POST_RESULT", payload: result });
   };
+  const emitRequestRematch = (player, game) => {
+    socket.emit("request-rematch", { player, game });
+  };
+  const resetRematch = () => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    dispatch({ type: "REMATCH_RESPONSE", payload: "" });
+    dispatch({ type: "POST_RESULT", payload: "" });
+  };
   return (
     <GameContext.Provider
       value={{
@@ -41,7 +55,10 @@ export const GameState = ({ children }) => {
         gameStart: state.gameStart,
         game: state.game,
         gameResult: state.gameResult,
+        rematchResponse: state.rematchResponse,
         placeMark,
+        emitRequestRematch,
+        resetRematch,
       }}>
       {children}
     </GameContext.Provider>

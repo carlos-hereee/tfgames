@@ -27,6 +27,13 @@ const postResult = (state, action) => {
     gameResult: action.payload,
   };
 };
+const rematchResponse = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    rematchResponse: action.payload,
+  };
+};
 export const reducer = (state, action) => {
   switch (action.type) {
     case "IS_LOADING":
@@ -37,6 +44,8 @@ export const reducer = (state, action) => {
       return gameUpdate(state, action);
     case "POST_RESULT":
       return postResult(state, action);
+    case "REMATCH_RESPONSE":
+      return rematchResponse(state, action);
     default:
       return state;
   }
