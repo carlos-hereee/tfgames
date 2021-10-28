@@ -4,14 +4,6 @@ const isLoading = (state, action) => {
     isLoading: action.payload,
   };
 };
-const gameStart = (state, action) => {
-  return {
-    ...state,
-    isLoading: false,
-    game: action.payload,
-    gameStart: true,
-  };
-};
 const gameUpdate = (state, action) => {
   return {
     ...state,
@@ -38,8 +30,6 @@ export const reducer = (state, action) => {
   switch (action.type) {
     case "IS_LOADING":
       return isLoading(state, action);
-    case "GAME_START":
-      return gameStart(state, action);
     case "GAME_UPDATE":
       return gameUpdate(state, action);
     case "POST_RESULT":

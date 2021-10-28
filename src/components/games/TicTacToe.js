@@ -1,28 +1,38 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { GameContext } from "../../context/GameContext";
 import { PlayerContext } from "../../context/PlayerContext";
 
-const TicTacToe = () => {
+const TicTacToe = ({ isPlayer1, isPlayer2 }) => {
   const { game, placeMark, gameResult } = useContext(GameContext);
   const { player } = useContext(PlayerContext);
-  const [isPlayer1, setIsPlayer1] = useState(
-    player.uid === game.players.player1.uid ? true : false
-  );
-  const [isPlayer2, setIsPlayer2] = useState(
-    player.uid === game.players.player2.uid ? true : false
-  );
-  useEffect(() => {
-    if (game.round) {
-      setIsPlayer1(player.uid === game.players.player1.uid ? true : false);
-      setIsPlayer2(player.uid === game.players.player2.uid ? true : false);
-    }
-  }, [game.round]);
+
   const checkLegalMove = (cell) => {
-    if (cell.isEmpty && game.turn === "player1" && isPlayer1 && !gameResult) {
-      placeMark(game, cell);
-    }
-    if (cell.isEmpty && game.turn === "player2" && isPlayer2 && !gameResult) {
-      placeMark(game, cell);
+    if (!gameResult) {
+      // console.log(
+      //   ` I am ${isPlayer1 ? "player1" : "player2"} my cell ${
+      //     cell.isEmpty
+      //       ? "empty"
+      //       : `has ${
+      //           cell.content === player.uid ? "my id " : "my opponents id"
+      //         }`
+      //   }  its ${game.turn}'s turn,  the winner is: ${gameResult}`
+      // );
+      // console.log(
+      //   ` I am ${isPlayer2 ? "player2" : "player1"} my cell ${
+      //     cell.isEmpty
+      //       ? "empty"
+      //       : `has ${
+      //           cell.content === player.uid ? "my id " : "my opponents id"
+      //         }`
+      //   }  its ${game.turn}'s turn,  the winner is: ${gameResult}`
+      // );
+      if (cell.isEmpty && game.turn === "player1" && isPlayer1) {
+        console.log("mark");
+        placeMark(game, cell, player);
+      }
+      if (cell.isEmpty && game.turn === "player2" && isPlayer2) {
+        placeMark(game, cell, player);
+      }
     }
   };
   return (
@@ -34,9 +44,15 @@ const TicTacToe = () => {
             onClick={() => checkLegalMove(cell)}
             className={`cell x-${cell.positionX} y-${cell.positionY} ${
               isPlayer1 ? "player1" : ""
-            }${!isPlayer1 ? "player2" : ""}
-            ${cell.content === "player1" ? "exes" : ""} ${
-              cell.content === "player2" ? "circle" : ""
+            }${isPlayer2 ? "player2" : ""}
+            ${
+              cell.content && game.players.player1.uid === cell.content
+                ? "exes"
+                : ""
+            } ${
+              cell.content && game.players.player2.uid === cell.content
+                ? "circle"
+                : ""
             }`}
           />
         ))}

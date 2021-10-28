@@ -7,23 +7,14 @@ import GameResultModal from "./GameResultModal";
 import Loading from "./Loading";
 
 export default function Game() {
-  const {
-    game,
-    gameResult,
-    emitRequestRematch,
-    rematchResponse,
-    resetRematch,
-  } = useContext(GameContext);
+  const { game, gameResult, emitRequestRematch, rematchResponse } =
+    useContext(GameContext);
   const { player } = useContext(PlayerContext);
   const [modalContent, setModalContent] = useState({});
-  const [isPlayer1, setIsPlayer1] = useState(
-    player.uid === game.players.player1.uid ? true : false
-  );
-  const [isPlayer2, setIsPlayer2] = useState(
-    player.uid === game.players.player2.uid ? true : false
-  );
   const [show, setShow] = useState(true);
-
+  let isPlayer1 = player.uid === game.players?.player1?.uid ? true : false;
+  let isPlayer2 = player.uid === game.players?.player2?.uid ? true : false;
+  console.log(game.players);
   useEffect(() => {
     if (gameResult === "draw") {
       setModalContent({
@@ -52,7 +43,6 @@ export default function Game() {
       if (rematchResponse === "Starting match") {
         setShow(false);
         setModalContent({ show: false });
-        resetRematch();
       } else {
         setModalContent({
           show,
@@ -62,14 +52,9 @@ export default function Game() {
       }
     }
   }, [rematchResponse]);
-  useEffect(() => {
-    if (game.round) {
-      setIsPlayer1(player.uid === game.players.player1.uid ? true : false);
-      setIsPlayer2(player.uid === game.players.player2.uid ? true : false);
-    }
-  }, [game.round]);
+
   const boards = {
-    tictactoe: <TicTacToe />,
+    tictactoe: <TicTacToe isPlayer1={isPlayer1} isPlayer2={isPlayer2} />,
   };
   const handleRequestRematch = () => {
     emitRequestRematch(player, game);
@@ -83,8 +68,12 @@ export default function Game() {
         requestRematch={(rematch) => handleRequestRematch(rematch)}
       />
       <div className="card">
-        <h1>{game.gameName.toUpperCase()}</h1>
-        <div className="game-content">
+        <div className="card-header d-flex justify-content-around align-items-center">
+          <p> {game.round} </p>
+          <h1 className="text-center">{game.gameName?.toUpperCase()} </h1>
+          <p> {game.round} </p>
+        </div>
+        <div className="game-content mt-2">
           <div>{boards[game.gameName]}</div>
           <div className="game-players">
             <div className={game.turn === "player1" ? "glow" : ""}>

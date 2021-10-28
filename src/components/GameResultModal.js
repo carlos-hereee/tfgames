@@ -20,6 +20,7 @@ const GameResultModal = ({ data, modalShow, requestRematch }) => {
           </div>
           <div className="modal-body">{data.message}</div>
           <div className="modal-footer">
+            {/* TODO: if opponent is still in the room rematch else say opponent let */}
             <button
               type="button"
               className="btn btn-secondary"
