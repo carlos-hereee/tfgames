@@ -14,7 +14,6 @@ export default function Game() {
   const [show, setShow] = useState(true);
   let isPlayer1 = player.uid === game.players?.player1?.uid ? true : false;
   let isPlayer2 = player.uid === game.players?.player2?.uid ? true : false;
-  console.log(game.players);
   useEffect(() => {
     if (gameResult === "draw") {
       setModalContent({
@@ -87,12 +86,4 @@ export default function Game() {
       </div>
     </section>
   );
-}
-
-{
-  /* {gameResult && gameResult === "player1" && isPlayer1 ? (
-  <GameOptions data={player1Won} />
-) : (
-  <GameOptions data={player2Won} />
-)} */
 }

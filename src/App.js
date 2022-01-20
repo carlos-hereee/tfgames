@@ -10,6 +10,7 @@ import Lobby from "./pages/Lobby";
 import Auth from "./pages/Auth";
 import { AuthContext } from "./context/AuthContext";
 import Loading from "./components/Loading";
+import OnlineNav from "./components/OnlineNav";
 
 function App() {
   const { isLoading } = useContext(AuthContext);
@@ -20,6 +21,7 @@ function App() {
   return (
     <div className="app">
       {/* <Header /> */}
+      <OnlineNav />
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/login" component={Auth} />
