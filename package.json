@@ -2,6 +2,7 @@
   "name": "take-five",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@dicebear/avatars": "^4.7.2",
     "@dicebear/avatars-female-sprites": "^4.7.2",
