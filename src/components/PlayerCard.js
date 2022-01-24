@@ -1,30 +1,20 @@
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
-import { PlayerContext } from "../utlils/PlayerContext";
+import generator from "project-name-generator";
+import defaultAvatar from "../assets/logo.svg";
 
 const PlayerCard = ({ data }) => {
-  const { player, playerReady, room } = useContext(PlayerContext);
   return (
-    <div
-      className={`card mb-4 p-1 shadow-sm ${
-        data.ready ? "ready" : "not-ready"
-      }`}>
-      <div className="card-body">
-        <h3 className="card-title">{data.playerName}</h3>
-        <p className="card-text">Playing as {data.playerWeapon}</p>
+    <div className="card">
+      <div className="avatar-frame">
+        <img
+          src={data?.avatarSrc || defaultAvatar}
+          alt="player avatar"
+          className="avatar"
+        />
       </div>
-      {/* if ready check needed show footer */}
-      <div className="card-footer">
-        {!room.gameStart && room.player1Ready && room.player2Ready && (
-          <button
-            className="btn btn-primary m-auto"
-            onClick={() => playerReady(room, data.playerUuid)}
-            disabled={data.ready || player.playerUuid === data.playerUuid}>
-            Ready {data.ready && <FontAwesomeIcon icon={faCheckCircle} />}
-          </button>
-        )}
-      </div>
+      <h3 className="card-title">
+        {data?.nickname?.toUpperCase() || generator({ words: 2 }).spaced}
+      </h3>
+      {data?.elo && <p>{data.elo}</p>}
     </div>
   );
 };

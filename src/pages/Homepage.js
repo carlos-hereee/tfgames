@@ -1,12 +1,29 @@
-// import { useContext } from "react";
-// import { PlayerContext } from "../utlils/PlayerContext";
-import GameMenu from "../components/GameMenu";
+import shortid from "shortid";
+import tictactoeGameboard from "../assets/tictactoeGameboard.svg";
+import { Link } from "react-router-dom";
 
+const games = [
+  {
+    name: "tictactoe",
+    key: shortid.generate(),
+    imageName: "tictactoeGameboard",
+  },
+];
 const Homepage = () => {
-  // const { player } = useContext(PlayerContext);
+  const image = {
+    tictactoeGameboard,
+  };
   return (
-    <main>
-      <GameMenu />
+    <main className="homepage">
+      {games.map((game) => (
+        <Link
+          to={`/lobby?game=${game.name}`}
+          key={game.key}
+          className="game-card">
+          <h2>{game.name.toUpperCase()}</h2>
+          <img src={image[game.imageName]} alt={game.imageName} />
+        </Link>
+      ))}
     </main>
   );
 };

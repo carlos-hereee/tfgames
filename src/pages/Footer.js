@@ -1,7 +1,7 @@
 const Footer = () => (
-  <footer className="text-muted">
+  <footer className="footer text-muted">
     <div className="container">
-      <small>ManiGames © {new Date().getFullYear()}</small>
+      <small>Take Five © {new Date().getFullYear()}</small>
     </div>
   </footer>
 );

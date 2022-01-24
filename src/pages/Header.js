@@ -1,12 +1,17 @@
-const Header = () => (
-  <header>
-    <div className="jumbotron">
+import { Link } from "react-router-dom";
+import logo from "../assets/logo.svg";
+import { accessToken } from "../utils/axios";
+
+const Header = () => {
+  return (
+    <header>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a href="/" className="navbar-brand">
+        <Link to="/" className="header-logo">
+          <img src={logo} alt="logo - controller" />
           <h1 className="display-4">Take Five</h1>
-        </a>
+        </Link>
         <button
-          className="navbar-toggler"
+          className="navbar-toggler btn"
           type="button"
           data-toggle="collapse"
           data-target="#navbarNavAltMarkup"
@@ -17,19 +22,22 @@ const Header = () => (
         </button>
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav">
-            <a className="nav-link active" aria-current="page" href="/">
+            <Link className="nav-link" aria-current="page" to="/">
               Home
-            </a>
-            {/* <a className="nav-link" href="/profile">
-              Profile
-            </a>
-            <a className="nav-link" href="/leaderboard">
-              Leaderboard
-            </a> */}
+            </Link>
+            {accessToken ? (
+              <Link className="nav-link" aria-current="page" to="/dashboard">
+                Dashboard
+              </Link>
+            ) : (
+              <Link className="nav-link" aria-current="page" to="/login">
+                Sign In
+              </Link>
+            )}
           </div>
         </div>
       </nav>
-    </div>
-  </header>
-);
+    </header>
+  );
+};
 export default Header;

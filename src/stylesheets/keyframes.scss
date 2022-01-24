@@ -1,0 +1,14 @@
+// fade in and out animation for notifications
+@keyframes fadeOut {
+  0% {
+    transform: translateY(4rem);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+  }
+}

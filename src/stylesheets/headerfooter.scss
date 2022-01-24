@@ -1,0 +1,34 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  background-color: #f3f5f5;
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  color: black;
+  text-decoration: none;
+  @media #{$mobile} {
+    display: none;
+  }
+  &:active {
+    text-decoration: none;
+    color: black;
+  }
+  &:hover {
+    text-decoration: none;
+    color: black;
+  }
+}
+.footer {
+  min-height: rem;
+  margin-top: auto;
+}
+.nav-online {
+  width: 100%;
+  background-color: cadetblue;
+  
+}
