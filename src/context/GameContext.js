@@ -16,7 +16,7 @@ export const GameState = ({ children }) => {
 
   useEffect(() => {
     if (!socket) return;
-    socket.on("game-start", (game) => updateGameData(game));
+    socket.on("game-start", (game) => updateGameStart(game));
     socket.on("game-data", (game) => updateGameData(game));
     socket.on("game-results", (res) => postResults(res));
     socket.on("rematch-response", (res) => rematchResponse(res));
@@ -33,6 +33,10 @@ export const GameState = ({ children }) => {
   const rematchResponse = (res) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "REMATCH_RESPONSE", payload: res });
+  };
+  const updateGameStart = (game) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    dispatch({ type: "GAME_START", payload: game });
   };
   const updateGameData = (game) => {
     dispatch({ type: "IS_LOADING", payload: true });

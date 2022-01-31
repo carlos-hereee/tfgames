@@ -8,6 +8,17 @@ const gameUpdate = (state, action) => {
   return {
     ...state,
     isLoading: false,
+    game: {
+      ...state.game,
+      board: action.payload,
+    },
+    gameStart: true,
+  };
+};
+const gameStart = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
     game: action.payload,
     gameStart: true,
   };
@@ -32,6 +43,8 @@ export const reducer = (state, action) => {
       return isLoading(state, action);
     case "GAME_UPDATE":
       return gameUpdate(state, action);
+    case "GAME_START":
+      return gameStart(state, action);
     case "POST_RESULT":
       return postResult(state, action);
     case "REMATCH_RESPONSE":
