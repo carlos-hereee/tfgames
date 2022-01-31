@@ -1,8 +1,11 @@
-import React, { createContext, useEffect, useReducer } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { createContext, useEffect, useReducer, useState } from "react";
+import GameResultModal from "../components/GameResultModal";
+import Loading from "../components/Loading";
 import { reducer } from "./GameReducer";
 import { useSocket } from "./SocketContext";
-export const GameContext = createContext();
 
+export const GameContext = createContext();
 export const GameState = ({ children }) => {
   const initialState = {
     isLoading: false,
@@ -11,9 +14,10 @@ export const GameState = ({ children }) => {
     gameResult: "",
     rematchResponse: "",
   };
+  const [modalContent, setModalContent] = useState({});
+  const [show, setShow] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
   const socket = useSocket();
-
   useEffect(() => {
     if (!socket) return;
     socket.on("game-start", (game) => updateGameStart(game));
@@ -22,6 +26,31 @@ export const GameState = ({ children }) => {
     socket.on("rematch-response", (res) => rematchResponse(res));
     socket.on("game-reset-response", (res) => gameResetResponse(res));
   }, [socket]);
+
+  useEffect(() => {
+    const { result } = state.gameResult;
+    if (result) {
+      setShow(true);
+      if (result === "draw") setModalContent({ title: result });
+      if (result === "win") setModalContent({ title: "Victory!" });
+      if (result === "lose") setModalContent({ title: "Defeat!" });
+    }
+  }, [state.gameResult.result]);
+  //  useEffect(() => {
+  //    if (rematchResponse) {
+  //      if (rematchResponse === "Starting match") {
+  //        setShow(false);
+  //        setModalContent({ show: false });
+  //      } else {
+  //        setModalContent({
+  //          show,
+  //          title: "Rematch Requested!",
+  //  message: <Loading message={rematchResponse} />,
+  //        });
+  //      }
+  //    }
+  //  }, [rematchResponse]);
+
   const gameResetResponse = (game) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "REMATCH_RESPONSE", payload: "" });
@@ -39,7 +68,6 @@ export const GameState = ({ children }) => {
     dispatch({ type: "GAME_START", payload: game });
   };
   const updateGameData = (game) => {
-    console.log("game", game);
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_UPDATE", payload: game });
   };
@@ -50,7 +78,7 @@ export const GameState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "POST_RESULT", payload: result });
   };
-  const emitRequestRematch = (player, game) => {
+  const requestRematch = (player, game) => {
     socket.emit("request-rematch", { player, game });
   };
   return (
@@ -62,8 +90,14 @@ export const GameState = ({ children }) => {
         gameResult: state.gameResult,
         rematchResponse: state.rematchResponse,
         placeMark,
-        emitRequestRematch,
       }}>
+      <GameResultModal
+        data={modalContent}
+        show={show}
+        modalShow={(modal) => setShow(modal)}
+        emitRequestRematch
+        requestRematch={(rematch) => requestRematch(rematch)}
+      />
       {children}
     </GameContext.Provider>
   );

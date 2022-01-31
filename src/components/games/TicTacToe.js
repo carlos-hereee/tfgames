@@ -7,10 +7,8 @@ const TicTacToe = ({ isPlayer1, isPlayer2 }) => {
   const { player } = useContext(PlayerContext);
 
   const checkLegalMove = (cell) => {
-    console.log(game.turn);
     if (!gameResult) {
       if (cell.isEmpty && game.turn === "player1" && isPlayer1) {
-        console.log("mark");
         placeMark(game, cell, player);
       }
       if (cell.isEmpty && game.turn === "player2" && isPlayer2) {
@@ -25,7 +23,7 @@ const TicTacToe = ({ isPlayer1, isPlayer2 }) => {
           <button
             key={cell.uid}
             onClick={() => checkLegalMove(cell)}
-            className={`cell x-${cell.positionX} y-${cell.positionY} ${
+            className={`cell x-${cell.x} y-${cell.y} ${
               isPlayer1 ? "player1" : ""
             }${isPlayer2 ? "player2" : ""}
             ${

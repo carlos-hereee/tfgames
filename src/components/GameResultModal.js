@@ -1,31 +1,32 @@
+import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-const GameResultModal = ({ data, modalShow, requestRematch }) => {
-  const handleRematch = () => {
-    requestRematch(data);
-  };
+const GameResultModal = ({ data, show, requestRematch, modalShow }) => {
+  console.log("data, show", data, show);
   return (
     <div
-      className={data.show ? "modal d-block" : "modal d-none"}
+      className={show ? "modal d-block" : "d-none"}
       id="exampleModalCenter"
       tabIndex="-1"
       role="dialog"
       aria-labelledby={data.title}
       aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
-        <div className="modal-content text-center">
+        <div className="modal-content text-center modal-results">
           <div className="modal-header justify-content-center">
             <h2 className="modal-title" id={data.title}>
               {data.title}
             </h2>
           </div>
-          <div className="modal-body">{data.message}</div>
+          <p> {data.message}</p>
           <div className="modal-footer">
             {/* TODO: if opponent is still in the room rematch else say opponent let */}
             <button
               type="button"
               className="btn btn-secondary"
               data-dismiss="modal"
-              onClick={() => handleRematch()}>
+              onClick={() => requestRematch()}>
+              <FontAwesomeIcon icon={faSyncAlt} className="mr-2" />
               Rematch
             </button>
             <button type="button" className="btn btn-success">
