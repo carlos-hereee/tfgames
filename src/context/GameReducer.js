@@ -8,10 +8,7 @@ const gameUpdate = (state, action) => {
   return {
     ...state,
     isLoading: false,
-    game: {
-      ...state.game,
-      board: action.payload,
-    },
+    game: action.payload,
     gameStart: true,
   };
 };

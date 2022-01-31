@@ -39,6 +39,7 @@ export const GameState = ({ children }) => {
     dispatch({ type: "GAME_START", payload: game });
   };
   const updateGameData = (game) => {
+    console.log("game", game);
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_UPDATE", payload: game });
   };
