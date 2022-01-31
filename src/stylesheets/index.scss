@@ -28,9 +28,19 @@
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   margin: 1rem;
 }
+
 .glow .card {
   background-color: #3d3b3d;
+  border: none;
   color: white;
+  animation: fadeOut 2s  infinite alternate ease-in ;
+}
+.dim .card {
+  background-color: #1b1a1b;
+  color: white;
+  border: none;
+  
+
 }
 .btn {
   max-width: 220px;

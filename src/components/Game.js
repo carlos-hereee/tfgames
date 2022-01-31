@@ -75,11 +75,11 @@ export default function Game() {
         <div className="game-content mt-2">
           <div>{boards[game.gameName]}</div>
           <div className="game-players">
-            <div className={game.turn === "player1" ? "glow" : ""}>
-              <PlayerCard data={game.player1} />
+            <div className={game.turn === "player1" ? "glow" : "dim"}>
+              <PlayerCard data={game.players.player1} />
             </div>
-            <div className={game.turn === "player2" ? "glow" : ""}>
-              <PlayerCard data={game.player2} />
+            <div className={game.turn === "player2" ? "glow" : "dim"}>
+              <PlayerCard data={game.players.player2} />
             </div>
           </div>
         </div>
