@@ -1,11 +1,11 @@
 import { faSyncAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-const GameResultModal = ({ data, show, requestRematch, setShow }) => {
-  const [hideRematch, setHideRematch] = useState(false);
+const GameResultModal = ({ data, show, requestRematch }) => {
   const handleRematch = () => {
     requestRematch();
   };
+  console.log("data.players", data.players);
   return (
     <div
       className={show ? "modal d-block" : "d-none"}
@@ -21,9 +21,27 @@ const GameResultModal = ({ data, show, requestRematch, setShow }) => {
               {data.title}
             </h2>
           </div>
-          <p>{data.message}</p>
+          <p className="text-white">{data.message}</p>
           <div className="modal-footer">
-            {hideRematch ? (
+            {/* {data.isPlayer1 && data.players.player1?.rematch ? (
+              <button
+                type="button"
+                className="btn btn-danger"
+                data-dismiss="modal"
+                onClick={() => handleRematch()}>
+                <FontAwesomeIcon icon={faTimes} className="mr-2" />
+                Cancel
+              </button>
+            ) : !data.isPlayer1 && data.players?.player2?.rematch ? (
+              <button
+                type="button"
+                className="btn btn-danger"
+                data-dismiss="modal"
+                onClick={() => handleRematch()}>
+                <FontAwesomeIcon icon={faTimes} className="mr-2" />
+                Cancel
+              </button>
+            ) : (
               <button
                 type="button"
                 className="btn btn-secondary"
@@ -32,7 +50,8 @@ const GameResultModal = ({ data, show, requestRematch, setShow }) => {
                 <FontAwesomeIcon icon={faSyncAlt} className="mr-2" />
                 Rematch
               </button>
-            ) : (
+            )} */}
+            {data.isPlayer1 && data.players?.player1?.rematch ? (
               <button
                 type="button"
                 className="btn btn-danger"
@@ -40,6 +59,15 @@ const GameResultModal = ({ data, show, requestRematch, setShow }) => {
                 onClick={() => handleRematch()}>
                 <FontAwesomeIcon icon={faTimes} className="mr-2" />
                 Cancel
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-dismiss="modal"
+                onClick={() => handleRematch()}>
+                <FontAwesomeIcon icon={faSyncAlt} className="mr-2" />
+                Rematch
               </button>
             )}
             <button type="button" className="btn btn-success">
