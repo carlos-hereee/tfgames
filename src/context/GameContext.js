@@ -49,6 +49,7 @@ export const GameState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "REMATCH_RESPONSE", payload: "" });
     dispatch({ type: "POST_RESULT", payload: "" });
+    setShow(false);
     updateGameData(game);
   };
   const postRematchResponse = (response) => {
