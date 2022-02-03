@@ -92,8 +92,6 @@ export const GameState = ({ children }) => {
         data={modalContent}
         show={show}
         requestRematch={() => requestRematch()}
-
-        // setShow={() => }
       />
       {children}
     </GameContext.Provider>

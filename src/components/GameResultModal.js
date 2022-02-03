@@ -1,11 +1,9 @@
 import { faSyncAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
 const GameResultModal = ({ data, show, requestRematch }) => {
   const handleRematch = () => {
     requestRematch();
   };
-  console.log("data.players", data.players);
   return (
     <div
       className={show ? "modal d-block" : "d-none"}
