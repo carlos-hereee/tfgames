@@ -1,9 +1,6 @@
 import { faSyncAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const GameResultModal = ({ data, show, requestRematch }) => {
-  const handleRematch = () => {
-    requestRematch();
-  };
+const GameResultModal = ({ data, show, requestRematch, newGame }) => {
   return (
     <div
       className={show ? "modal d-block" : "d-none"}
@@ -27,7 +24,7 @@ const GameResultModal = ({ data, show, requestRematch }) => {
                   type="button"
                   className="btn btn-danger"
                   data-dismiss="modal"
-                  onClick={() => handleRematch()}>
+                  onClick={() => requestRematch()}>
                   <FontAwesomeIcon icon={faTimes} className="mr-2" />
                   Cancel
                 </button>
@@ -36,7 +33,7 @@ const GameResultModal = ({ data, show, requestRematch }) => {
                   type="button"
                   className="btn btn-secondary"
                   data-dismiss="modal"
-                  onClick={() => handleRematch()}>
+                  onClick={() => requestRematch()}>
                   <FontAwesomeIcon icon={faSyncAlt} className="mr-2" />
                   Rematch
                 </button>
@@ -48,7 +45,7 @@ const GameResultModal = ({ data, show, requestRematch }) => {
                   type="button"
                   className="btn btn-danger"
                   data-dismiss="modal"
-                  onClick={() => handleRematch()}>
+                  onClick={() => requestRematch()}>
                   <FontAwesomeIcon icon={faTimes} className="mr-2" />
                   Cancel
                 </button>
@@ -57,13 +54,16 @@ const GameResultModal = ({ data, show, requestRematch }) => {
                   type="button"
                   className="btn btn-secondary"
                   data-dismiss="modal"
-                  onClick={() => handleRematch()}>
+                  onClick={() => requestRematch()}>
                   <FontAwesomeIcon icon={faSyncAlt} className="mr-2" />
                   Rematch
                 </button>
               )
             ) : null}
-            <button type="button" className="btn btn-success">
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={() => newGame()}>
               New Game
             </button>
           </div>

@@ -15,9 +15,9 @@ export default function Game() {
     <section className="game">
       <div className="card">
         <div className="card-header d-flex justify-content-around align-items-center">
-          <p> {game.round} </p>
+          <p>{game.round} </p>
           <h1 className="text-center">{game.gameName?.toUpperCase()} </h1>
-          <p> {game.round} </p>
+          <p>{game.round} </p>
         </div>
         <div className="game-content mt-2">
           <div>{boards[game.gameName]}</div>

@@ -5,7 +5,7 @@ import { LobbyContext } from "../context/LobbyContext";
 
 export default function PlayerLobbyStatus({ data }) {
   const { player } = useContext(PlayerContext);
-  const { startSearch } = useContext(LobbyContext);
+  const { newGame } = useContext(LobbyContext);
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -17,6 +17,11 @@ export default function PlayerLobbyStatus({ data }) {
       return () => window.clearInterval(id);
     }
   }, [isRunning]);
+
+  const handleReady = () => {
+    setIsRunning(!isRunning);
+    newGame({ player, game: data });
+  };
   return (
     <div className="card">
       <div className="lobby-buttons">
@@ -32,7 +37,7 @@ export default function PlayerLobbyStatus({ data }) {
           <button
             type="button"
             className="btn btn-success"
-            onClick={() => startSearch({ player, game: data })}>
+            onClick={() => handleReady()}>
             Ready
           </button>
         )}

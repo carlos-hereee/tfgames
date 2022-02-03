@@ -34,7 +34,6 @@ export const GameState = ({ children }) => {
     socket.on("rematch-response", (res) => postRematchResponse(res));
     socket.on("game-reset-response", (res) => gameResetResponse(res));
   }, [socket]);
-
   useEffect(() => {
     const { result } = state.gameResult;
     if (result) {
@@ -61,6 +60,7 @@ export const GameState = ({ children }) => {
     }));
   };
   const updateGameStart = (game) => {
+    console.log("game", game);
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_START", payload: game });
   };
@@ -77,7 +77,10 @@ export const GameState = ({ children }) => {
   };
   const requestRematch = () => {
     const isPlayer1 = state.game.players.player1.uid === player.uid;
-    socket.emit("request-rematch", { player, game: state.game, isPlayer1 });
+    socket.emit("request-rematch", { game: state.game, isPlayer1 });
+  };
+  const newGame = () => {
+    socket.emit("new-game", { player, game: state.game });
   };
   return (
     <GameContext.Provider
@@ -93,6 +96,7 @@ export const GameState = ({ children }) => {
         data={modalContent}
         show={show}
         requestRematch={() => requestRematch()}
+        newGame={() => newGame()}
       />
       {children}
     </GameContext.Provider>

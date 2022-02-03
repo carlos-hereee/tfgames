@@ -19,8 +19,8 @@ export const LobbyState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "ADD_TO_LOG", payload: message });
   };
-  const startSearch = async ({ player, game }) => {
-    socket.emit("search-match", { player, game });
+  const newGame = async ({ player, game }) => {
+    socket.emit("new-game", { player, game });
   };
   return (
     <LobbyContext.Provider
@@ -29,7 +29,7 @@ export const LobbyState = ({ children }) => {
         isLoading: state.isLoading,
         log: state.log,
         addToLog,
-        startSearch,
+        newGame,
       }}>
       {children}
     </LobbyContext.Provider>
