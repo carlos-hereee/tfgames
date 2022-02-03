@@ -7,11 +7,9 @@ import { PlayerContext } from "../context/PlayerContext";
 export default function Game() {
   const { game } = useContext(GameContext);
   const { player } = useContext(PlayerContext);
-  let isPlayer1 = player.uid === game.players?.player1?.uid ? true : false;
-  let isPlayer2 = player.uid === game.players?.player2?.uid ? true : false;
 
   const boards = {
-    tictactoe: <TicTacToe isPlayer1={isPlayer1} isPlayer2={isPlayer2} />,
+    tictactoe: <TicTacToe />,
   };
   return (
     <section className="game">

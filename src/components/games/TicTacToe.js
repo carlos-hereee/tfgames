@@ -2,11 +2,14 @@ import { useContext } from "react";
 import { GameContext } from "../../context/GameContext";
 import { PlayerContext } from "../../context/PlayerContext";
 
-const TicTacToe = ({ isPlayer1, isPlayer2 }) => {
+const TicTacToe = () => {
   const { game, placeMark, gameResult } = useContext(GameContext);
   const { player } = useContext(PlayerContext);
+  let isPlayer1 = player.uid === game.players?.player1?.uid ? true : false;
+  let isPlayer2 = player.uid === game.players?.player2?.uid ? true : false;
 
   const checkLegalMove = (cell) => {
+    console.log(`isPlayer1,${isPlayer1} isPlayer2`, isPlayer2);
     if (!gameResult) {
       if (cell.isEmpty && game.turn === "player1" && isPlayer1) {
         placeMark(game, cell, player);
