@@ -5,7 +5,7 @@ import { LobbyContext } from "../context/LobbyContext";
 
 export default function PlayerLobbyStatus({ data }) {
   const { player } = useContext(PlayerContext);
-  const { newGame } = useContext(LobbyContext);
+  const { newGame, ticket, cancelTicket } = useContext(LobbyContext);
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -18,26 +18,28 @@ export default function PlayerLobbyStatus({ data }) {
     }
   }, [isRunning]);
 
-  const handleReady = () => {
+  const handleReady = (cmd) => {
     setIsRunning(!isRunning);
-    newGame({ player, game: data });
+    if (cmd === "cancel") {
+      cancelTicket(ticket);
+    }
+    if (cmd === "ready") newGame({ player, game: data });
   };
   return (
     <div className="card">
       <div className="lobby-buttons">
-        {isRunning ? (
+        {ticket?.player?.uid === player.uid ? (
           <button
             type="button"
             className="btn btn-danger"
-            // onClick={() => leaveLobby()}
-          >
+            onClick={() => handleReady("cancel")}>
             Cancel
           </button>
         ) : (
           <button
             type="button"
             className="btn btn-success"
-            onClick={() => handleReady()}>
+            onClick={() => handleReady("ready")}>
             Ready
           </button>
         )}

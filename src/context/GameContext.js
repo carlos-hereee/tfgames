@@ -54,13 +54,13 @@ export const GameState = ({ children }) => {
   const postRematchResponse = (response) => {
     setModalContent((prev) => ({
       ...prev,
+      gameName: state.game.gameName,
       message: response.message,
       players: response.players,
       isPlayer1: response.players.player1.uid === player.uid,
     }));
   };
   const updateGameStart = (game) => {
-    console.log("game", game);
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_START", payload: game });
   };
@@ -80,6 +80,9 @@ export const GameState = ({ children }) => {
     socket.emit("request-rematch", { game: state.game, isPlayer1 });
   };
   const newGame = () => {
+    setShow(!show);
+    dispatch({ type: "IS_LOADING", payload: true });
+    dispatch({ type: "GAME_END", payload: "" });
     socket.emit("new-game", { player, game: state.game });
   };
   return (

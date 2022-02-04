@@ -1,5 +1,6 @@
 import { faSyncAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 const GameResultModal = ({ data, show, requestRematch, newGame }) => {
   return (
     <div
