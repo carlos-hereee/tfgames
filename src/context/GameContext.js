@@ -83,7 +83,8 @@ export const GameState = ({ children }) => {
     setShow(!show);
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_END", payload: "" });
-    socket.emit("new-game", { player, game: state.game });
+    socket.emit("leave", { player, game: state.game });
+    // socket.emit("new-game", { player, game: state.game });
   };
   return (
     <GameContext.Provider
