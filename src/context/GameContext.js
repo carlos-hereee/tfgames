@@ -7,7 +7,6 @@ import React, {
   useState,
 } from "react";
 import GameResultModal from "../components/GameResultModal";
-import Loading from "../components/Loading";
 import { reducer } from "./GameReducer";
 import { PlayerContext } from "./PlayerContext";
 import { useSocket } from "./SocketContext";
