@@ -1,26 +1,35 @@
-import React, { createContext, useEffect, useReducer } from "react";
-import { reducer } from "./lobbyReducer";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
+import { reducer } from "./LobbyReducer";
 import { useSocket } from "./SocketContext";
+import { PlayerContext } from "./PlayerContext";
+
 export const LobbyContext = createContext();
 
 export const LobbyState = ({ children }) => {
-  const initialState = { isLoading: false, lobby: {}, log: [] };
+  const initialState = { isLoading: false, lobby: {}, log: [], ticket: {} };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { player } = useContext(PlayerContext);
   const socket = useSocket();
 
   useEffect(() => {
     if (!socket) return;
-    socket.on("receive-message", (message) => {
-      addToLog(message);
-    });
+    socket.on("receive-message", (message) => addToLog(message));
+    socket.on("ticket-data", (res) => ticketData(res));
   }, [socket]);
 
   const addToLog = async (message) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "ADD_TO_LOG", payload: message });
   };
-  const startSearch = async ({ player, game }) => {
-    socket.emit("search-match", { player, game });
+  const newGame = async ({ player, game }) => {
+    socket.emit("new-game", { player, game });
+  };
+  const ticketData = (ticket) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    dispatch({ type: "TICKET_DATA", payload: ticket });
+  };
+  const cancelTicket = (ticket) => {
+    socket.emit("cancel-ticket", { ticket, player });
   };
   return (
     <LobbyContext.Provider
@@ -28,8 +37,10 @@ export const LobbyState = ({ children }) => {
         lobby: state.lobby,
         isLoading: state.isLoading,
         log: state.log,
+        ticket: state.ticket,
         addToLog,
-        startSearch,
+        newGame,
+        cancelTicket,
       }}>
       {children}
     </LobbyContext.Provider>

@@ -1,4 +1,3 @@
-import generator from "project-name-generator";
 import defaultAvatar from "../assets/logo.svg";
 
 const PlayerCard = ({ data }) => {
@@ -12,7 +11,7 @@ const PlayerCard = ({ data }) => {
         />
       </div>
       <h3 className="card-title">
-        {data?.nickname?.toUpperCase() || generator({ words: 2 }).spaced}
+        {data?.nickname?.toUpperCase() || "no name"}
       </h3>
       {data?.elo && <p>{data.elo}</p>}
     </div>

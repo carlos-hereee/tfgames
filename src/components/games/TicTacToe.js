@@ -2,32 +2,15 @@ import { useContext } from "react";
 import { GameContext } from "../../context/GameContext";
 import { PlayerContext } from "../../context/PlayerContext";
 
-const TicTacToe = ({ isPlayer1, isPlayer2 }) => {
+const TicTacToe = () => {
   const { game, placeMark, gameResult } = useContext(GameContext);
   const { player } = useContext(PlayerContext);
+  let isPlayer1 = player.uid === game.players?.player1?.uid ? true : false;
+  let isPlayer2 = player.uid === game.players?.player2?.uid ? true : false;
 
   const checkLegalMove = (cell) => {
     if (!gameResult) {
-      // console.log(
-      //   ` I am ${isPlayer1 ? "player1" : "player2"} my cell ${
-      //     cell.isEmpty
-      //       ? "empty"
-      //       : `has ${
-      //           cell.content === player.uid ? "my id " : "my opponents id"
-      //         }`
-      //   }  its ${game.turn}'s turn,  the winner is: ${gameResult}`
-      // );
-      // console.log(
-      //   ` I am ${isPlayer2 ? "player2" : "player1"} my cell ${
-      //     cell.isEmpty
-      //       ? "empty"
-      //       : `has ${
-      //           cell.content === player.uid ? "my id " : "my opponents id"
-      //         }`
-      //   }  its ${game.turn}'s turn,  the winner is: ${gameResult}`
-      // );
       if (cell.isEmpty && game.turn === "player1" && isPlayer1) {
-        console.log("mark");
         placeMark(game, cell, player);
       }
       if (cell.isEmpty && game.turn === "player2" && isPlayer2) {
@@ -42,7 +25,7 @@ const TicTacToe = ({ isPlayer1, isPlayer2 }) => {
           <button
             key={cell.uid}
             onClick={() => checkLegalMove(cell)}
-            className={`cell x-${cell.positionX} y-${cell.positionY} ${
+            className={`cell x-${cell.x} y-${cell.y} ${
               isPlayer1 ? "player1" : ""
             }${isPlayer2 ? "player2" : ""}
             ${
