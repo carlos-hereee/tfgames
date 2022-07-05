@@ -1,22 +1,75 @@
 @import "./variables.scss";
+@import "./keyframes.scss";
 @import "./homepage.scss";
 @import "./headerfooter.scss";
 @import "./tictactoe.scss";
+@import "./dashboard.scss";
+@import "./lobby.scss";
+@import "./auth.scss";
+@import "./game.scss";
 
-.app {
+#root {
   background-color: whitesmoke;
+}
+.app {
   display: flex;
   flex-direction: column;
-  max-width: 1100px;
+  background-color: #3d3b3d;
+  font-family: "Roboto", sans-serif;
   margin: auto;
-}
-.card {
-  min-width: 300px;
-  @media only screen and (max-width: 425px) {
-    min-width: auto;
-  }
+  max-width: 1100px;
+  min-height: 100vh;
 }
 
+.card {
+  background-color: #fcfcfc;
+  border-radius: 4px;
+  padding: 1rem;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  margin: 1rem;
+}
+
+.glow .card {
+  background-color: #3d3b3d;
+  border: none;
+  color: white;
+  animation: fadeOut 2s infinite alternate ease-in;
+}
+.dim .card {
+  background-color: #1b1a1b;
+  color: white;
+  border: none;
+}
+.btn {
+  max-width: 220px;
+  min-width: 80px;
+  min-height: 40px;
+  align-items: center;
+}
+.form-control {
+  height: 3rem;
+}
+.logger {
+  max-height: 300px;
+  overflow-y: scroll;
+  .log-wrapper {
+    border-bottom: 1px solid #3d3b3d;
+  } 
+}
+.modal-results {
+  background: rgba(126, 126, 126, 0.9);
+  border-radius: 10px;
+  padding: 1rem;
+  backdrop-filter: blur(2px); 
+  border: solid 2px transparent;
+  background-clip: padding-box;
+}
+.modal-footer {
+  border:none;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
 // for accessibiblity
 @media (prefers-reduced-motion: reduce) {
   *,

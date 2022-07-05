@@ -1,22 +1,30 @@
-.tictactoe {
+.board {
   display: grid;
-  grid-template-columns: repeat(3, 6rem);
-  margin: auto;
-  .room {
-    background-color: cadetblue;
-    border: 1px solid black;
-    height: 6rem;
-    align-self: stretch;
-    &:hover {
-      opacity: 0.4;
-      transition: 0.3s ease-in-out;
-    }
-    &:disabled {
-      border: 1px solid #999999;
-      background-color: #cccccc;
-      color: #666666;
-      cursor: no-drop;
-    }
+  justify-content: center;
+}
+.cell {
+  border: 2px solid #7d4141;
+  min-width: 7rem;
+  min-height: 7rem;
+  align-self: stretch;
+  grid-auto-columns: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.tictactoe {
+  .x-1 {
+    border-left: none;
+  }
+  .y-1 {
+    border-top: none;
+  }
+  .y-3 {
+    border-bottom: none;
+  }
+  .x-3 {
+    border-right: none;
   }
 }
 .x-1 {
@@ -37,19 +45,69 @@
 .y-3 {
   grid-row: 3;
 }
-.referee {
-  max-width: 10rem;
+.exes::before,
+.exes::after {
+  content: "";
+  position: absolute;
+  width: 1rem;
+  height: 6rem;
+  background-color: black;
+  border-radius: 10px;
 }
-.logger {
-  min-height: 270px;
-  max-height: 350px;
+.exes::before {
+  transform: rotate(45deg);
 }
-.game-invitation {
-  letter-spacing: 0.2rem;
+.exes::after {
+  transform: rotate(-45deg);
 }
-.ready {
-  background-color: lightcyan;
+.circle::before,
+.circle::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
 }
-.not-ready {
-  background-color: rgb(255, 217, 217);
+.circle::before {
+  width: 6rem;
+  height: 6rem;
+  background-color: black;
+}
+.circle::after {
+  width: 5rem;
+  height: 5rem;
+  background-color: white;
+}
+.player1:not(.exes):not(.circle):hover::before,
+.player1:not(.exes):not(.circle):hover::after {
+  content: "";
+  position: absolute;
+  width: 1rem;
+  height: 6rem;
+  background-color: lightgray;
+  border-radius: 10px;
+}
+.player1:not(.exes):not(.circle):hover::before {
+  transform: rotate(45deg);
+}
+.player1:not(.exes):not(.circle):hover::after {
+  transform: rotate(-45deg);
+}
+.player2:not(.exes):not(.circle):hover::before,
+.player2:not(.exes):not(.circle):hover::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+.player2:not(.exes):not(.circle):hover::before {
+  width: 6rem;
+  height: 6rem;
+  background-color: lightgray;
+}
+.player2:not(.exes):not(.circle):hover::after {
+  width: 5rem;
+  height: 5rem;
+  background-color: white;
+}
+.board .exes,
+.board .circle {
+  cursor: not-allowed;
 }

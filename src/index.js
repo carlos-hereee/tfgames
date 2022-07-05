@@ -1,23 +1,29 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+import { GameState } from "./context/GameContext";
+import { AuthState } from "./context/AuthContext";
+import { LobbyState } from "./context/LobbyContext";
+import { PlayerState } from "./context/PlayerContext";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { PlayerState } from "./utlils/PlayerContext";
 import "./stylesheets/index.scss";
+import { SocketState } from "./context/SocketContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <PlayerState>
-      <BrowserRouter basename="/">
-        <App />
-      </BrowserRouter>
-    </PlayerState>
+    <BrowserRouter>
+      <SocketState>
+        <AuthState>
+          <PlayerState>
+            <LobbyState>
+              <GameState>
+                <App />
+              </GameState>
+            </LobbyState>
+          </PlayerState>
+        </AuthState>
+      </SocketState>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

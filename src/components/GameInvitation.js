@@ -11,11 +11,17 @@ const GameInvitation = () => {
         actions.resetForm();
       }}>
       <Form>
-        <label for="inviteCode"> Code:</label>
-        <Field type="number" name="inviteCode" />
-        <button type="submit" className="btn btn-secondary">
-          Join Game
-        </button>
+        <div className="form-group">
+          <label htmlFor="inviteCode"> Code:</label>
+          <div className="input-group">
+            <Field type="number" name="inviteCode" className="form-control" />
+            <button
+              type="submit"
+              className="input-group-prepend btn btn-secondary">
+              Join Game
+            </button>
+          </div>
+        </div>
       </Form>
     </Formik>
   );

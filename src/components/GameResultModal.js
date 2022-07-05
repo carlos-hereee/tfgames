@@ -1,72 +1,71 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useContext } from "react";
-import { useEffect, useState } from "react/cjs/react.development";
-import { PlayerContext } from "../utlils/PlayerContext";
+import { faSyncAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const GameResultModal = () => {
-  const { playAgain, room, player } = useContext(PlayerContext);
-  const [gameStatus, setGameStatus] = useState({
-    show: false,
-    message: "",
-    title: "",
-  });
-
-  useEffect(() => {
-    if (room.winner) {
-      if (room.winner === player.playerUuid) {
-        setGameStatus({
-          show: true,
-          modalMessage: "Congratulations! You Won",
-          modalTitle: "VICTORY!",
-        });
-      }
-      if (room.winner !== player.playerUuid && room.winner !== "draw") {
-        setGameStatus({
-          show: true,
-          modalMessage: "You were defeated, Rematch?",
-          modalTitle: "DEFEAT!",
-        });
-      }
-      if (room.winner === "draw") {
-        setGameStatus({
-          show: true,
-          modalMessage: "It is a tie.",
-          modalTitle: "DRAW!",
-        });
-      }
-    }
-  }, [room.winner]);
-
-  const handlePlayAgain = (room, player) => {
-    playAgain(room, player);
-    setGameStatus({ ...gameStatus, show: false });
-  };
+const GameResultModal = ({ data, show, requestRematch, newGame }) => {
   return (
     <div
-      className={gameStatus.show ? "modal d-block" : "modal d-none"}
-      id={`${gameStatus.title}`}
+      className={show ? "modal d-block" : "d-none"}
+      id="exampleModalCenter"
       tabIndex="-1"
       role="dialog"
-      aria-labelledby={`${gameStatus.modalTitle}`}
+      aria-labelledby={data.title}
       aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" id={`${gameStatus.modalTitle}Label`}>
-              {gameStatus.modalTitle}
-            </h5>
+        <div className="modal-content text-center modal-results">
+          <div className="justify-content-center">
+            <h2 className="modal-title text-white" id={data.title}>
+              {data.title}
+            </h2>
           </div>
-          <div className="modal-body">
-            <p>{gameStatus.modalMessage}</p>
-            {/* <p>{room.rematchMessage}</p> */}
-          </div>
+          <p className="text-white">{data.message}</p>
           <div className="modal-footer">
+            {data.isPlayer1 ? (
+              data.players?.player1?.rematch ? (
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  data-dismiss="modal"
+                  onClick={() => requestRematch()}>
+                  <FontAwesomeIcon icon={faTimes} className="mr-2" />
+                  Cancel
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                  onClick={() => requestRematch()}>
+                  <FontAwesomeIcon icon={faSyncAlt} className="mr-2" />
+                  Rematch
+                </button>
+              )
+            ) : null}
+            {!data.isPlayer1 ? (
+              data.players?.player2?.rematch ? (
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  data-dismiss="modal"
+                  onClick={() => requestRematch()}>
+                  <FontAwesomeIcon icon={faTimes} className="mr-2" />
+                  Cancel
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                  onClick={() => requestRematch()}>
+                  <FontAwesomeIcon icon={faSyncAlt} className="mr-2" />
+                  Rematch
+                </button>
+              )
+            ) : null}
             <button
               type="button"
-              className="btn btn-primary"
-              data-dismiss="modal"
-              onClick={() => handlePlayAgain(room, player)}>
-              Play Again
+              className="btn btn-success"
+              onClick={() => newGame()}>
+              New Game
             </button>
           </div>
         </div>

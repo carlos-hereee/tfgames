@@ -9,7 +9,8 @@ Take Five with friends
 
 ## Documentation
 
-Link to [docs](https://www.notion.so/Manigames-0d905872689349ee8321e6abf90153bd)
+Link to
+[notion.so](https://utopian-bit-fdc.notion.site/Take-Five-717cf4058b2146b7a85d807b08c2b2e6)
 
 ## Classname Style Guide
 
@@ -18,5 +19,5 @@ Used boostrap Library for a uniform themed style for the app
 Used BEM convention to structure styles. Reference in the
 [Block Element Modifier Style Guide](http://getbem.com/introduction/)
 
-Links to
+Link to
 [Figma](https://www.figma.com/file/1BHNcHHvWU71FQqDLJf1WC/Manigames?node-id=0%3A1)
