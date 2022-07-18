@@ -2,6 +2,7 @@ import { faSyncAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const GameResultModal = ({ data, show, requestRematch, newGame }) => {
+  console.log("data", data);
   return (
     <div
       className={show ? "modal d-block" : "d-none"}
@@ -19,8 +20,8 @@ const GameResultModal = ({ data, show, requestRematch, newGame }) => {
           </div>
           <p className="text-white">{data.message}</p>
           <div className="modal-footer">
-            {data.isPlayer1 ? (
-              data.players?.player1?.rematch ? (
+            {data.isPlayer1 && !data.leftRes ? (
+              data.players?.player1?.rematch && data.leftRes ? (
                 <button
                   type="button"
                   className="btn btn-danger"
@@ -40,8 +41,8 @@ const GameResultModal = ({ data, show, requestRematch, newGame }) => {
                 </button>
               )
             ) : null}
-            {!data.isPlayer1 ? (
-              data.players?.player2?.rematch ? (
+            {!data.isPlayer1 && !data.leftRes ? (
+              data.players?.player2?.rematch && data.leftRes ? (
                 <button
                   type="button"
                   className="btn btn-danger"
