@@ -20,8 +20,8 @@ function App() {
   }
   return (
     <div className="app">
-      {/* <Header /> */}
-      {/* <OnlineNav /> */}
+      <Header />
+      <OnlineNav />
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/login" component={Auth} />
