@@ -2,7 +2,6 @@ import { faSyncAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const GameResultModal = ({ data, show, requestRematch, newGame }) => {
-  console.log("data", data);
   return (
     <div
       className={show ? "modal d-block" : "d-none"}
@@ -63,7 +62,7 @@ const GameResultModal = ({ data, show, requestRematch, newGame }) => {
               )
             ) : null}
             <button
-              type="button"
+              type="submit"
               className="btn btn-success"
               onClick={() => newGame()}>
               New Game

@@ -41,6 +41,13 @@ const rematchResponse = (state, action) => {
     rematchResponse: action.payload,
   };
 };
+const setGamename = (state, action) => {
+  return {
+    ...state,
+    isLoading: true,
+    gameName: action.payload,
+  };
+};
 export const reducer = (state, action) => {
   switch (action.type) {
     case "IS_LOADING":
@@ -55,6 +62,8 @@ export const reducer = (state, action) => {
       return postResult(state, action);
     case "REMATCH_RESPONSE":
       return rematchResponse(state, action);
+    case "SET_GAMENAME":
+      return setGamename(state, action);
     default:
       return state;
   }
