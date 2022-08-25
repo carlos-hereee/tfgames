@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PlayerCard from "../components/PlayerCard";
 import PlayerLobbyStatus from "../components/PlayerLobbyStatus";
 import queryString from "query-string";
