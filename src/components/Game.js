@@ -2,11 +2,9 @@ import React, { useContext } from "react";
 import { GameContext } from "../context/GameContext";
 import TicTacToe from "./games/TicTacToe";
 import PlayerCard from "./PlayerCard";
-import { PlayerContext } from "../context/PlayerContext";
 
 export default function Game() {
   const { game } = useContext(GameContext);
-  const { player } = useContext(PlayerContext);
 
   const boards = {
     tictactoe: <TicTacToe />,

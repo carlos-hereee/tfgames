@@ -1,4 +1,5 @@
 const isLoading = (state, action) => {
+  // is loading
   return {
     ...state,
     isLoading: action.payload,

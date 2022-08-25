@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PlayerCard from "../components/PlayerCard";
 import PlayerLobbyStatus from "../components/PlayerLobbyStatus";
 import queryString from "query-string";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { PlayerContext } from "../context/PlayerContext";
 import Logger from "../components/Logger";
 import { LobbyContext } from "../context/LobbyContext";
@@ -12,8 +13,13 @@ export default function Lobby({ location }) {
   const { player } = useContext(PlayerContext);
   const { log } = useContext(LobbyContext);
   const { game } = queryString.parse(location.search);
-  const { gameStart } = useContext(GameContext);
+  const { gameStart, setGameName } = useContext(GameContext);
 
+  useEffect(() => {
+    if (game) {
+      setGameName(game);
+    }
+  }, [game]);
   return gameStart ? (
     <Game />
   ) : (

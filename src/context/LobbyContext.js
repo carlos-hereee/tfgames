@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
-import { reducer } from "./LobbyReducer";
+import { reducer } from "./lobbyReducer";
 import { useSocket } from "./SocketContext";
 import { PlayerContext } from "./PlayerContext";
 
@@ -22,9 +22,10 @@ export const LobbyState = ({ children }) => {
     dispatch({ type: "ADD_TO_LOG", payload: message });
   };
   const newGame = async ({ player, game }) => {
-    socket.emit("new-game", { player, game });
+    socket.emit("new-game", { player, gameName: game });
   };
   const ticketData = (ticket) => {
+    console.log("ticket", ticket);
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "TICKET_DATA", payload: ticket });
   };

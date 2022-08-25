@@ -28,7 +28,7 @@ export default function PlayerLobbyStatus({ data }) {
   return (
     <div className="card">
       <div className="lobby-buttons">
-        {ticket?.player?.uid === player.uid ? (
+        {ticket?.lobbyId ? (
           <button
             type="button"
             className="btn btn-danger"
@@ -50,7 +50,6 @@ export default function PlayerLobbyStatus({ data }) {
           ...
         </button>
       </div>
-
       <p>Elapsed time: {seconds}</p>
       {toggleMenu && (
         <nav className="lobby-toggle-menu">

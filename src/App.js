@@ -20,7 +20,7 @@ function App() {
   }
   return (
     <div className="app">
-      {/* <Header /> */}
+      <Header />
       <OnlineNav />
       <Switch>
         <Route exact path="/" component={Homepage} />

@@ -9,7 +9,7 @@ const TicTacToe = () => {
   let isPlayer2 = player.uid === game.players?.player2?.uid ? true : false;
 
   const checkLegalMove = (cell) => {
-    if (!gameResult) {
+    if (!gameResult.result) {
       if (cell.isEmpty && game.turn === "player1" && isPlayer1) {
         placeMark(game, cell, player);
       }

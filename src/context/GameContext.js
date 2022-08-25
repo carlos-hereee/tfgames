@@ -19,6 +19,7 @@ export const GameState = ({ children }) => {
     game: {},
     gameResult: "",
     rematchResponse: "",
+    gameName: "",
   };
   const [modalContent, setModalContent] = useState({});
   const [show, setShow] = useState(false);
@@ -31,6 +32,7 @@ export const GameState = ({ children }) => {
     socket.on("game-data", (game) => updateGameData(game));
     socket.on("game-results", (res) => postResults(res));
     socket.on("rematch-response", (res) => postRematchResponse(res));
+    socket.on("left-response", (res) => postLeftResponse(res));
     socket.on("game-reset-response", (res) => gameResetResponse(res));
   }, [socket]);
   useEffect(() => {
@@ -81,9 +83,19 @@ export const GameState = ({ children }) => {
   const newGame = () => {
     setShow(!show);
     dispatch({ type: "IS_LOADING", payload: true });
+    socket.emit("player-leave", { player, game: state.game });
     dispatch({ type: "GAME_END", payload: "" });
-    socket.emit("leave", { player, game: state.game });
-    // socket.emit("new-game", { player, game: state.game });
+    socket.emit("new-game", { player, gameName: state.gameName });
+  };
+  const setGameName = (name) => {
+    dispatch({ type: "SET_GAMENAME", payload: name });
+  };
+  const postLeftResponse = (res) => {
+    setModalContent((prev) => ({
+      ...prev,
+      message: res.message,
+      leftRes: true,
+    }));
   };
   return (
     <GameContext.Provider
@@ -93,6 +105,7 @@ export const GameState = ({ children }) => {
         game: state.game,
         gameResult: state.gameResult,
         rematchResponse: state.rematchResponse,
+        setGameName,
         placeMark,
       }}>
       <GameResultModal
