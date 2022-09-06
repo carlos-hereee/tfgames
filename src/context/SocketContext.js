@@ -5,12 +5,18 @@ export const SocketContext = createContext();
 export const useSocket = () => useContext(SocketContext);
 export const SocketState = ({ children }) => {
   const [socket, setSocket] = useState();
+
   useEffect(() => {
     let id = localStorage.getItem("take-five-player-id");
     if (id) {
-      const newSocket = io("http://localhost:1200", {
-        query: { id },
-      });
+      const newSocket = io(
+        process.env.NODE_ENV === "production"
+          ? process.env.REACT_APP_DB_BASE_URL_PRODUCTION
+          : process.env.REACT_APP_DB_BASE_URL,
+        {
+          query: { id },
+        }
+      );
       setSocket(newSocket);
       return () => newSocket.close();
     }

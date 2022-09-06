@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
-import { reducer } from "./lobbyReducer";
+import { reducer } from "./LobbyReducer";
 import { useSocket } from "./SocketContext";
 import { PlayerContext } from "./PlayerContext";
 
