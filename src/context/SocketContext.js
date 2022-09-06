@@ -10,7 +10,7 @@ export const SocketState = ({ children }) => {
     let id = localStorage.getItem("take-five-player-id");
     if (id) {
       const newSocket = io(
-        process.env.NODE_ENV === "production"
+        process.env.REACT_APP_NODE_ENV === "production"
           ? process.env.REACT_APP_DB_BASE_URL_PRODUCTION
           : process.env.REACT_APP_DB_BASE_URL,
         {

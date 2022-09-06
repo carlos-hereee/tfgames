@@ -25,7 +25,6 @@ export const LobbyState = ({ children }) => {
     socket.emit("new-game", { player, gameName: game });
   };
   const ticketData = (ticket) => {
-    console.log("ticket", ticket);
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "TICKET_DATA", payload: ticket });
   };
