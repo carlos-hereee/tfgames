@@ -16,7 +16,6 @@ export const axiosWithOutAuth = axios.create({
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_DB_BASE_URL_PRODUCTION
       : process.env.REACT_APP_DB_BASE_URL,
-  withCredentials: true,
   headers: {
     "Access-Control-Allow-Origin": process.env.REACT_APP_CLIENT_BASE_URL,
     "Content-Type": "application/json;charset=UTF-8",
