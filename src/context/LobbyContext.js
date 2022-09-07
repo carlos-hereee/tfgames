@@ -19,20 +19,20 @@ export const LobbyState = ({ children }) => {
 
   useEffect(() => {
     if (!socket) return;
-    socket.on("receive-message", (message) => addToLog(message));
     socket.on("ticket-data", (res) => ticketData(res));
     socket.on("clock-lobby-data", (res) => clockLobbyData(res));
+    socket.on("receive-message", (message) => addToLog(message));
   }, [socket]);
 
-  const clockLobbyData = async (res) => {
+  const clockLobbyData = (res) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "SET_CLOCK_LOBBY_DATA", payload: res });
   };
-  const addToLog = async (message) => {
+  const addToLog = (message) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "ADD_TO_LOG", payload: message });
   };
-  const newGame = async ({ player, game, clock }) => {
+  const newGame = ({ player, game, clock }) => {
     socket.emit("new-game", { player, gameName: game, clock });
   };
   const ticketData = (ticket) => {

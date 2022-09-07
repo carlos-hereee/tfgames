@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import GameResultModal from "../components/GameResultModal";
 import { reducer } from "./GameReducer";
+import { LobbyContext } from "./LobbyContext";
 import { PlayerContext } from "./PlayerContext";
 import { useSocket } from "./SocketContext";
 
@@ -25,10 +26,11 @@ export const GameState = ({ children }) => {
   const [show, setShow] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
   const { player } = useContext(PlayerContext);
+  const { clock, ticket } = useContext(LobbyContext);
   const socket = useSocket();
   useEffect(() => {
     if (!socket) return;
-    socket.on("game-start", (game) => updateGameStart(game));
+    socket.on("game-start", (g) => gameStart(g));
     socket.on("game-data", (game) => updateGameData(game));
     socket.on("game-results", (res) => postResults(res));
     socket.on("rematch-response", (res) => postRematchResponse(res));
@@ -45,6 +47,12 @@ export const GameState = ({ children }) => {
     }
   }, [state.gameResult.result]);
 
+  const gameStart = (game) => {
+    console.log("data", clock, ticket);
+    socket.emit("cancel-ticket", { ticket, clock, player });
+    dispatch({ type: "IS_LOADING", payload: true });
+    dispatch({ type: "GAME_START", payload: game });
+  };
   const gameResetResponse = (game) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "REMATCH_RESPONSE", payload: "" });
@@ -61,10 +69,7 @@ export const GameState = ({ children }) => {
       isPlayer1: response.players.player1.uid === player.uid,
     }));
   };
-  const updateGameStart = (game) => {
-    dispatch({ type: "IS_LOADING", payload: true });
-    dispatch({ type: "GAME_START", payload: game });
-  };
+
   const updateGameData = (game) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_UPDATE", payload: game });
