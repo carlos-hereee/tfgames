@@ -35,6 +35,9 @@
 .x-3 {
   grid-column: 3;
 }
+.x-4 {
+  grid-column: 4;
+}
 .y-1 {
   grid-row: 1;
 }
@@ -43,6 +46,9 @@
 }
 .y-3 {
   grid-row: 3;
+}
+.y-4 {
+  grid-row:4;
 }
 .exes::before,
 .exes::after {

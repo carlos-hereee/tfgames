@@ -26,7 +26,7 @@ export const GameState = ({ children }) => {
   const [show, setShow] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
   const { player } = useContext(PlayerContext);
-  const { clock, ticket } = useContext(LobbyContext);
+  const { ticket } = useContext(LobbyContext);
   const socket = useSocket();
   useEffect(() => {
     if (!socket) return;
@@ -48,7 +48,7 @@ export const GameState = ({ children }) => {
   }, [state.gameResult.result]);
 
   const gameStart = (game) => {
-    socket.emit("cancel-ticket", { ticket, clock, player });
+    socket.emit("cancel-ticket", { ticket, player });
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_START", payload: game });
   };
