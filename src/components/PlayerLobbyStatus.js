@@ -9,8 +9,8 @@ export default function PlayerLobbyStatus({ data }) {
   const [toggleMenu, setToggleMenu] = useState(false);
 
   const handleReady = (cmd) => {
-    if (cmd === "cancel") cancelTicket(ticket, clock);
-    if (cmd === "ready") newGame({ player, game: data, clock });
+    if (cmd === "cancel") cancelTicket(ticket);
+    if (cmd === "ready") newGame({ player, game: data });
   };
   return (
     <div className="card">

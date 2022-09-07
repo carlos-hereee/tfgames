@@ -32,15 +32,15 @@ export const LobbyState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "ADD_TO_LOG", payload: message });
   };
-  const newGame = ({ player, game, clock }) => {
-    socket.emit("new-game", { player, gameName: game, clock });
+  const newGame = ({ player, game }) => {
+    socket.emit("new-game", { player, gameName: game });
   };
   const ticketData = (ticket) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "TICKET_DATA", payload: ticket });
   };
-  const cancelTicket = (ticket, clock) => {
-    socket.emit("cancel-ticket", { ticket, player, clock });
+  const cancelTicket = (ticket) => {
+    socket.emit("cancel-ticket", { ticket, player });
   };
   return (
     <LobbyContext.Provider

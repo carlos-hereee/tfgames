@@ -48,7 +48,6 @@ export const GameState = ({ children }) => {
   }, [state.gameResult.result]);
 
   const gameStart = (game) => {
-    console.log("data", clock, ticket);
     socket.emit("cancel-ticket", { ticket, clock, player });
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_START", payload: game });
