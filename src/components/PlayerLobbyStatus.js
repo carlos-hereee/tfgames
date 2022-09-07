@@ -1,29 +1,19 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { PlayerContext } from "../context/PlayerContext";
 import { LobbyContext } from "../context/LobbyContext";
 
 export default function PlayerLobbyStatus({ data }) {
   const { player } = useContext(PlayerContext);
-  const { newGame, ticket, cancelTicket } = useContext(LobbyContext);
-  const [seconds, setSeconds] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
+  const { newGame, ticket, cancelTicket, clock } = useContext(LobbyContext);
   const [toggleMenu, setToggleMenu] = useState(false);
 
-  useEffect(() => {
-    if (isRunning) {
-      setSeconds(0);
-      const id = window.setInterval(() => setSeconds((sec) => sec + 1), 1000);
-      return () => window.clearInterval(id);
-    }
-  }, [isRunning]);
-
+  console.log("clock", clock);
   const handleReady = (cmd) => {
-    setIsRunning(!isRunning);
     if (cmd === "cancel") {
-      cancelTicket(ticket);
+      cancelTicket(ticket, clock);
     }
-    if (cmd === "ready") newGame({ player, game: data });
+    if (cmd === "ready") newGame({ player, game: data, clock });
   };
   return (
     <div className="card">
@@ -50,7 +40,7 @@ export default function PlayerLobbyStatus({ data }) {
           ...
         </button>
       </div>
-      <p>Elapsed time: {seconds}</p>
+      <p>Elapsed time: {clock.seconds}</p>
       {toggleMenu && (
         <nav className="lobby-toggle-menu">
           <Link to="/">
