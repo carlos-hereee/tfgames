@@ -24,11 +24,8 @@ export default function Game() {
           <h1 className="text-center">{game.gameName?.toUpperCase()} </h1>
           <p>{game.round} </p>
         </div>
-        <div
-          className={`game-content mt-2 ${
-            game.singlePlayer && "singlePlayer"
-          }`}>
-          <div>{boards[game.gameName]}</div>
+        <div className="game-content mt-2">
+          {boards[game.gameName]}
           <div className="game-players">
             {card(game.players.player1, game.turn === "player1")}
             {!game.singlePlayer &&

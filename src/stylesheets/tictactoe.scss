@@ -1,55 +1,32 @@
-.board {
-  display: grid;
-  justify-content: center;
-}
 .cell {
   border: 2px solid #7d4141;
-  min-width: 7rem;
-  min-height: 7rem;
+  width: 100%; 
+  height: 100%;
+  display: flex;
   align-self: stretch;
   grid-auto-columns: auto;
-  display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .tictactoe {
   .x-1 {
     border-left: none;
   }
+
   .y-1 {
     border-top: none;
   }
+
   .y-3 {
     border-bottom: none;
   }
+
   .x-3 {
     border-right: none;
   }
 }
-.x-1 {
-  grid-column: 1;
-}
-.x-2 {
-  grid-column: 2;
-}
-.x-3 {
-  grid-column: 3;
-}
-.x-4 {
-  grid-column: 4;
-}
-.y-1 {
-  grid-row: 1;
-}
-.y-2 {
-  grid-row: 2;
-}
-.y-3 {
-  grid-row: 3;
-}
-.y-4 {
-  grid-row:4;
-}
+
 .exes::before,
 .exes::after {
   content: "";
@@ -59,28 +36,34 @@
   background-color: black;
   border-radius: 10px;
 }
+
 .exes::before {
   transform: rotate(45deg);
 }
+
 .exes::after {
   transform: rotate(-45deg);
 }
+
 .circle::before,
 .circle::after {
   content: "";
   position: absolute;
   border-radius: 50%;
 }
+
 .circle::before {
   width: 6rem;
   height: 6rem;
   background-color: black;
 }
+
 .circle::after {
   width: 5rem;
   height: 5rem;
   background-color: white;
 }
+
 .player1:not(.exes):not(.circle):hover::before,
 .player1:not(.exes):not(.circle):hover::after {
   content: "";
@@ -90,28 +73,34 @@
   background-color: lightgray;
   border-radius: 10px;
 }
+
 .player1:not(.exes):not(.circle):hover::before {
   transform: rotate(45deg);
 }
+
 .player1:not(.exes):not(.circle):hover::after {
   transform: rotate(-45deg);
 }
+
 .player2:not(.exes):not(.circle):hover::before,
 .player2:not(.exes):not(.circle):hover::after {
   content: "";
   position: absolute;
   border-radius: 50%;
 }
+
 .player2:not(.exes):not(.circle):hover::before {
   width: 6rem;
   height: 6rem;
   background-color: lightgray;
 }
+
 .player2:not(.exes):not(.circle):hover::after {
   width: 5rem;
   height: 5rem;
   background-color: white;
 }
+
 .board .exes,
 .board .circle {
   cursor: not-allowed;

@@ -17,10 +17,14 @@ const SnakeGame = () => {
     // }
   };
   return (
-    <main className="board tictactoe">
+    <main className="board snake-game">
       {game.board.length > 1 &&
         game.board.map((cell) => (
-          <button key={cell.uid} onClick={() => checkLegalMove(cell)} />
+          <div
+            key={cell.uid}
+            // onClick={() => checkLegalMove(cell)}
+            className={`cell x-${cell.x} y-${cell.y} `}
+          />
         ))}
     </main>
   );
