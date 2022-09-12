@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import { axiosWithOutAuth } from "../utils/axios";
+import { axiosWithAuth, axiosWithOutAuth } from "../utils/axios";
 import { reducer } from "./authReducer";
 export const AuthContext = createContext();
 
@@ -30,7 +30,7 @@ export const AuthState = ({ children }) => {
       });
       localStorage.setItem("take-five-player", data.user);
       localStorage.setItem("access-token", data.accessToken);
-      dispatch({ type: "SET_LOGIN", payload: data.user });
+      // dispatch({ type: "SET_LOGIN", payload: data.user });
     } catch (e) {
       dispatch({
         type: "SET_ERROR",
@@ -40,6 +40,7 @@ export const AuthState = ({ children }) => {
   };
   const register = async (username, password) => {
     dispatch({ type: "IS_LOADING", payload: true });
+
     try {
       const { data } = await axiosWithOutAuth.post("/users/register", {
         username,
@@ -55,6 +56,24 @@ export const AuthState = ({ children }) => {
       });
     }
   };
+  const logOut = async (user) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    try {
+      const { data } = await axiosWithAuth.delete("/users/logout", user);
+      console.log("data", data);
+      if (data.message) {
+        localStorage.removeItem("take-five-player-nickname");
+        localStorage.removeItem("take-five-player-id");
+        localStorage.removeItem("access-token");
+      }
+    } catch (e) {
+      dispatch({
+        type: "SET_ERROR",
+        payload: JSON.parse(e.request.response).message,
+      });
+    }
+    dispatch({ type: "IS_LOADING", payload: false });
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -64,6 +83,7 @@ export const AuthState = ({ children }) => {
         getAccessToken,
         signIn,
         register,
+        logOut,
       }}>
       {children}
     </AuthContext.Provider>
