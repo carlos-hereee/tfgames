@@ -67,7 +67,7 @@ const Auth = ({ history }) => {
           </Formik>
         </div>
         <div className="card-footer text-center">
-          <Link to="signup">Already have an account?</Link>
+          <Link to="signup">Create an account</Link>
         </div>
       </div>
     </section>
