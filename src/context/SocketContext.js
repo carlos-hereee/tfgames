@@ -7,7 +7,7 @@ export const SocketState = ({ children }) => {
   const [socket, setSocket] = useState();
 
   useEffect(() => {
-    let id = localStorage.getItem("take-five-player-id");
+    let id = localStorage.getItem("tf-games-id");
     if (id) {
       const newSocket = io(
         process.env.REACT_APP_NODE_ENV === "production"

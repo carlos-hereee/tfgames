@@ -18,13 +18,6 @@ const getPlayer = (state, action) => {
     player: action.payload,
   };
 };
-const saveLocalPlayer = (state, action) => {
-  return {
-    ...state,
-    isLoading: false,
-    player: action.payload,
-  };
-};
 
 const queueMatch = (state, action) => {
   return {
@@ -70,6 +63,13 @@ const getOwnedAvatars = (state, action) => {
     ...state,
     isLoading: false,
     ownedAvatars: [...state.ownedAvatars, action.payload],
+  };
+};
+const saveLocalPlayer = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    player: action.payload,
   };
 };
 
