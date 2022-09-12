@@ -7,10 +7,7 @@ export default function OnlineNav() {
   return (
     <div className="nav-online font-weight-bold p-2">
       {player.uid ? (
-        <>
-          <p className="text-right">Welcome Back {player.nickname}</p>
-          <p className="text-right">Online</p>
-        </>
+        <p className="text-right">Welcome {player.nickname} Online</p>
       ) : (
         <p className="text-right m-2">Offline</p>
       )}

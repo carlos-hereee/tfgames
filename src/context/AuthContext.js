@@ -17,7 +17,7 @@ export const AuthState = ({ children }) => {
       localStorage.setItem("take-five-player", data.user);
       localStorage.setItem("access-token", data.accessToken);
       dispatch({ type: "IS_LOADING", payload: false });
-    } catch {
+    } catch (e) {
       dispatch({ type: "IS_LOADING", payload: false });
     }
   };

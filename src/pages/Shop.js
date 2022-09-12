@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import Coins from "../components/Coins";
 import Notification from "../components/Notification";
-import { avatarsArray } from "../data/shop";
+// import { avatarsArray } from "../data/shop";
 import { PlayerContext } from "../context/PlayerContext";
 
 const Shop = () => {
@@ -28,7 +28,7 @@ const Shop = () => {
           <h3 className="card-title">Avatars</h3>
         </div>
         <div className="card-body d-flex flex-wrap justify-content-around">
-          {avatarsArray.map((item) => (
+          {/* {avatarsArray.map((item) => (
             <div key={item.id} className="card mb-3">
               <h3 className="card-header">{item.name?.split(".")[0]}</h3>
               <div className="card-body text-center">{item.path}</div>
@@ -41,7 +41,7 @@ const Shop = () => {
                 </button>
               </div>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>
