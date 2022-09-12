@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { PlayerContext } from "../context/PlayerContext";
+import { AuthContext } from "../context/AuthContext";
 import { LobbyContext } from "../context/LobbyContext";
 
 export default function PlayerLobbyStatus({ data }) {
-  const { player } = useContext(PlayerContext);
+  const { player } = useContext(AuthContext);
   const { newGame, ticket, cancelTicket, clock } = useContext(LobbyContext);
   const [toggleMenu, setToggleMenu] = useState(false);
 

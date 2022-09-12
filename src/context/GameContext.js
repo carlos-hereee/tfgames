@@ -9,7 +9,7 @@ import React, {
 import GameResultModal from "../components/GameResultModal";
 import { reducer } from "./GameReducer";
 import { LobbyContext } from "./LobbyContext";
-import { PlayerContext } from "./PlayerContext";
+import { AuthContext } from "./AuthContext";
 import { useSocket } from "./SocketContext";
 
 export const GameContext = createContext();
@@ -25,7 +25,7 @@ export const GameState = ({ children }) => {
   const [modalContent, setModalContent] = useState({});
   const [show, setShow] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { player } = useContext(PlayerContext);
+  const { player } = useContext(AuthContext);
   const { ticket } = useContext(LobbyContext);
   const socket = useSocket();
   useEffect(() => {

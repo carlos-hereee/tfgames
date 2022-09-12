@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { reducer } from "./LobbyReducer";
 import { useSocket } from "./SocketContext";
-import { PlayerContext } from "./PlayerContext";
+import { AuthContext } from "./AuthContext";
 
 export const LobbyContext = createContext();
 
@@ -14,7 +14,7 @@ export const LobbyState = ({ children }) => {
     clock: {},
   };
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { player } = useContext(PlayerContext);
+  const { player } = useContext(AuthContext);
   const socket = useSocket();
 
   useEffect(() => {

@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { GameContext } from "../../context/GameContext";
-import { PlayerContext } from "../../context/PlayerContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const TicTacToe = () => {
   const { game, placeMark, gameResult } = useContext(GameContext);
-  const { player } = useContext(PlayerContext);
+  const { player } = useContext(AuthContext);
   let isPlayer1 = player.uid === game.players?.player1?.uid ? true : false;
   let isPlayer2 = player.uid === game.players?.player2?.uid ? true : false;
 

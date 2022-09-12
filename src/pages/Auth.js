@@ -22,7 +22,7 @@ const Auth = ({ history }) => {
           <Formik
             initialValues={{ username: "", password: "" }}
             onSubmit={({ username, password }, _) =>
-              signIn(username, password)
+              signIn(username, password, history)
             }>
             <Form>
               <div className="form-group">

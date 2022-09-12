@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { PlayerContext } from "../context/PlayerContext";
+import { AuthContext } from "../context/AuthContext";
 
 const Notification = () => {
-  const { error } = useContext(PlayerContext);
+  const { error } = useContext(AuthContext);
   return (
     <div className="alert alert-danger">
       <p className="text-center">{error}</p>

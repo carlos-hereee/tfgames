@@ -4,7 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import { GameState } from "./context/GameContext";
 import { AuthState } from "./context/AuthContext";
 import { LobbyState } from "./context/LobbyContext";
-import { PlayerState } from "./context/PlayerContext";
 import App from "./App";
 import "./stylesheets/index.scss";
 import { SocketState } from "./context/SocketContext";
@@ -14,13 +13,11 @@ ReactDOM.render(
     <BrowserRouter>
       <SocketState>
         <AuthState>
-          <PlayerState>
-            <LobbyState>
-              <GameState>
-                <App />
-              </GameState>
-            </LobbyState>
-          </PlayerState>
+          <LobbyState>
+            <GameState>
+              <App />
+            </GameState>
+          </LobbyState>
         </AuthState>
       </SocketState>
     </BrowserRouter>

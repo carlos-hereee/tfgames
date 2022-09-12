@@ -3,7 +3,7 @@ import PlayerCard from "../components/PlayerCard";
 import PlayerLobbyStatus from "../components/PlayerLobbyStatus";
 import queryString from "query-string";
 import { useContext, useEffect } from "react";
-import { PlayerContext } from "../context/PlayerContext";
+import { AuthContext } from "../context/AuthContext";
 import Logger from "../components/Logger";
 import { LobbyContext } from "../context/LobbyContext";
 import { GameContext } from "../context/GameContext";
@@ -11,7 +11,7 @@ import Game from "../components/Game";
 import { Prompt } from "react-router-dom";
 
 export default function Lobby({ location }) {
-  const { player } = useContext(PlayerContext);
+  const { player } = useContext(AuthContext);
   const { log } = useContext(LobbyContext);
   const { game } = queryString.parse(location.search);
   const { gameStart, setGameName } = useContext(GameContext);

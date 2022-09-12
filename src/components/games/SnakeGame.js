@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { GameContext } from "../../context/GameContext";
-import { PlayerContext } from "../../context/PlayerContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const SnakeGame = () => {
   const { game, placeMark, gameResult } = useContext(GameContext);
-  const { player } = useContext(PlayerContext);
+  const { player } = useContext(AuthContext);
 
   const checkLegalMove = (cell) => {
     // if (!gameResult.result) {

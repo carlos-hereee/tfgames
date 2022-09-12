@@ -34,7 +34,7 @@ const Register = ({ history }) => {
           <Formik
             initialValues={{ username: "", password: "", confirmPassword: "" }}
             onSubmit={({ username, password }, _) =>
-              register(username, password)
+              register(username, password, history)
             }
             validationSchema={Schema}>
             <Form>
