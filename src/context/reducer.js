@@ -11,10 +11,10 @@ const setAccessToken = (state, action) => {
     accessToken: action.payload,
   };
 };
-const getPlayer = (state, action) => {
+const setPlayerData = (state, action) => {
   return {
     ...state,
-    is_loading: false,
+    isLoading: false,
     player: action.payload,
   };
 };
@@ -93,8 +93,8 @@ export const reducer = (state, action) => {
       return getTaunts(state, action);
     case "GET_OWNED_AVATARS":
       return getOwnedAvatars(state, action);
-    case "GET_PLAYER":
-      return getPlayer(state, action);
+    case "SET_PLAYER_DATA":
+      return setPlayerData(state, action);
     case "SAVE_LOCAL_PLAYER":
       return saveLocalPlayer(state, action);
     default:

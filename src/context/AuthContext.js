@@ -1,18 +1,14 @@
 import React, { createContext, useReducer, useEffect } from "react";
-import { axiosWithAuth, axiosWithOutAuth } from "../utils/axios";
+import {
+  axiosWithAuth,
+  axiosWithOutAuth,
+  setLocalStorage,
+} from "../utils/axios";
 import generate from "project-name-generator";
 import { reducer } from "./reducer";
 import { v4 as uuidv4 } from "uuid";
 
 export const AuthContext = createContext();
-
-const setLocalStorage = (data) => {
-  if (data.accessToken) {
-    localStorage.setItem("access-token", data.accessToken);
-  }
-  localStorage.setItem("tf-games-nickname", data.user.nickname);
-  localStorage.setItem("tf-games-id", data.user.uid);
-};
 
 export const AuthState = ({ children }) => {
   const initialState = {
@@ -29,10 +25,7 @@ export const AuthState = ({ children }) => {
 
   useEffect(() => {
     getAccessToken();
-    if (state.accessToken) {
-      console.log("render");
-      getPlayer();
-    } else {
+    if (!state.accessToken) {
       if (!id) {
         saveLocalPlayer({
           nickname: generate({ words: 2 }).spaced,
@@ -44,16 +37,15 @@ export const AuthState = ({ children }) => {
     }
   }, [state.accessToken, id]);
 
-  const getPlayer = async () => {
+  const getAccessToken = async () => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
-      const { data } = await axiosWithAuth.get("/users");
-      console.log("data", data);
-      dispatch({ type: "GET_PLAYER", payload: data.message });
-    } catch (e) {
-      // if user doesnt have an acc; remove access-token
-      localStorage.removeItem("access-token");
-      dispatch({ type: "IS_LOADING", payload: false });
+      const { data } = await axiosWithAuth.post("/users/refresh-token");
+      dispatch({ type: "SET_ACCESS_TOKEN", payload: data.accessToken });
+      dispatch({ type: "SET_PLAYER_DATA", payload: data.user });
+      setLocalStorage(data);
+    } catch {
+      dispatch({ type: "SET_ACCESS_TOKEN", payload: "" });
     }
   };
   const saveLocalPlayer = (data) => {
@@ -67,16 +59,6 @@ export const AuthState = ({ children }) => {
     }
     dispatch({ type: "IS_LOADING", payload: false });
   };
-  const getAccessToken = async () => {
-    dispatch({ type: "IS_LOADING", payload: true });
-    try {
-      const { data } = await axiosWithOutAuth.post("/users/refresh-token");
-      setLocalStorage(data);
-    } catch {
-      dispatch({ type: "SET_ERROR", payload: "coulnd't get refresh token" });
-    }
-    dispatch({ type: "IS_LOADING", payload: false });
-  };
   const signIn = async (username, password, history) => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
@@ -86,9 +68,10 @@ export const AuthState = ({ children }) => {
       });
       setLocalStorage(data);
       dispatch({ type: "SET_ACCESS_TOKEN", payload: data.accessToken });
-      dispatch({ type: "GET_PLAYER", payload: data.user });
+      dispatch({ type: "SET_PLAYER_DATA", payload: data.user });
       history.push("/");
     } catch (e) {
+      console.log("e", e);
       dispatch({
         type: "SET_ERROR",
         payload: JSON.parse(e.request.response).message,
@@ -144,7 +127,6 @@ export const AuthState = ({ children }) => {
         signIn,
         register,
         logOut,
-        getPlayer,
         saveLocalPlayer,
       }}>
       {children}
