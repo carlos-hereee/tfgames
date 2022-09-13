@@ -78,8 +78,8 @@ export const GameState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_UPDATE", payload: game });
   };
-  const placeMark = (game, cell, player) => {
-    socket.emit("place-mark", { game, cell, player });
+  const gameUpdate = (game, motion, player) => {
+    socket.emit("game-update", { game, motion, player });
   };
   const postResults = (result) => {
     dispatch({ type: "IS_LOADING", payload: true });
@@ -115,7 +115,7 @@ export const GameState = ({ children }) => {
         gameResult: state.gameResult,
         rematchResponse: state.rematchResponse,
         setGameName,
-        placeMark,
+        gameUpdate,
       }}>
       <GameResultModal
         data={modalContent}

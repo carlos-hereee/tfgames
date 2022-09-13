@@ -1,9 +1,16 @@
 .snake-game{
-  width: 100%;
+  &:focus {
+    border: 2px solid rgb(11, 175, 107);
+  }
   .cell {
+    border: 1px solid rgb(12, 223, 135);
+    background-color:rgb(12, 223, 135) ;
     display: flex;
     width: 5rem;
     height: 5rem;
+  }
+  .snake-head {
+    background-color: rgb(33, 168, 62);
   }
 } 
  
