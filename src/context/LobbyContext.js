@@ -20,7 +20,7 @@ export const LobbyState = ({ children }) => {
   useEffect(() => {
     if (!socket) return;
     socket.on("ticket-data", (res) => ticketData(res));
-    socket.on("clock-lobby-data", (res) => clockLobbyData(res));
+    socket.on("lobby-clock-data", (res) => clockLobbyData(res));
     socket.on("receive-message", (message) => addToLog(message));
   }, [socket]);
 

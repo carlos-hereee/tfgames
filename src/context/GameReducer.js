@@ -48,6 +48,16 @@ const setGamename = (state, action) => {
     gameName: action.payload,
   };
 };
+const setGameClockData = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    game: {
+      ...state.game,
+      lastRenderTime: action.payload,
+    },
+  };
+};
 export const reducer = (state, action) => {
   switch (action.type) {
     case "IS_LOADING":
@@ -64,6 +74,8 @@ export const reducer = (state, action) => {
       return rematchResponse(state, action);
     case "SET_GAMENAME":
       return setGamename(state, action);
+    case "SET_GAME_CLOCK_DATA":
+      return setGameClockData(state, action);
     default:
       return state;
   }

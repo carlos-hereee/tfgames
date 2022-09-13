@@ -11,7 +11,6 @@ const card = (player, glow) => (
 );
 export default function Game() {
   const { game } = useContext(GameContext);
-  console.log("game", game);
   const boards = {
     tictactoe: <TicTacToe />,
     snakeGame: <SnakeGame />,

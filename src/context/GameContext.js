@@ -31,6 +31,7 @@ export const GameState = ({ children }) => {
   useEffect(() => {
     if (!socket) return;
     socket.on("game-start", (g) => gameStart(g));
+    socket.on("game-clock-data", (c) => gameClockData(c));
     socket.on("game-data", (game) => updateGameData(game));
     socket.on("game-results", (res) => postResults(res));
     socket.on("rematch-response", (res) => postRematchResponse(res));
@@ -47,6 +48,10 @@ export const GameState = ({ children }) => {
     }
   }, [state.gameResult.result]);
 
+  const gameClockData = (clock) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    dispatch({ type: "SET_GAME_CLOCK_DATA", payload: clock.startTime });
+  };
   const gameStart = (game) => {
     socket.emit("cancel-ticket", { ticket, player });
     dispatch({ type: "IS_LOADING", payload: true });
