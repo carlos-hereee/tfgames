@@ -12,6 +12,7 @@ export const LobbyState = ({ children }) => {
     log: [],
     ticket: {},
     clock: {},
+    options: {},
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const { player } = useContext(AuthContext);
@@ -24,6 +25,11 @@ export const LobbyState = ({ children }) => {
     socket.on("receive-message", (message) => addToLog(message));
   }, [socket]);
 
+  const setOptions = (option) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    dispatch({ type: "SET_OPTIONS", payload: option });
+  };
+  const newGame = (data) => socket.emit("game-new", data);
   const clockLobbyData = (res) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "SET_CLOCK_LOBBY_DATA", payload: res });
@@ -31,9 +37,6 @@ export const LobbyState = ({ children }) => {
   const addToLog = (message) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "ADD_TO_LOG", payload: message });
-  };
-  const newGame = ({ player, game }) => {
-    socket.emit("new-game", { player, gameName: game });
   };
   const ticketData = (ticket) => {
     dispatch({ type: "IS_LOADING", payload: true });
@@ -50,6 +53,8 @@ export const LobbyState = ({ children }) => {
         log: state.log,
         ticket: state.ticket,
         clock: state.clock,
+        options: state.options,
+        setOptions,
         addToLog,
         newGame,
         cancelTicket,
