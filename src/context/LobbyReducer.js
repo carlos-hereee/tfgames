@@ -26,6 +26,13 @@ const setClockLobbyData = (state, action) => {
     clock: action.payload,
   };
 };
+const setOptions = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    options: action.payload,
+  };
+};
 export const reducer = (state, action) => {
   switch (action.type) {
     case "IS_LOADING":
@@ -36,6 +43,8 @@ export const reducer = (state, action) => {
       return ticketData(state, action);
     case "SET_CLOCK_LOBBY_DATA":
       return setClockLobbyData(state, action);
+    case "SET_OPTIONS":
+      return setOptions(state, action);
     default:
       return state;
   }

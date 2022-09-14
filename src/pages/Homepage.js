@@ -2,20 +2,29 @@ import shortid from "shortid";
 import tictactoeGameboard from "../assets/tictactoeGameboard.svg";
 import snakeGame from "../assets/snakeGame.jpg";
 import { Link } from "react-router-dom";
+import { LobbyContext } from "../context/LobbyContext";
+import { useContext } from "react";
 
 const games = [
   {
     name: "tictactoe",
     key: shortid.generate(),
     imageName: "tictactoeGameboard",
+    defaultOptions: {
+      size: { length: 3, width: 3 },
+    },
   },
   {
     name: "snakeGame",
     key: shortid.generate(),
     imageName: "snakeGame",
+    defaultOptions: {
+      size: { length: 7, width: 7 },
+    },
   },
 ];
 const Homepage = () => {
+  const { setOptions } = useContext(LobbyContext);
   const image = {
     tictactoeGameboard,
     snakeGame,
@@ -27,12 +36,16 @@ const Homepage = () => {
           to={`/lobby?game=${game.name}`}
           key={game.key}
           className="game-card">
-          <h2>{game.name.toUpperCase()}</h2>
-          <img
-            src={image[game.imageName]}
-            alt={game.imageName}
-            className="icon-frame"
-          />
+          <button
+            className="btn"
+            onClick={() => setOptions(game.defaultOptions)}>
+            <h2>{game.name.toUpperCase()}</h2>
+            <img
+              src={image[game.imageName]}
+              alt={game.imageName}
+              className="icon-frame"
+            />
+          </button>
         </Link>
       ))}
     </main>
