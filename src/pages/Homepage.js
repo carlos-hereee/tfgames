@@ -1,4 +1,3 @@
-import shortid from "shortid";
 import tictactoeGameboard from "../assets/tictactoeGameboard.svg";
 import snakeGame from "../assets/snakeGame.jpg";
 import { Link } from "react-router-dom";
