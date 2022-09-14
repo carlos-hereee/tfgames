@@ -9,27 +9,33 @@ import { LobbyContext } from "../context/LobbyContext";
 import { GameContext } from "../context/GameContext";
 import Game from "../components/Game";
 import { Prompt } from "react-router-dom";
+import { games } from "../utils/usefulFunction";
 
 export default function Lobby({ location }) {
   const { player } = useContext(AuthContext);
-  const { log } = useContext(LobbyContext);
-  const { name } = queryString.parse(location.search);
+  const { log, options, setOptions } = useContext(LobbyContext);
+  const { game } = queryString.parse(location.search);
   const { gameStart, setGameName } = useContext(GameContext);
 
   useEffect(() => {
-    if (name) {
-      setGameName(name);
+    if (game) {
+      setGameName(game);
       // get options for game
+      if (!options.length) {
+        // get initial options
+        const idx = games.map((g) => g.name).indexOf(game);
+        setOptions(games[idx].defaultOptions);
+      }
     }
-  }, [name]);
+  }, [game]);
   return gameStart ? (
     <Game />
   ) : (
     <section className="lobby">
-      <Prompt message={() => "Are you sure you want to leave this page?"} />
+      {/* <Prompt message={() => "Are you sure you want to leave this page?"} /> */}
       <div className="lobby-player">
         <PlayerCard data={player} />
-        <LobbyOptions data={name} />
+        <LobbyOptions name={game} />
       </div>
       <div className="card logger">
         <Logger data={log} />
