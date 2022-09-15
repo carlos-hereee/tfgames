@@ -10,10 +10,10 @@ const TicTacToe = () => {
 
   const checkLegalMove = (cell) => {
     if (!gameResult.result) {
-      if (cell.isEmpty && game.turn === "player1" && isPlayer1) {
+      if (cell.hasContent && game.turn === "player1" && isPlayer1) {
         gameUpdate(game, cell, player);
       }
-      if (cell.isEmpty && game.turn === "player2" && isPlayer2) {
+      if (cell.hasContent && game.turn === "player2" && isPlayer2) {
         gameUpdate(game, cell, player);
       }
     }

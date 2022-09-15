@@ -26,9 +26,8 @@ export default function Game() {
         <div className="game-content mt-2">
           {boards[game.gameName]}
           <div className="game-players">
-            {card(game.players.player1, game.turn === "player1")}
-            {!game.singlePlayer &&
-              card(game.players.player2, game.turn === "player2")}
+            {card(game.player1, game.turn === "player1")}
+            {!game.singlePlayer && card(game.player2, game.turn === "player2")}
           </div>
         </div>
       </div>
