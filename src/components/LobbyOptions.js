@@ -2,15 +2,8 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { LobbyContext } from "../context/LobbyContext";
+import CancelBtn from "./atoms/CancelBtn";
 
-const CancelBtn = ({ handleReady }) => (
-  <button
-    type="button"
-    className="btn btn-danger"
-    onClick={() => handleReady("cancel")}>
-    Cancel
-  </button>
-);
 const ReadyBtn = ({ handleReady }) => (
   <button
     type="button"

@@ -1,7 +1,7 @@
-import { faSyncAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CancelBtn from "./atoms/CancelBtn";
+import RematchBtn from "./atoms/RematchBtn";
 
-const GameResultModal = ({ data, show, requestRematch, newGame }) => {
+const GameResultModal = ({ data, show, setRematch, newGame }) => {
   return (
     <div
       className={show ? "modal d-block" : "d-none"}
@@ -19,48 +19,23 @@ const GameResultModal = ({ data, show, requestRematch, newGame }) => {
           </div>
           <p className="text-white">{data.message}</p>
           <div className="modal-footer">
-            {data.isPlayer1 && !data.leftRes ? (
-              data.players?.player1?.rematch && data.leftRes ? (
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  data-dismiss="modal"
-                  onClick={() => requestRematch()}>
-                  <FontAwesomeIcon icon={faTimes} className="mr-2" />
-                  Cancel
-                </button>
+            {data.isPlayer1 &&
+              !data.leftRes &&
+              (data.players?.player1?.rematch && data.leftRes ? (
+                <CancelBtn onBtnClick={setRematch} data-dismiss="modal" />
               ) : (
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-dismiss="modal"
-                  onClick={() => requestRematch()}>
-                  <FontAwesomeIcon icon={faSyncAlt} className="mr-2" />
-                  Rematch
-                </button>
-              )
-            ) : null}
-            {!data.isPlayer1 && !data.leftRes ? (
-              data.players?.player2?.rematch && data.leftRes ? (
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  data-dismiss="modal"
-                  onClick={() => requestRematch()}>
-                  <FontAwesomeIcon icon={faTimes} className="mr-2" />
-                  Cancel
-                </button>
+                data.singlePlayer && (
+                  <RematchBtn onBtnClick={setRematch} data-dismiss="modal" />
+                )
+              ))}
+            {!data.isPlayer1 &&
+              !data.leftRes &&
+              (data.players?.player2?.rematch && data.leftRes ? (
+                <CancelBtn onBtnClick={setRematch} data-dismiss="modal" />
               ) : (
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-dismiss="modal"
-                  onClick={() => requestRematch()}>
-                  <FontAwesomeIcon icon={faSyncAlt} className="mr-2" />
-                  Rematch
-                </button>
-              )
-            ) : null}
+                <RematchBtn onBtnClick={setRematch} data-dismiss="modal" />
+              ))}
+
             <button
               type="submit"
               className="btn btn-success"
