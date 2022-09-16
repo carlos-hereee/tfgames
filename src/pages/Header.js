@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
+import OnlineNav from "../components/OnlineNav";
 import { AuthContext } from "../context/AuthContext";
 
 const Header = () => {
@@ -39,6 +40,7 @@ const Header = () => {
           </div>
         </div>
       </nav>
+      <OnlineNav />
     </header>
   );
 };

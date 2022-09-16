@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { GameContext } from "../../context/GameContext";
 
 const SnakeGame = () => {
-  const { game, gameUpdate, gameResult } = useContext(GameContext);
+  const { game, gameUpdate } = useContext(GameContext);
   const { player } = useContext(AuthContext);
 
   const handleKeyDown = (e) => {

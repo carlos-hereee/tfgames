@@ -23,13 +23,11 @@ export default function Game() {
           <h1 className="text-center">{game.gameName?.toUpperCase()} </h1>
           <p>{game.round} </p>
         </div>
-        <div className="game-content mt-2">
-          {boards[game.gameName]}
-          <div className="game-players">
-            {card(game.player1, game.turn === "player1")}
-            {!game.singlePlayer && card(game.player2, game.turn === "player2")}
-          </div>
-        </div>
+        {boards[game.gameName]}
+        <footer className="card-footer game-players">
+          {card(game.player1, game.turn === "player1")}
+          {!game.singlePlayer && card(game.player2, game.turn === "player2")}
+        </footer>
       </div>
     </section>
   );

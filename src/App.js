@@ -10,19 +10,18 @@ import Lobby from "./pages/Lobby";
 import Auth from "./pages/Auth";
 import { AuthContext } from "./context/AuthContext";
 import Loading from "./components/Loading";
-import OnlineNav from "./components/OnlineNav";
 import PrivateRoute from "./utils/PrivateRoute";
+import { GameContext } from "./context/GameContext";
 
 function App() {
   const { isLoading } = useContext(AuthContext);
-
+  const { game } = useContext(GameContext);
   if (isLoading) {
     return <Loading />;
   }
   return (
     <div className="app">
-      <Header />
-      <OnlineNav />
+      {!game.lobbyId && <Header />}
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/login" component={Auth} />

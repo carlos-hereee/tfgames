@@ -5,8 +5,8 @@ import { AuthContext } from "../../context/AuthContext";
 const TicTacToe = () => {
   const { game, gameUpdate, gameResult } = useContext(GameContext);
   const { player } = useContext(AuthContext);
-  let isPlayer1 = player.uid === game.players?.player1?.uid ? true : false;
-  let isPlayer2 = player.uid === game.players?.player2?.uid ? true : false;
+  let isPlayer1 = player.uid === game.players?.player1?.uid;
+  let isPlayer2 = player.uid === game.players?.player2?.uid;
 
   const checkLegalMove = (cell) => {
     if (!gameResult.result) {

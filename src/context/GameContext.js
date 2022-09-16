@@ -33,9 +33,9 @@ export const GameState = ({ children }) => {
     socket.on("game-clock-data", (c) => gameClockData(c));
     socket.on("game-data", (game) => updateGameData(game));
     socket.on("game-results", (res) => postResults(res));
+    socket.on("game-reset-response", (res) => gameResetResponse(res));
     socket.on("rematch-response", (res) => postRematchResponse(res));
     socket.on("left-response", (res) => postLeftResponse(res));
-    socket.on("game-reset-response", (res) => gameResetResponse(res));
     socket.on("player-left", ({ show }) => playerLeft(show));
   }, [socket]);
 
