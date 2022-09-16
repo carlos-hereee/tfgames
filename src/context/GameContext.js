@@ -23,7 +23,6 @@ export const GameState = ({ children }) => {
     gameName: "",
   };
   const [modalContent, setModalContent] = useState({});
-  const [show, setShow] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
   const { player } = useContext(AuthContext);
   const { ticket } = useContext(LobbyContext);
@@ -37,14 +36,17 @@ export const GameState = ({ children }) => {
     socket.on("rematch-response", (res) => postRematchResponse(res));
     socket.on("left-response", (res) => postLeftResponse(res));
     socket.on("game-reset-response", (res) => gameResetResponse(res));
+    socket.on("player-left", ({ show }) => playerLeft(show));
   }, [socket]);
 
+  const playerLeft = (show) => setModalContent((prev) => ({ ...prev, show }));
   const gameClockData = (clock) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "SET_GAME_CLOCK_DATA", payload: clock.startTime });
   };
   const gameStart = (game) => {
     console.log("start", game);
+    setModalContent((prev) => ({ ...prev, singlePlayer: game.singlePlayer }));
     socket.emit("cancel-ticket", { ticket, player });
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_START", payload: game });
@@ -53,7 +55,7 @@ export const GameState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "REMATCH_RESPONSE", payload: "" });
     dispatch({ type: "POST_RESULT", payload: "" });
-    setShow(false);
+    setModalContent((prev) => ({ ...prev, show: false }));
     updateGameData(game);
   };
   const postRematchResponse = (response) => {
@@ -75,12 +77,7 @@ export const GameState = ({ children }) => {
   };
   const postResults = (result) => {
     dispatch({ type: "IS_LOADING", payload: true });
-    setShow(true);
-    setModalContent((prev) => ({
-      ...prev,
-      title: result.result,
-      singlePlayer: state.game.singlePlayer,
-    }));
+    setModalContent((prev) => ({ ...prev, title: result.result, show: true }));
     dispatch({ type: "POST_RESULT", payload: result });
   };
   const setRematch = () => {
@@ -88,7 +85,6 @@ export const GameState = ({ children }) => {
     socket.emit("request-rematch", { game: state.game, isPlayer1 });
   };
   const newGame = () => {
-    setShow(!show);
     dispatch({ type: "IS_LOADING", payload: true });
     socket.emit("player-leave", { player, game: state.game });
     dispatch({ type: "GAME_END", payload: "" });
@@ -117,7 +113,7 @@ export const GameState = ({ children }) => {
       }}>
       <GameResultModal
         data={modalContent}
-        show={show}
+        show={modalContent.show}
         setRematch={() => setRematch()}
         newGame={() => newGame()}
       />

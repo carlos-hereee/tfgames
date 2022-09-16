@@ -33,12 +33,14 @@ const GameResultModal = ({ data, show, setRematch, newGame }) => {
               (data.players?.player2?.rematch && data.leftRes ? (
                 <CancelBtn onBtnClick={setRematch} data-dismiss="modal" />
               ) : (
-                <RematchBtn onBtnClick={setRematch} data-dismiss="modal" />
+                data.singlePlayer && (
+                  <RematchBtn onBtnClick={setRematch} data-dismiss="modal" />
+                )
               ))}
-
             <button
-              type="submit"
+              type="button"
               className="btn btn-success"
+              data-dismiss="modal"
               onClick={() => newGame()}>
               New Game
             </button>
