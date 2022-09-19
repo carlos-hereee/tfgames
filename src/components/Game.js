@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { GameContext } from "../context/GameContext";
+import Gameover from "./Gameover";
 import SnakeGame from "./games/SnakeGame";
 import TicTacToe from "./games/TicTacToe";
 import PlayerCard from "./PlayerCard";
@@ -24,7 +25,7 @@ export default function Game() {
           <p>{game.round} </p>
         </div>
         <span>Timer: {(game.lastRenderTime - game.startTime) / 1000}</span>
-        {boards[game.gameName]}
+        {game.gameOver ? <Gameover /> : boards[game.gameName]}
         <footer className="card-footer game-players">
           {card(game.player1, game.turn === "player1")}
           {!game.singlePlayer && card(game.player2, game.turn === "player2")}

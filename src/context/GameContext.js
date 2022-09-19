@@ -1,12 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
-import GameResultModal from "../components/GameResultModal";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { reducer } from "./GameReducer";
 import { LobbyContext } from "./LobbyContext";
 import { AuthContext } from "./AuthContext";
@@ -18,11 +11,8 @@ export const GameState = ({ children }) => {
     isLoading: false,
     gameStart: false,
     game: {},
-    gameResult: "",
-    rematchResponse: "",
-    gameName: "",
+    gameResult: {},
   };
-  const [modalContent, setModalContent] = useState({});
   const [state, dispatch] = useReducer(reducer, initialState);
   const { player } = useContext(AuthContext);
   const { ticket } = useContext(LobbyContext);
@@ -39,14 +29,16 @@ export const GameState = ({ children }) => {
     socket.on("player-left", ({ show }) => playerLeft(show));
   }, [socket]);
 
-  const playerLeft = (show) => setModalContent((prev) => ({ ...prev, show }));
+  const playerLeft = (show) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    dispatch({ type: "SET_GAME_RESULTS", payload: show });
+  };
   const gameClockData = (clock) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "SET_GAME_CLOCK_DATA", payload: clock });
   };
   const gameStart = (game) => {
     console.log("start", game);
-    setModalContent((prev) => ({ ...prev, singlePlayer: game.singlePlayer }));
     socket.emit("cancel-ticket", { ticket, player });
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_START", payload: game });
@@ -55,17 +47,21 @@ export const GameState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "REMATCH_RESPONSE", payload: "" });
     dispatch({ type: "POST_RESULT", payload: "" });
-    setModalContent((prev) => ({ ...prev, show: false }));
+    dispatch({ type: "SET_GAME_RESULTS", payload: { show: false } });
     updateGameData(game);
   };
   const postRematchResponse = (response) => {
-    setModalContent((prev) => ({
-      ...prev,
-      gameName: state.game.gameName,
-      message: response.message,
-      players: response.players,
-      isPlayer1: response.players.player1.uid === player.uid,
-    }));
+    // setModalContent((prev) => ({
+    //   ...prev,
+    //   gameName: state.game.gameName,
+    //   message: response.message,
+    //   players: response.players,
+    //   isPlayer1: response.players.player1.uid === player.uid,
+    // }));
+    dispatch({
+      type: "SET_GAME_RESULTS",
+      payload: { message: response.message },
+    });
   };
 
   const updateGameData = (game) => {
@@ -75,13 +71,12 @@ export const GameState = ({ children }) => {
   const gameUpdate = (game, motion, player) => {
     socket.emit("game-update", { game, motion, player });
   };
-  const postResults = (result) => {
+  const postResults = ({ result }) => {
     dispatch({ type: "IS_LOADING", payload: true });
-    setModalContent((prev) => ({ ...prev, title: result.result, show: true }));
-    dispatch({ type: "POST_RESULT", payload: result });
+    dispatch({ type: "SET_GAME_RESULTS", payload: result });
   };
   const setRematch = () => {
-    const isPlayer1 = state.game.players.player1.uid === player.uid;
+    const isPlayer1 = state.game.player1.uid === player.uid;
     socket.emit("request-rematch", { game: state.game, isPlayer1 });
   };
   const newGame = () => {
@@ -94,11 +89,10 @@ export const GameState = ({ children }) => {
     dispatch({ type: "SET_GAMENAME", payload: name });
   };
   const postLeftResponse = (res) => {
-    setModalContent((prev) => ({
-      ...prev,
-      message: res.message,
-      leftRes: true,
-    }));
+    dispatch({
+      type: "SET_GAME_RESULTS",
+      payload: { message: res.message, leftRes: true },
+    });
   };
   return (
     <GameContext.Provider
@@ -107,16 +101,11 @@ export const GameState = ({ children }) => {
         gameStart: state.gameStart,
         game: state.game,
         gameResult: state.gameResult,
-        rematchResponse: state.rematchResponse,
         setGameName,
+        setRematch,
+        newGame,
         gameUpdate,
       }}>
-      <GameResultModal
-        data={modalContent}
-        show={modalContent.show}
-        setRematch={() => setRematch()}
-        newGame={() => newGame()}
-      />
       {children}
     </GameContext.Provider>
   );

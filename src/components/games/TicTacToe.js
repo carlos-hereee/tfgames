@@ -9,9 +9,7 @@ const TicTacToe = () => {
   let isPlayer2 = player.uid === game.player2?.uid;
 
   const checkLegalMove = (cell) => {
-    console.log("cell", cell);
     if (!gameResult.result) {
-      console.log("game result", gameResult);
       if (!cell.hasContent && game.turn === "player1" && isPlayer1) {
         console.log(
           "cell has content",

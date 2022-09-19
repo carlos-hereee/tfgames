@@ -27,13 +27,6 @@ const gameEnd = (state, action) => {
     gameStart: false,
   };
 };
-const postResult = (state, action) => {
-  return {
-    ...state,
-    isLoading: false,
-    gameResult: action.payload,
-  };
-};
 const rematchResponse = (state, action) => {
   return {
     ...state,
@@ -59,6 +52,16 @@ const setGameClockData = (state, action) => {
     },
   };
 };
+const setGameResults = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    gameResult: {
+      ...state.gameResult,
+      ...action.payload,
+    },
+  };
+};
 export const reducer = (state, action) => {
   switch (action.type) {
     case "IS_LOADING":
@@ -69,14 +72,14 @@ export const reducer = (state, action) => {
       return gameStart(state, action);
     case "GAME_END":
       return gameEnd(state, action);
-    case "POST_RESULT":
-      return postResult(state, action);
     case "REMATCH_RESPONSE":
       return rematchResponse(state, action);
     case "SET_GAMENAME":
       return setGamename(state, action);
     case "SET_GAME_CLOCK_DATA":
       return setGameClockData(state, action);
+    case "SET_GAME_RESULTS":
+      return setGameResults(state, action);
     default:
       return state;
   }
