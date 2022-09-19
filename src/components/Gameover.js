@@ -15,25 +15,27 @@ export default function Gameover() {
     <section className="game-over">
       <h2 className="">{gameResult.title}</h2>
       <p className="">{gameResult.message}</p>
-      {!gameResult.leftGame &&
-        (gameResult.player1?.rematch && gameResult.leftGame ? (
-          <CancelBtn onBtnClick={setRematch} />
-        ) : (
-          game.singlePlayer && <RematchBtn onBtnClick={setRematch} />
-        ))}
-      {/* {!isPlayer1 &&
+      <div>
+        {!gameResult.leftGame &&
+          (gameResult.player1?.rematch && gameResult.leftGame ? (
+            <CancelBtn onBtnClick={setRematch} />
+          ) : (
+            !game.singlePlayer && <RematchBtn onBtnClick={setRematch} />
+          ))}
+        {/* {!isPlayer1 &&
         !gameResult.leftGame &&
         (gameResult.player2?.rematch && gameResult.leftGame ? (
           <CancelBtn onBtnClick={setRematch} />
-        ) : (
+          ) : (
           game.singlePlayer && <RematchBtn onBtnClick={setRematch} />
         ))} */}
-      <button
-        type="button"
-        className="btn btn-success"
-        onClick={() => newGame()}>
-        New Game
-      </button>
+        <button
+          type="button"
+          className="btn btn-success"
+          onClick={() => newGame()}>
+          New Game
+        </button>
+      </div>
     </section>
   );
 }
