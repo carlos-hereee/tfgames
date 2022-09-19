@@ -1,15 +1,12 @@
-.tictactoe {
-  min-height: 50vh;
+$exes: url("../assets/exes.svg");
+$circle: url("../assets/circle.svg");
+$exesGray: url("../assets/exes-gray.svg");
+$circleGray: url("../assets/circle-gray.svg");
 
+.tictactoe {
   .cell {
     border: 2px solid #7d4141;
-    width: 100%;
-    // height: 100%;
-    // display: flex;
-    // align-self: stretch;
-    // grid-auto-columns: auto;
-    // justify-content: center;
-    // align-items: center;
+    position: relative;
   }
   .x-1 {
     border-left: none;
@@ -24,80 +21,73 @@
     border-right: none;
   }
 }
+.exes {
+  background: $exes no-repeat center;
+  background-size: contain;
+}
+.circle {
+  background: $circle no-repeat center;
+  background-size: contain;
+  // .circle::before,
+  // .circle::after {
+  //   content: "";
+  //   position: absolute;
+  //   border-radius: 50%;
+  // }
 
-.exes::before,
-.exes::after {
-  content: "";
-  position: absolute;
-  width: 1rem;
-  height: 6rem;
-  background-color: black;
-  border-radius: 10px;
+  // .circle::before {
+  //   width: 6rem;
+  //   height: 6rem;
+  //   background-color: black;
+  // }
+
+  // .circle::after {
+  //   width: 5rem;
+  //   height: 5rem;
+  //   background-color: white;
+  // }
+}
+.player1:not(.exes):not(.circle):hover,
+.player1:not(.exes):not(.circle):hover {
+  background: $circleGray no-repeat center;
+  background-size: contain;
 }
 
-.exes::before {
-  transform: rotate(45deg);
+.player1:not(.exes):not(.circle):hover {
+  // .player1:not(.exes):not(.circle):hover::before {
+  //   transform: rotate(45deg);
+  // }
+
+  // .player1:not(.exes):not(.circle):hover::after {
+  //   transform: rotate(-45deg);
+  background: $exesGray no-repeat center;
+  background-size: contain;
 }
 
-.exes::after {
-  transform: rotate(-45deg);
-}
+// }
 
-.circle::before,
-.circle::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
+.player2:not(.exes):not(.circle):hover,
+.player2:not(.exes):not(.circle):hover {
+  background: $circleGray no-repeat center;
+  background-size: contain;
+  // .player2:not(.exes):not(.circle):hover::before,
+  // .player2:not(.exes):not(.circle):hover::after {
+  //   content: "";
+  //   position: absolute;
+  //   border-radius: 50%;
+  // }
 }
+// .player2:not(.exes):not(.circle):hover::before {
+//   width: 6rem;
+//   height: 6rem;
+//   background-color: lightgray;
+// }
 
-.circle::before {
-  width: 6rem;
-  height: 6rem;
-  background-color: black;
-}
-
-.circle::after {
-  width: 5rem;
-  height: 5rem;
-  background-color: white;
-}
-
-.player1:not(.exes):not(.circle):hover::before,
-.player1:not(.exes):not(.circle):hover::after {
-  content: "";
-  position: absolute;
-  width: 1rem;
-  height: 6rem;
-  background-color: lightgray;
-  border-radius: 10px;
-}
-
-.player1:not(.exes):not(.circle):hover::before {
-  transform: rotate(45deg);
-}
-
-.player1:not(.exes):not(.circle):hover::after {
-  transform: rotate(-45deg);
-}
-
-.player2:not(.exes):not(.circle):hover::before,
-.player2:not(.exes):not(.circle):hover::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-}
-
-.player2:not(.exes):not(.circle):hover::before {
-  width: 6rem;
-  height: 6rem;
-  background-color: lightgray;
-}
-
-.player2:not(.exes):not(.circle):hover::after {
-  width: 5rem;
-  height: 5rem;
-  background-color: white;
-}
+// .player2:not(.exes):not(.circle):hover::after {
+//   width: 5rem;
+//   height: 5rem;
+//   background-color: white;
+// }
 
 .board .exes,
 .board .circle {
