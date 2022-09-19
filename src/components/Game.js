@@ -23,6 +23,7 @@ export default function Game() {
           <h1 className="text-center">{game.gameName?.toUpperCase()} </h1>
           <p>{game.round} </p>
         </div>
+        <span>Timer: {(game.lastRenderTime - game.startTime) / 1000}</span>
         {boards[game.gameName]}
         <footer className="card-footer game-players">
           {card(game.player1, game.turn === "player1")}

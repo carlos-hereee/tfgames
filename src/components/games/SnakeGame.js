@@ -33,20 +33,15 @@ const SnakeGame = () => {
   };
 
   return (
-    <main>
-      <div>
-        <h1>time: {game.lastRenderTime}</h1>
-      </div>
-      <div className="board snake-game" tabIndex={0} onKeyDown={handleKeyDown}>
-        {game.board.length > 1 &&
-          game.board.map((cell) => (
-            <div
-              key={cell.uid}
-              // onClick={() => checkLegalMove(cell)}
-              className={`cell x-${cell.x} y-${cell.y} ${cell.content}`}
-            />
-          ))}
-      </div>
+    <main className="board snake-game" tabIndex={0} onKeyDown={handleKeyDown}>
+      {game.board.length > 1 &&
+        game.board.map((cell) => (
+          <div
+            key={cell.uid}
+            // onClick={() => checkLegalMove(cell)}
+            className={`cell x-${cell.x} y-${cell.y} ${cell.content}`}
+          />
+        ))}
     </main>
   );
 };

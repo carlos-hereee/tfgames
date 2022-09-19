@@ -42,7 +42,7 @@ export const GameState = ({ children }) => {
   const playerLeft = (show) => setModalContent((prev) => ({ ...prev, show }));
   const gameClockData = (clock) => {
     dispatch({ type: "IS_LOADING", payload: true });
-    dispatch({ type: "SET_GAME_CLOCK_DATA", payload: clock.startTime });
+    dispatch({ type: "SET_GAME_CLOCK_DATA", payload: clock });
   };
   const gameStart = (game) => {
     console.log("start", game);

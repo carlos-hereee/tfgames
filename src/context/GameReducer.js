@@ -54,7 +54,8 @@ const setGameClockData = (state, action) => {
     isLoading: false,
     game: {
       ...state.game,
-      lastRenderTime: action.payload,
+      lastRenderTime: action.payload.timer,
+      startTime: action.payload.startTime,
     },
   };
 };
