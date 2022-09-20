@@ -33,6 +33,13 @@ const setOptions = (state, action) => {
     options: action.payload,
   };
 };
+const setGamename = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    gameName: action.payload,
+  };
+};
 export const reducer = (state, action) => {
   switch (action.type) {
     case "IS_LOADING":
@@ -45,6 +52,8 @@ export const reducer = (state, action) => {
       return setClockLobbyData(state, action);
     case "SET_OPTIONS":
       return setOptions(state, action);
+    case "SET_GAMENAME":
+      return setGamename(state, action);
     default:
       return state;
   }

@@ -13,6 +13,7 @@ export const LobbyState = ({ children }) => {
     ticket: {},
     clock: {},
     options: {},
+    gameName: "",
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const { player } = useContext(AuthContext);
@@ -45,6 +46,9 @@ export const LobbyState = ({ children }) => {
   const cancelTicket = (ticket) => {
     socket.emit("cancel-ticket", { ticket, player });
   };
+  const setGameName = (name) => {
+    dispatch({ type: "SET_GAMENAME", payload: name });
+  };
   return (
     <LobbyContext.Provider
       value={{
@@ -54,10 +58,12 @@ export const LobbyState = ({ children }) => {
         ticket: state.ticket,
         clock: state.clock,
         options: state.options,
+        gameName: state.gameName,
         setOptions,
         addToLog,
         newGame,
         cancelTicket,
+        setGameName,
       }}>
       {children}
     </LobbyContext.Provider>

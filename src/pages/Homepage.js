@@ -6,10 +6,14 @@ import { useContext } from "react";
 import { games } from "../utils/usefulFunction";
 
 const Homepage = () => {
-  const { setOptions } = useContext(LobbyContext);
+  const { setOptions, setGameName } = useContext(LobbyContext);
   const image = {
     tictactoeGameboard,
     snakeGame,
+  };
+  const handleGameSettings = (g) => {
+    setGameName(g.name);
+    setOptions(g.defaultOptions);
   };
   return (
     <main className="homepage">
@@ -18,9 +22,7 @@ const Homepage = () => {
           to={`/lobby?game=${game.name}`}
           key={game.key}
           className="game-card">
-          <button
-            className="btn"
-            onClick={() => setOptions(game.defaultOptions)}>
+          <button className="btn" onClick={() => handleGameSettings(game)}>
             <h2>{game.name.toUpperCase()}</h2>
             <img
               src={image[game.imageName]}

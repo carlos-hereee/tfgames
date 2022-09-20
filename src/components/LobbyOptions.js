@@ -3,23 +3,8 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { LobbyContext } from "../context/LobbyContext";
 import CancelBtn from "./atoms/CancelBtn";
-
-const ReadyBtn = ({ handleReady }) => (
-  <button
-    type="button"
-    className="btn btn-success"
-    onClick={() => handleReady("ready")}>
-    Ready
-  </button>
-);
-const ToogleBtn = ({ setToggle, toggle }) => (
-  <button
-    type="button"
-    className="btn btn-dark"
-    onClick={() => setToggle(!toggle)}>
-    ...
-  </button>
-);
+import ReadyBtn from "./atoms/ReadyBtn";
+import ToggleBtn from "./atoms/ToggleBtn";
 
 const LobbyOptions = ({ name }) => {
   const { player } = useContext(AuthContext);
@@ -37,9 +22,9 @@ const LobbyOptions = ({ name }) => {
         {ticket?.lobbyId ? (
           <CancelBtn handleReady={handleReady} />
         ) : (
-          <ReadyBtn handleReady={handleReady} />
+          <ReadyBtn onBtnClick={handleReady} />
         )}
-        <ToogleBtn toggle={toggleMenu} setToggle={setToggleMenu} />
+        <ToggleBtn toggle={toggleMenu} setToggle={setToggleMenu} />
       </div>
       <p>Elapsed time: {clock.seconds}</p>
       {toggleMenu && (
