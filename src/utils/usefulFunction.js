@@ -31,7 +31,7 @@ export const games = [
       expansionRate: 1,
       newSegment: 0,
       inputDirection: { x: 0, y: 0 },
-      lastInputDirection: [{ x: 0, y: 0 }],
+      lastInputDirection: { x: 0, y: 0 },
     },
   },
 ];
