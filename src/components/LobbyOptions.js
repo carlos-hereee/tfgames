@@ -12,17 +12,13 @@ const LobbyOptions = ({ name }) => {
     useContext(LobbyContext);
   const [toggleMenu, setToggleMenu] = useState(false);
 
-  const handleReady = (cmd) => {
-    if (cmd === "cancel") cancelTicket(ticket);
-    if (cmd === "ready") newGame({ player, name, options });
-  };
   return (
     <div className="card">
       <div className="lobby-buttons">
         {ticket?.lobbyId ? (
-          <CancelBtn handleReady={handleReady} />
+          <CancelBtn onBtnClick={() => cancelTicket(ticket)} />
         ) : (
-          <ReadyBtn onBtnClick={handleReady} />
+          <ReadyBtn onBtnClick={() => newGame({ player, name, options })} />
         )}
         <ToggleBtn toggle={toggleMenu} setToggle={setToggleMenu} />
       </div>

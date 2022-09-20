@@ -16,6 +16,7 @@ const gameStart = (state, action) => {
     ...state,
     isLoading: false,
     game: action.payload,
+    gameStart: true,
   };
 };
 

@@ -11,6 +11,7 @@ export const GameState = ({ children }) => {
     isLoading: false,
     game: {},
     gameResult: {},
+    gameStart: false,
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const { player } = useContext(AuthContext);
@@ -37,6 +38,7 @@ export const GameState = ({ children }) => {
     dispatch({ type: "SET_GAME_CLOCK_DATA", payload: clock });
   };
   const gameStart = (game) => {
+    console.log("start", game);
     socket.emit("cancel-ticket", { ticket, player });
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_START", payload: game });
@@ -82,6 +84,7 @@ export const GameState = ({ children }) => {
       value={{
         isLoading: state.isLoading,
         game: state.game,
+        gameStart: state.gameStart,
         gameResult: state.gameResult,
         setRematch,
         newGame,
