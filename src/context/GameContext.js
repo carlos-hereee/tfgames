@@ -9,7 +9,6 @@ export const GameContext = createContext();
 export const GameState = ({ children }) => {
   const initialState = {
     isLoading: false,
-    gameStart: false,
     game: {},
     gameResult: {},
   };
@@ -23,7 +22,7 @@ export const GameState = ({ children }) => {
     socket.on("game-clock-data", (c) => gameClockData(c));
     socket.on("game-data", (game) => updateGameData(game));
     socket.on("game-results", (res) => postResults(res));
-    socket.on("game-reset-response", (res) => gameResetResponse(res));
+    socket.on("game-reset", (res) => gameReset(res));
     socket.on("rematch", (res) => rematch(res));
     socket.on("left-response", (res) => postLeftResponse(res));
     socket.on("player-left", ({ show }) => playerLeft(show));
@@ -42,11 +41,9 @@ export const GameState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_START", payload: game });
   };
-  const gameResetResponse = (game) => {
+  const gameReset = (game) => {
     dispatch({ type: "IS_LOADING", payload: true });
-    dispatch({ type: "REMATCH_RESPONSE", payload: "" });
-    dispatch({ type: "POST_RESULT", payload: "" });
-    dispatch({ type: "SET_GAME_RESULTS", payload: { show: false } });
+    dispatch({ type: "GAME_REST", payload: "" });
     updateGameData(game);
   };
 
@@ -74,9 +71,6 @@ export const GameState = ({ children }) => {
     dispatch({ type: "GAME_END", payload: "" });
     socket.emit("new-game", { player, gameName: state.gameName });
   };
-  const setGameName = (name) => {
-    dispatch({ type: "SET_GAMENAME", payload: name });
-  };
   const postLeftResponse = (res) => {
     dispatch({
       type: "SET_GAME_RESULTS",
@@ -87,10 +81,8 @@ export const GameState = ({ children }) => {
     <GameContext.Provider
       value={{
         isLoading: state.isLoading,
-        gameStart: state.gameStart,
         game: state.game,
         gameResult: state.gameResult,
-        setGameName,
         setRematch,
         newGame,
         gameUpdate,
