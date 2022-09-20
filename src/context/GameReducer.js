@@ -52,6 +52,25 @@ const gameReset = (state, action) => {
     gameResult: {},
   };
 };
+const playerLeft = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    gameResult: {},
+    gameStart: false,
+  };
+};
+const opponentLeft = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    gameResult: {
+      ...state.gameResult,
+      message: action.payload.message,
+      leftGame: true,
+    },
+  };
+};
 export const reducer = (state, action) => {
   switch (action.type) {
     case "IS_LOADING":
@@ -68,6 +87,10 @@ export const reducer = (state, action) => {
       return setGameClockData(state, action);
     case "SET_GAME_RESULTS":
       return setGameResults(state, action);
+    case "PLAYER_LEFT":
+      return playerLeft(state, action);
+    case "OPPONENT_LEFT":
+      return opponentLeft(state, action);
     default:
       return state;
   }

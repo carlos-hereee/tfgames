@@ -25,36 +25,37 @@ export const GameState = ({ children }) => {
     socket.on("game-results", (res) => postResults(res));
     socket.on("game-reset", (res) => gameReset(res));
     socket.on("rematch", (res) => rematch(res));
-    socket.on("left-response", (res) => postLeftResponse(res));
-    socket.on("player-left", ({ show }) => playerLeft(show));
+    socket.on("opponent-left", (data) => opponentLeft(data));
+    socket.on("player-left", () => playerLeft());
   }, [socket]);
 
-  const playerLeft = (show) => {
+  const playerLeft = () => {
     dispatch({ type: "IS_LOADING", payload: true });
-    dispatch({ type: "SET_GAME_RESULTS", payload: show });
+    dispatch({ type: "PLAYER_LEFT", payload: "" });
+  };
+  const opponentLeft = (data) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    dispatch({ type: "OPPONENT_LEFT", payload: data });
   };
   const gameClockData = (clock) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "SET_GAME_CLOCK_DATA", payload: clock });
   };
   const gameStart = (game) => {
-    console.log("start", game);
     socket.emit("cancel-ticket", { ticket, player });
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_START", payload: game });
   };
   const gameReset = (game) => {
     dispatch({ type: "IS_LOADING", payload: true });
-    dispatch({ type: "GAME_REST", payload: "" });
+    dispatch({ type: "GAME_RESET", payload: "" });
     updateGameData(game);
   };
-
   const rematch = (data) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "SET_GAME_RESULTS", payload: data });
     dispatch({ type: "GAME_UPDATE", payload: data.game });
   };
-
   const updateGameData = (game) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_UPDATE", payload: game });
@@ -67,18 +68,12 @@ export const GameState = ({ children }) => {
     dispatch({ type: "SET_GAME_RESULTS", payload: result });
   };
   const setRematch = (game, player) => socket.emit("rematch", { game, player });
-  const newGame = () => {
+  const newGame = (player, game) => {
     dispatch({ type: "IS_LOADING", payload: true });
-    socket.emit("player-leave", { player, game: state.game });
-    dispatch({ type: "GAME_END", payload: "" });
-    socket.emit("new-game", { player, gameName: state.gameName });
+    socket.emit("game-leave", { player, game });
+    socket.emit("new-game", { player, gameName: game.gameName });
   };
-  const postLeftResponse = (res) => {
-    dispatch({
-      type: "SET_GAME_RESULTS",
-      payload: { message: res.message, leftRes: true },
-    });
-  };
+
   return (
     <GameContext.Provider
       value={{

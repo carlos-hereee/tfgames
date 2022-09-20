@@ -15,13 +15,13 @@ import { GameContext } from "./context/GameContext";
 
 function App() {
   const { isLoading } = useContext(AuthContext);
-  const { game } = useContext(GameContext);
+  const { gameStart } = useContext(GameContext);
   if (isLoading) {
     return <Loading />;
   }
   return (
     <div className="app">
-      {!game.lobbyId && <Header />}
+      {!gameStart && <Header />}
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/login" component={Auth} />

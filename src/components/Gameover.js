@@ -26,7 +26,7 @@ export default function Gameover() {
         <button
           type="button"
           className="btn btn-success"
-          onClick={() => newGame()}>
+          onClick={() => newGame(player, game)}>
           New Game
         </button>
       </div>
