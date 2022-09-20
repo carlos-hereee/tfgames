@@ -1,12 +1,13 @@
 @import "./variables.scss";
 @import "./keyframes.scss";
-@import "./homepage.scss";
 @import "./headerfooter.scss";
-@import "./tictactoe.scss";
-@import "./dashboard.scss";
 @import "./lobby.scss";
 @import "./auth.scss";
+@import "./dashboard.scss";
+@import "./homepage.scss";
 @import "./game.scss";
+@import "./tictactoe.scss";
+@import "./snake-game.scss";
 
 #root {
   background-color: whitesmoke;

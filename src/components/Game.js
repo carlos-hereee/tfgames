@@ -1,13 +1,20 @@
 import React, { useContext } from "react";
 import { GameContext } from "../context/GameContext";
+import Gameover from "./Gameover";
+import SnakeGame from "./games/SnakeGame";
 import TicTacToe from "./games/TicTacToe";
 import PlayerCard from "./PlayerCard";
 
+const card = (player, glow) => (
+  <div className={glow ? "glow" : "dim"}>
+    <PlayerCard data={player} />
+  </div>
+);
 export default function Game() {
   const { game } = useContext(GameContext);
-
   const boards = {
     tictactoe: <TicTacToe />,
+    snakeGame: <SnakeGame />,
   };
   return (
     <section className="game">
@@ -17,17 +24,12 @@ export default function Game() {
           <h1 className="text-center">{game.gameName?.toUpperCase()} </h1>
           <p>{game.round} </p>
         </div>
-        <div className="game-content mt-2">
-          <div>{boards[game.gameName]}</div>
-          <div className="game-players">
-            <div className={game.turn === "player1" ? "glow" : "dim"}>
-              <PlayerCard data={game.players.player1} />
-            </div>
-            <div className={game.turn === "player2" ? "glow" : "dim"}>
-              <PlayerCard data={game.players.player2} />
-            </div>
-          </div>
-        </div>
+        <span>Timer: {(game.lastRenderTime - game.startTime) / 1000}</span>
+        {game.gameOver ? <Gameover /> : boards[game.gameName]}
+        <footer className="card-footer game-players">
+          {card(game.player1, game.turn === "player1")}
+          {!game.singlePlayer && card(game.player2, game.turn === "player2")}
+        </footer>
       </div>
     </section>
   );

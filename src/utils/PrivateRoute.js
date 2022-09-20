@@ -1,12 +1,14 @@
+import { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { getToken } from "./axios";
+import { AuthContext } from "../context/AuthContext";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { accessToken } = useContext(AuthContext);
   return (
     <Route
       {...rest}
       component={(props) =>
-        getToken() ? <Component {...props} /> : <Redirect to="login" />
+        accessToken ? <Component {...props} /> : <Redirect to="login" />
       }
     />
   );

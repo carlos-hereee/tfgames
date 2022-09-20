@@ -4,7 +4,6 @@ import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { accessToken } from "../utils/axios";
 import { AuthContext } from "../context/AuthContext";
 
 const Schema = Yup.object().shape({
@@ -18,7 +17,7 @@ const Schema = Yup.object().shape({
   }),
 });
 const Register = ({ history }) => {
-  const { register, signUpError } = useContext(AuthContext);
+  const { register, signUpError, accessToken } = useContext(AuthContext);
   const [canSeePassword, setCanSeePassword] = useState(false);
   const [canSeeConfirmPassword, setCanConfirmSeePassword] = useState(false);
   if (accessToken) {
@@ -34,7 +33,7 @@ const Register = ({ history }) => {
           <Formik
             initialValues={{ username: "", password: "", confirmPassword: "" }}
             onSubmit={({ username, password }, _) =>
-              register(username, password)
+              register(username, password, history)
             }
             validationSchema={Schema}>
             <Form>

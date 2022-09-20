@@ -4,6 +4,21 @@ const setError = (state, action) => {
     error: [...state.error, action.payload],
   };
 };
+const setAccessToken = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    accessToken: action.payload,
+  };
+};
+const setPlayerData = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    player: action.payload,
+  };
+};
+
 const queueMatch = (state, action) => {
   return {
     ...state,
@@ -50,6 +65,13 @@ const getOwnedAvatars = (state, action) => {
     ownedAvatars: [...state.ownedAvatars, action.payload],
   };
 };
+const saveLocalPlayer = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    player: action.payload,
+  };
+};
 
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -57,6 +79,8 @@ export const reducer = (state, action) => {
       return { ...state, isLoading: action.payload };
     case "SET_ERROR":
       return setError(state, action);
+    case "SET_ACCESS_TOKEN":
+      return setAccessToken(state, action);
     case "QUEUE_MATCH":
       return queueMatch(state, action);
     case "PLAY_MOVE":
@@ -69,6 +93,10 @@ export const reducer = (state, action) => {
       return getTaunts(state, action);
     case "GET_OWNED_AVATARS":
       return getOwnedAvatars(state, action);
+    case "SET_PLAYER_DATA":
+      return setPlayerData(state, action);
+    case "SAVE_LOCAL_PLAYER":
+      return saveLocalPlayer(state, action);
     default:
       return state;
   }

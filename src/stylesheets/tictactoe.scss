@@ -1,18 +1,13 @@
-.board {
-  display: grid;
-  justify-content: center;
-}
-.cell {
-  border: 2px solid #7d4141;
-  min-width: 7rem;
-  min-height: 7rem;
-  align-self: stretch;
-  grid-auto-columns: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+$exes: url("../assets/exes.svg");
+$circle: url("../assets/circle.svg");
+$exesGray: url("../assets/exes-gray.svg");
+$circleGray: url("../assets/circle-gray.svg");
+
 .tictactoe {
+  .cell {
+    border: 2px solid #7d4141;
+    position: relative;
+  }
   .x-1 {
     border-left: none;
   }
@@ -26,86 +21,74 @@
     border-right: none;
   }
 }
-.x-1 {
-  grid-column: 1;
+.exes {
+  background: $exes no-repeat center;
+  background-size: contain;
 }
-.x-2 {
-  grid-column: 2;
+.circle {
+  background: $circle no-repeat center;
+  background-size: contain;
+  // .circle::before,
+  // .circle::after {
+  //   content: "";
+  //   position: absolute;
+  //   border-radius: 50%;
+  // }
+
+  // .circle::before {
+  //   width: 6rem;
+  //   height: 6rem;
+  //   background-color: black;
+  // }
+
+  // .circle::after {
+  //   width: 5rem;
+  //   height: 5rem;
+  //   background-color: white;
+  // }
 }
-.x-3 {
-  grid-column: 3;
+.player1:not(.exes):not(.circle):hover,
+.player1:not(.exes):not(.circle):hover {
+  background: $circleGray no-repeat center;
+  background-size: contain;
 }
-.y-1 {
-  grid-row: 1;
+
+.player1:not(.exes):not(.circle):hover {
+  // .player1:not(.exes):not(.circle):hover::before {
+  //   transform: rotate(45deg);
+  // }
+
+  // .player1:not(.exes):not(.circle):hover::after {
+  //   transform: rotate(-45deg);
+  background: $exesGray no-repeat center;
+  background-size: contain;
 }
-.y-2 {
-  grid-row: 2;
+
+// }
+
+.player2:not(.exes):not(.circle):hover,
+.player2:not(.exes):not(.circle):hover {
+  background: $circleGray no-repeat center;
+  background-size: contain;
+  // .player2:not(.exes):not(.circle):hover::before,
+  // .player2:not(.exes):not(.circle):hover::after {
+  //   content: "";
+  //   position: absolute;
+  //   border-radius: 50%;
+  // }
 }
-.y-3 {
-  grid-row: 3;
-}
-.exes::before,
-.exes::after {
-  content: "";
-  position: absolute;
-  width: 1rem;
-  height: 6rem;
-  background-color: black;
-  border-radius: 10px;
-}
-.exes::before {
-  transform: rotate(45deg);
-}
-.exes::after {
-  transform: rotate(-45deg);
-}
-.circle::before,
-.circle::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-}
-.circle::before {
-  width: 6rem;
-  height: 6rem;
-  background-color: black;
-}
-.circle::after {
-  width: 5rem;
-  height: 5rem;
-  background-color: white;
-}
-.player1:not(.exes):not(.circle):hover::before,
-.player1:not(.exes):not(.circle):hover::after {
-  content: "";
-  position: absolute;
-  width: 1rem;
-  height: 6rem;
-  background-color: lightgray;
-  border-radius: 10px;
-}
-.player1:not(.exes):not(.circle):hover::before {
-  transform: rotate(45deg);
-}
-.player1:not(.exes):not(.circle):hover::after {
-  transform: rotate(-45deg);
-}
-.player2:not(.exes):not(.circle):hover::before,
-.player2:not(.exes):not(.circle):hover::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-}
-.player2:not(.exes):not(.circle):hover::before {
-  width: 6rem;
-  height: 6rem;
-  background-color: lightgray;
-}
-.player2:not(.exes):not(.circle):hover::after {
-  width: 5rem;
-  height: 5rem;
-  background-color: white;
-}
+// .player2:not(.exes):not(.circle):hover::before {
+//   width: 6rem;
+//   height: 6rem;
+//   background-color: lightgray;
+// }
+
+// .player2:not(.exes):not(.circle):hover::after {
+//   width: 5rem;
+//   height: 5rem;
+//   background-color: white;
+// }
+
 .board .exes,
 .board .circle {
   cursor: not-allowed;

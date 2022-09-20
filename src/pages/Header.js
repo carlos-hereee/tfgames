@@ -1,14 +1,17 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
-import { accessToken } from "../utils/axios";
+import OnlineNav from "../components/OnlineNav";
+import { AuthContext } from "../context/AuthContext";
 
 const Header = () => {
+  const { accessToken } = useContext(AuthContext);
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link to="/" className="header-logo">
           <img src={logo} alt="logo - controller" />
-          <h1 className="display-4">Take Five</h1>
+          <h1 className="display-4">TF Games</h1>
         </Link>
         <button
           className="navbar-toggler btn"
@@ -37,6 +40,7 @@ const Header = () => {
           </div>
         </div>
       </nav>
+      <OnlineNav />
     </header>
   );
 };

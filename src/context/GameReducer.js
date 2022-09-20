@@ -9,7 +9,6 @@ const gameUpdate = (state, action) => {
     ...state,
     isLoading: false,
     game: action.payload,
-    gameStart: true,
   };
 };
 const gameStart = (state, action) => {
@@ -20,32 +19,55 @@ const gameStart = (state, action) => {
     gameStart: true,
   };
 };
-const gameEnd = (state, action) => {
+const setGamename = (state, action) => {
+  return {
+    ...state,
+    isLoading: true,
+    gameName: action.payload,
+  };
+};
+const setGameClockData = (state, action) => {
   return {
     ...state,
     isLoading: false,
-    gameStart: false,
+    game: {
+      ...state.game,
+      lastRenderTime: action.payload.timer,
+      startTime: action.payload.startTime,
+    },
   };
 };
-const postResult = (state, action) => {
+const setGameResults = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    gameResult: { ...state.gameResult, ...action.payload },
+  };
+};
+const gameReset = (state, action) => {
   return {
     ...state,
     isLoading: false,
     gameResult: action.payload,
   };
 };
-const rematchResponse = (state, action) => {
+const playerLeft = (state, action) => {
   return {
     ...state,
     isLoading: false,
-    rematchResponse: action.payload,
+    gameResult: {},
+    gameStart: false,
   };
 };
-const setGamename = (state, action) => {
+const opponentLeft = (state, action) => {
   return {
     ...state,
-    isLoading: true,
-    gameName: action.payload,
+    isLoading: false,
+    gameResult: {
+      ...state.gameResult,
+      message: action.payload.message,
+      leftGame: true,
+    },
   };
 };
 export const reducer = (state, action) => {
@@ -56,14 +78,18 @@ export const reducer = (state, action) => {
       return gameUpdate(state, action);
     case "GAME_START":
       return gameStart(state, action);
-    case "GAME_END":
-      return gameEnd(state, action);
-    case "POST_RESULT":
-      return postResult(state, action);
-    case "REMATCH_RESPONSE":
-      return rematchResponse(state, action);
+    case "GAME_RESET":
+      return gameReset(state, action);
     case "SET_GAMENAME":
       return setGamename(state, action);
+    case "SET_GAME_CLOCK_DATA":
+      return setGameClockData(state, action);
+    case "SET_GAME_RESULTS":
+      return setGameResults(state, action);
+    case "PLAYER_LEFT":
+      return playerLeft(state, action);
+    case "OPPONENT_LEFT":
+      return opponentLeft(state, action);
     default:
       return state;
   }

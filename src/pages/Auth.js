@@ -4,10 +4,9 @@ import { AuthContext } from "../context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { accessToken } from "../utils/axios";
 
 const Auth = ({ history }) => {
-  const { signIn, error } = useContext(AuthContext);
+  const { signIn, error, accessToken } = useContext(AuthContext);
   const [canSeePassword, setCanSeePassword] = useState(false);
   if (accessToken) {
     history.push("/dashboard");
@@ -22,7 +21,7 @@ const Auth = ({ history }) => {
           <Formik
             initialValues={{ username: "", password: "" }}
             onSubmit={({ username, password }, _) =>
-              signIn(username, password)
+              signIn(username, password, history)
             }>
             <Form>
               <div className="form-group">
@@ -67,7 +66,7 @@ const Auth = ({ history }) => {
           </Formik>
         </div>
         <div className="card-footer text-center">
-          <Link to="signup">Already have an account?</Link>
+          <Link to="signup">Create an account</Link>
         </div>
       </div>
     </section>

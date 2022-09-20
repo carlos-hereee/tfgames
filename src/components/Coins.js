@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { PlayerContext } from "../context/PlayerContext";
+import { AuthContext } from "../context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import Notification from "./Notification";
 import PlayerCard from "./PlayerCard";
 
 const Coins = () => {
-  const { player } = useContext(PlayerContext);
+  const { player } = useContext(AuthContext);
   return (
     <div className="card mb-3">
       <div className="card-body d-flex flex-row justify-content-between">
