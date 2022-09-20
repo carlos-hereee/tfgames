@@ -8,9 +8,6 @@ export default function Gameover() {
   const { game, gameResult, setRematch, newGame } = useContext(GameContext);
   const { player } = useContext(AuthContext);
 
-  if (gameResult) {
-    console.log("gameResult", gameResult);
-  }
   return (
     <section className="game-over">
       <h2 className="">{gameResult.title}</h2>

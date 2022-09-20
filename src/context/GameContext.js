@@ -12,6 +12,7 @@ export const GameState = ({ children }) => {
     game: {},
     gameResult: {},
     gameStart: false,
+    gameOver: false,
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const { player } = useContext(AuthContext);
@@ -79,6 +80,7 @@ export const GameState = ({ children }) => {
       value={{
         isLoading: state.isLoading,
         game: state.game,
+        gameOver: state.gameOver,
         gameStart: state.gameStart,
         gameResult: state.gameResult,
         setRematch,

@@ -19,7 +19,6 @@ const gameStart = (state, action) => {
     gameStart: true,
   };
 };
-
 const setGamename = (state, action) => {
   return {
     ...state,
