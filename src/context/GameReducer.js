@@ -56,10 +56,7 @@ const setGameResults = (state, action) => {
   return {
     ...state,
     isLoading: false,
-    gameResult: {
-      ...state.gameResult,
-      ...action.payload,
-    },
+    gameResult: { ...state.gameResult, ...action.payload },
   };
 };
 export const reducer = (state, action) => {

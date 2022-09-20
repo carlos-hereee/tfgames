@@ -24,7 +24,7 @@ export const GameState = ({ children }) => {
     socket.on("game-data", (game) => updateGameData(game));
     socket.on("game-results", (res) => postResults(res));
     socket.on("game-reset-response", (res) => gameResetResponse(res));
-    socket.on("rematch-response", (res) => postRematchResponse(res));
+    socket.on("rematch", (res) => rematch(res));
     socket.on("left-response", (res) => postLeftResponse(res));
     socket.on("player-left", ({ show }) => playerLeft(show));
   }, [socket]);
@@ -38,7 +38,6 @@ export const GameState = ({ children }) => {
     dispatch({ type: "SET_GAME_CLOCK_DATA", payload: clock });
   };
   const gameStart = (game) => {
-    console.log("start", game);
     socket.emit("cancel-ticket", { ticket, player });
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_START", payload: game });
@@ -50,18 +49,11 @@ export const GameState = ({ children }) => {
     dispatch({ type: "SET_GAME_RESULTS", payload: { show: false } });
     updateGameData(game);
   };
-  const postRematchResponse = (response) => {
-    // setModalContent((prev) => ({
-    //   ...prev,
-    //   gameName: state.game.gameName,
-    //   message: response.message,
-    //   players: response.players,
-    //   isPlayer1: response.players.player1.uid === player.uid,
-    // }));
-    dispatch({
-      type: "SET_GAME_RESULTS",
-      payload: { message: response.message },
-    });
+
+  const rematch = ({ result }) => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    dispatch({ type: "SET_GAME_RESULTS", payload: result });
+    dispatch({ type: "GAME_UPDATE", payload: result.game });
   };
 
   const updateGameData = (game) => {
@@ -75,10 +67,7 @@ export const GameState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "SET_GAME_RESULTS", payload: result });
   };
-  const setRematch = () => {
-    const isPlayer1 = state.game.player1.uid === player.uid;
-    socket.emit("request-rematch", { game: state.game, isPlayer1 });
-  };
+  const setRematch = (game, player) => socket.emit("rematch", { game, player });
   const newGame = () => {
     dispatch({ type: "IS_LOADING", payload: true });
     socket.emit("player-leave", { player, game: state.game });
