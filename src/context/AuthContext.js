@@ -57,7 +57,6 @@ export const AuthState = ({ children }) => {
       setLocalStorage({ user: { uid: id, nickname } });
       dispatch({ type: "SAVE_LOCAL_PLAYER", payload: { uid: id, nickname } });
     }
-    dispatch({ type: "IS_LOADING", payload: false });
   };
   const signIn = async (username, password, history) => {
     dispatch({ type: "IS_LOADING", payload: true });

@@ -48,7 +48,7 @@ const gameReset = (state, action) => {
   return {
     ...state,
     isLoading: false,
-    gameResult: {},
+    gameResult: action.payload,
   };
 };
 const playerLeft = (state, action) => {

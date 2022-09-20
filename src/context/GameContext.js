@@ -49,7 +49,7 @@ export const GameState = ({ children }) => {
   };
   const gameReset = (game) => {
     dispatch({ type: "IS_LOADING", payload: true });
-    dispatch({ type: "GAME_RESET", payload: "" });
+    dispatch({ type: "GAME_RESET", payload: {} });
     updateGameData(game);
   };
   const rematch = (data) => {
