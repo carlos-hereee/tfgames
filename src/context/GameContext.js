@@ -50,10 +50,10 @@ export const GameState = ({ children }) => {
     updateGameData(game);
   };
 
-  const rematch = ({ result }) => {
+  const rematch = (data) => {
     dispatch({ type: "IS_LOADING", payload: true });
-    dispatch({ type: "SET_GAME_RESULTS", payload: result });
-    dispatch({ type: "GAME_UPDATE", payload: result.game });
+    dispatch({ type: "SET_GAME_RESULTS", payload: data });
+    dispatch({ type: "GAME_UPDATE", payload: data.game });
   };
 
   const updateGameData = (game) => {

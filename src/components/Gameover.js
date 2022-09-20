@@ -11,7 +11,6 @@ export default function Gameover() {
 
   if (gameResult) {
     console.log("gameResult", gameResult);
-    console.log("game", game);
   }
   return (
     <section className="game-over">
@@ -27,13 +26,12 @@ export default function Gameover() {
             <RematchBtn onBtnClick={() => setRematch(game, player)} />
           )
         )}
-        {/* {!isPlayer1 &&
-        !gameResult.leftGame &&
-        (gameResult.player2?.rematch && gameResult.leftGame ? (
+        {/* {!gameResult.leftGame && game.player2.rematch ? (
           <CancelBtn onBtnClick={setRematch} />
-          ) : (
-          game.singlePlayer && <RematchBtn onBtnClick={setRematch} />
-        ))} */}
+        ) : (
+          !isPlayer1 &&
+          !game.singlePlayer && <RematchBtn onBtnClick={setRematch} />
+        )} */}
         <button
           type="button"
           className="btn btn-success"

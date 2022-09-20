@@ -39,7 +39,6 @@ export const LobbyState = ({ children }) => {
     dispatch({ type: "ADD_TO_LOG", payload: message });
   };
   const ticketData = (ticket) => {
-    console.log("ticket", ticket);
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "TICKET_DATA", payload: ticket });
   };
