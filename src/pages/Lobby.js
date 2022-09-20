@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import Logger from "../components/Logger";
 import { LobbyContext } from "../context/LobbyContext";
 import { GameContext } from "../context/GameContext";
-import Game from "../components/Game";
+import Game from "../components/games/Game";
 // import { Prompt } from "react-router-dom";
 
 export default function Lobby({ history }) {

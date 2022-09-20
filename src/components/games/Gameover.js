@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { GameContext } from "../context/GameContext";
-import CancelBtn from "./atoms/CancelBtn";
-import RematchBtn from "./atoms/RematchBtn";
+import { AuthContext } from "../../context/AuthContext";
+import { GameContext } from "../../context/GameContext";
+import CancelBtn from "../atoms/CancelBtn";
+import RematchBtn from "../atoms/RematchBtn";
 
 export default function Gameover() {
   const { game, gameResult, setRematch, newGame } = useContext(GameContext);

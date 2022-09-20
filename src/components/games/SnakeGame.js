@@ -1,50 +1,40 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { GameContext } from "../../context/GameContext";
+import { useAnimationFrame } from "../../utils/hooks";
 
 const SnakeGame = () => {
   const { game, gameUpdate } = useContext(GameContext);
   const { player } = useContext(AuthContext);
+  const directionRef = useRef();
 
-  const controls = {
-    ArrowUp: { x: 0, y: -1 },
-    ArrowDown: { x: 0, y: 1 },
-    ArrowLeft: { x: -1, y: 0 },
-    ArrowRight: { x: 1, y: 0 },
-  };
+  useAnimationFrame((_) => {
+    if (directionRef.current !== undefined) {
+      console.log("directionRef.current", directionRef.current);
+      gameUpdate(game, directionRef.current, player);
+      directionRef.current = { x: 0, y: 0 };
+    }
+  });
 
   const handleKeyDown = (e) => {
-    let { lastInputDirection } = game.options;
-    let inputDirection = { x: 0, y: 0 };
-    inputDirection = controls[e.key];
-    // if ( lastInputDirection.y !== 0 ) {
-    // }
-    console.log("inputDirection", inputDirection);
-    // switch (e.key) {
-    //   case "ArrowUp":
-    //     if (lastInputDirection.y !== 0) break;
-    //     inputDirection = { x: 0, y: -1 };
-    //     break;
-    //   case "ArrowDown":
-    //     if (lastInputDirection.y !== 0) break;
-    //     inputDirection = { x: 0, y: 1 };
-    //     break;
-    //   case "ArrowLeft":
-    //     if (lastInputDirection.x !== 0) break;
-    //     inputDirection = { x: -1, y: 0 };
-    //     break;
-    //   case "ArrowRight":
-    //     if (lastInputDirection.x !== 0) break;
-    //     inputDirection = { x: 1, y: 0 };
-    //     break;
-    //   default:
-    //     return inputDirection;
-    // }
-    gameUpdate(game, inputDirection, player);
+    const controls = {
+      ArrowUp: { x: 0, y: -1 },
+      ArrowDown: { x: 0, y: 1 },
+      ArrowLeft: { x: -1, y: 0 },
+      ArrowRight: { x: 1, y: 0 },
+    };
+    if (game.options.lastInputDirection.y !== 0) return;
+    if (game.options.lastInputDirection.x !== 0) return;
+    directionRef.current = controls[e.key];
   };
-
+  // const
   return (
-    <main className="board snake-game" tabIndex={0} onKeyDown={handleKeyDown}>
+    <main
+      className="board snake-game"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      // onKeyUp={handleKeyUp}
+    >
       {game.board.length > 1 &&
         game.board.map((cell) => (
           <div

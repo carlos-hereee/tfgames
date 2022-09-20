@@ -26,7 +26,7 @@ export const games = [
     defaultOptions: {
       size: { length: 7, width: 7 },
       gridSize: 49,
-      snakeSpeed: 1,
+      renderSpeed: 1,
       lastRenderTime: 0,
       expansionRate: 1,
       newSegment: 0,

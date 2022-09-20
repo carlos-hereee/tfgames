@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { GameContext } from "../context/GameContext";
+import { GameContext } from "../../context/GameContext";
 import Gameover from "./Gameover";
-import SnakeGame from "./games/SnakeGame";
-import TicTacToe from "./games/TicTacToe";
-import PlayerCard from "./PlayerCard";
+import SnakeGame from "./SnakeGame";
+import TicTacToe from "./TicTacToe";
+import PlayerCard from "../PlayerCard";
 
 const card = (player, glow) => (
   <div className={glow ? "glow" : "dim"}>
@@ -16,6 +16,7 @@ export default function Game() {
     tictactoe: <TicTacToe />,
     snakeGame: <SnakeGame />,
   };
+
   return (
     <section className="game">
       <div className="card">
@@ -24,7 +25,7 @@ export default function Game() {
           <h1 className="text-center">{game.gameName?.toUpperCase()} </h1>
           <p>{game.round} </p>
         </div>
-        <span>Timer: {(game.lastRenderTime - game.startTime) / 1000}</span>
+        {/* <span>Timer: {(game.lastRenderTime - game.startTime) / 1000}</span> */}
         {game.gameOver ? <Gameover /> : boards[game.gameName]}
         <footer className="card-footer game-players">
           {card(game.player1, game.turn === "player1")}
