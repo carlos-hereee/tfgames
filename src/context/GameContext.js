@@ -11,6 +11,7 @@ export const GameState = ({ children }) => {
     isLoading: false,
     game: {},
     gameResult: {},
+    clock: {},
     gameStart: false,
     gameOver: false,
   };
@@ -80,6 +81,7 @@ export const GameState = ({ children }) => {
       value={{
         isLoading: state.isLoading,
         game: state.game,
+        clock: state.clock,
         gameOver: state.gameOver,
         gameStart: state.gameStart,
         gameResult: state.gameResult,

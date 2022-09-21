@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { GameContext } from "../../context/GameContext";
 import { useAnimationFrame } from "../../utils/hooks";
@@ -6,15 +6,19 @@ import { useAnimationFrame } from "../../utils/hooks";
 const SnakeGame = () => {
   const { game, gameUpdate } = useContext(GameContext);
   const { player } = useContext(AuthContext);
-  const directionRef = useRef();
+  const [time, setTime] = useState(0);
+  const [inputDirection, setInputDirection] = useState({ x: 0, y: 0 });
 
-  useAnimationFrame((_) => {
-    if (directionRef.current !== undefined) {
-      console.log("directionRef.current", directionRef.current);
-      gameUpdate(game, directionRef.current, player);
-      directionRef.current = { x: 0, y: 0 };
-    }
-  });
+  useAnimationFrame((deltaTime) => setTime((prev) => prev + deltaTime));
+
+  useEffect(() => {
+    const unSubscribe = async () => {
+      if (inputDirection.x !== 0 || inputDirection.y !== 0) {
+        await gameUpdate(game, inputDirection, player);
+      }
+    };
+    return () => unSubscribe();
+  }, [time]);
 
   const handleKeyDown = (e) => {
     const controls = {
@@ -25,23 +29,16 @@ const SnakeGame = () => {
     };
     if (game.options.lastInputDirection.y !== 0) return;
     if (game.options.lastInputDirection.x !== 0) return;
-    directionRef.current = controls[e.key];
+    setInputDirection(controls[e.key]);
   };
   // const
   return (
-    <main
-      className="board snake-game"
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
-      // onKeyUp={handleKeyUp}
-    >
+    <main className="board snake-game" tabIndex={0} onKeyDown={handleKeyDown}>
       {game.board.length > 1 &&
         game.board.map((cell) => (
           <div
             key={cell.uid}
-            // onClick={() => checkLegalMove(cell)}
             className={`cell x-${cell.x} y-${cell.y} ${cell.content}`}
-            // className={`cell x y ${cell.content}`}
           />
         ))}
     </main>

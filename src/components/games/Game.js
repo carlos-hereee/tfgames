@@ -11,7 +11,7 @@ const card = (player, glow) => (
   </div>
 );
 export default function Game() {
-  const { game } = useContext(GameContext);
+  const { game, clock } = useContext(GameContext);
   const boards = {
     tictactoe: <TicTacToe />,
     snakeGame: <SnakeGame />,
@@ -25,7 +25,7 @@ export default function Game() {
           <h1 className="text-center">{game.gameName?.toUpperCase()} </h1>
           <p>{game.round} </p>
         </div>
-        {/* <span>Timer: {(game.lastRenderTime - game.startTime) / 1000}</span> */}
+        <span>Timer: {(clock.lastRenderTime - clock.startTime) / 1000}</span>
         {game.gameOver ? <Gameover /> : boards[game.gameName]}
         <footer className="card-footer game-players">
           {card(game.player1, game.turn === "player1")}
