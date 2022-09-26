@@ -70,7 +70,6 @@ export const AuthState = ({ children }) => {
       dispatch({ type: "SET_PLAYER_DATA", payload: data.user });
       history.push("/");
     } catch (e) {
-      console.log("e", e);
       dispatch({
         type: "SET_ERROR",
         payload: JSON.parse(e.request.response).message,
