@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { GameContext } from "../../context/GameContext";
 
 const SnakeGame = () => {
+  const gameRef = useRef(null);
   const { game, gameUpdate, clock } = useContext(GameContext);
   const { player } = useContext(AuthContext);
   const [inputDirection, setInputDirection] = useState({ x: 0, y: 0 });
@@ -17,6 +18,9 @@ const SnakeGame = () => {
     if (!clock.timer) return;
     gameUpdate(game, inputDirection, player);
   }, [clock.timer]);
+  useEffect(() => {
+    gameRef.current.focus();
+  }, [gameRef]);
 
   const handleKeyDown = (e) => {
     switch (e.key) {
@@ -41,7 +45,11 @@ const SnakeGame = () => {
     }
   };
   return (
-    <div className="grid snake-game" tabIndex={0} onKeyDown={handleKeyDown}>
+    <div
+      className="grid snake-game"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      ref={gameRef}>
       {game.grid.length > 1 &&
         game.grid.map((cell) => (
           <div
