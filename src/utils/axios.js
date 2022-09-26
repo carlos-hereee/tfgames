@@ -39,7 +39,6 @@ export const axiosWithOutAuth = axios.create({
 // response interceptors =================================================
 let isRefreshing = false;
 let refreshSubscribers = [];
-// console.log("refreshSubscribers", refreshSubscribers);
 function subscribeTokenRefresh(cb) {
   refreshSubscribers.push(cb);
 }
@@ -60,7 +59,6 @@ axiosWithAuth.interceptors.request.use(
       if (!isRefreshing) {
         isRefreshing = true;
         const { data } = await axiosWithAuth.post("/users/refresh-token");
-        console.log("data on axios", data);
         onRrefreshed(data.accessToken);
         isRefreshing = false;
       }

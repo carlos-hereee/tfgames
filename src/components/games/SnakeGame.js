@@ -1,48 +1,55 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { GameContext } from "../../context/GameContext";
 
 const SnakeGame = () => {
-  const { game, gameUpdate } = useContext(GameContext);
+  const { game, gameUpdate, clock } = useContext(GameContext);
   const { player } = useContext(AuthContext);
+  const [inputDirection, setInputDirection] = useState({ x: 0, y: 0 });
+  const controls = {
+    ArrowUp: { x: 0, y: -1 },
+    ArrowDown: { x: 0, y: 1 },
+    ArrowLeft: { x: -1, y: 0 },
+    ArrowRight: { x: 1, y: 0 },
+  };
+
+  useEffect(() => {
+    if (!clock.timer) return;
+    gameUpdate(game, inputDirection, player);
+  }, [clock.timer]);
 
   const handleKeyDown = (e) => {
-    let { lastInputDirection } = game.options;
-    let inputDirection = { x: 0, y: 0 };
     switch (e.key) {
       case "ArrowUp":
-        if (lastInputDirection[lastInputDirection.length - 1].y !== 0) break;
-        inputDirection = { x: 0, y: -1 };
+        if (game.options.lastInputDirection.y !== 0) break;
+        setInputDirection(controls[e.key]);
         break;
       case "ArrowDown":
-        if (lastInputDirection[lastInputDirection.length - 1].y !== 0) break;
-        inputDirection = { x: 0, y: 1 };
+        if (game.options.lastInputDirection.y !== 0) break;
+        setInputDirection(controls[e.key]);
         break;
       case "ArrowLeft":
-        if (lastInputDirection[lastInputDirection.length - 1].x !== 0) break;
-        inputDirection = { x: -1, y: 0 };
+        if (game.options.lastInputDirection.x !== 0) break;
+        setInputDirection(controls[e.key]);
         break;
       case "ArrowRight":
-        if (lastInputDirection[lastInputDirection.length - 1].x !== 0) break;
-        inputDirection = { x: 1, y: 0 };
+        if (game.options.lastInputDirection.x !== 0) break;
+        setInputDirection(controls[e.key]);
         break;
       default:
         return inputDirection;
     }
-    gameUpdate(game, inputDirection, player);
   };
-
   return (
-    <main className="board snake-game" tabIndex={0} onKeyDown={handleKeyDown}>
-      {game.board.length > 1 &&
-        game.board.map((cell) => (
+    <div className="grid snake-game" tabIndex={0} onKeyDown={handleKeyDown}>
+      {game.grid.length > 1 &&
+        game.grid.map((cell) => (
           <div
             key={cell.uid}
-            // onClick={() => checkLegalMove(cell)}
             className={`cell x-${cell.x} y-${cell.y} ${cell.content}`}
           />
         ))}
-    </main>
+    </div>
   );
 };
 export default SnakeGame;

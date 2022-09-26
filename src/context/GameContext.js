@@ -11,6 +11,7 @@ export const GameState = ({ children }) => {
     isLoading: false,
     game: {},
     gameResult: {},
+    clock: {},
     gameStart: false,
     gameOver: false,
   };
@@ -61,8 +62,8 @@ export const GameState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_UPDATE", payload: game });
   };
-  const gameUpdate = (game, motion, player) => {
-    socket.emit("game-update", { game, motion, player });
+  const gameUpdate = (game, inputDirection, player) => {
+    socket.emit("game-update", { game, inputDirection, player });
   };
   const postResults = ({ result }) => {
     dispatch({ type: "IS_LOADING", payload: true });
@@ -80,6 +81,7 @@ export const GameState = ({ children }) => {
       value={{
         isLoading: state.isLoading,
         game: state.game,
+        clock: state.clock,
         gameOver: state.gameOver,
         gameStart: state.gameStart,
         gameResult: state.gameResult,
