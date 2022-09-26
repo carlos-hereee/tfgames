@@ -62,8 +62,8 @@ export const GameState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "GAME_UPDATE", payload: game });
   };
-  const gameUpdate = (game, motion, player) => {
-    socket.emit("game-update", { game, motion, player });
+  const gameUpdate = (game, inputDirection, player) => {
+    socket.emit("game-update", { game, inputDirection, player });
   };
   const postResults = ({ result }) => {
     dispatch({ type: "IS_LOADING", payload: true });

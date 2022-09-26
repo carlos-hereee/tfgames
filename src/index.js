@@ -9,18 +9,16 @@ import "./stylesheets/index.scss";
 import { SocketState } from "./context/SocketContext";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <SocketState>
-        <AuthState>
-          <LobbyState>
-            <GameState>
-              <App />
-            </GameState>
-          </LobbyState>
-        </AuthState>
-      </SocketState>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <SocketState>
+      <AuthState>
+        <LobbyState>
+          <GameState>
+            <App />
+          </GameState>
+        </LobbyState>
+      </AuthState>
+    </SocketState>
+  </BrowserRouter>,
   document.getElementById("root")
 );

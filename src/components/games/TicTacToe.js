@@ -19,9 +19,9 @@ const TicTacToe = () => {
     }
   };
   return (
-    <main className="board tictactoe">
-      {game.board.length > 1 &&
-        game.board.map((cell) => (
+    <main className="grid tictactoe">
+      {game.grid.length > 1 &&
+        game.grid.map((cell) => (
           <button
             disabled={gameResult.result}
             key={cell.uid}

@@ -21,11 +21,13 @@ export default function Game() {
     <section className="game">
       <div className="card">
         <div className="card-header d-flex justify-content-around align-items-center">
-          <p>{game.round} </p>
+          <span>{game.round} </span>
           <h1 className="text-center">{game.gameName?.toUpperCase()} </h1>
-          <p>{game.round} </p>
+          <span>{game.round} </span>
         </div>
-        <span>Timer: {(clock.lastRenderTime - clock.startTime) / 1000}</span>
+        <span>
+          Timer: {Math.round((clock.timer - clock.startTime) / 1000) || 0}
+        </span>
         {game.gameOver ? <Gameover /> : boards[game.gameName]}
         <footer className="card-footer game-players">
           {card(game.player1, game.turn === "player1")}

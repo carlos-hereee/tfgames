@@ -55,24 +55,24 @@
   overflow-y: scroll;
   .log-wrapper {
     border-bottom: 1px solid #3d3b3d;
-  } 
+  }
 }
 .modal-results {
   background: rgba(126, 126, 126, 0.9);
   border-radius: 10px;
   padding: 1rem;
-  backdrop-filter: blur(2px); 
+  backdrop-filter: blur(2px);
   border: solid 2px transparent;
   background-clip: padding-box;
 }
 .modal-footer {
-  border:none;
+  border: none;
   display: flex;
   align-items: center;
   padding: 0;
 }
 // for accessibiblity
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-inputdirection: reduce) {
   *,
   ::before,
   ::after {

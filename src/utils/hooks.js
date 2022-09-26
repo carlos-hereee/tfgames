@@ -7,20 +7,18 @@ export const useAnimationFrame = (cb) => {
   const requestRef = useRef();
   const previousTimeRef = useRef();
 
-  const animate = (currentTime) => {
-    requestAnimationFrame(animate);
+  const main = (currentTime) => {
+    window.requestAnimationFrame(main);
     if (previousTimeRef.current !== undefined) {
       const deltaTime = (currentTime - previousTimeRef.current) / 1000;
       if (deltaTime < 1 / game.options.renderSpeed) return;
       cb(deltaTime);
     }
     previousTimeRef.current = currentTime;
-    requestRef.current = requestAnimationFrame(animate);
+    requestRef.current = window.requestAnimationFrame(main);
   };
   useEffect(() => {
-    requestRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(requestRef.current);
+    requestRef.current = window.requestAnimationFrame(main);
+    return () => window.cancelAnimationFrame(requestRef.current);
   }, []);
-
-  // return [requestRef, previousTimeRef];
 };

@@ -31,6 +31,7 @@ const setGameClockData = (state, action) => {
     ...state,
     isLoading: false,
     clock: action.payload,
+    game: { ...state.game, clock: action.payload },
   };
 };
 const setGameResults = (state, action) => {
