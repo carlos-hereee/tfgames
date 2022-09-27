@@ -8,6 +8,10 @@ const SnakeGame = () => {
   const { game, gameUpdate, clock } = useContext(GameContext);
   const { player } = useContext(AuthContext);
   const [inputDirection, setInputDirection] = useState({ x: 0, y: 0 });
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+  const minSwipeDistance = 50;
+
   const controls = {
     ArrowUp: { x: 0, y: -1 },
     ArrowDown: { x: 0, y: 1 },
@@ -47,14 +51,47 @@ const SnakeGame = () => {
         return inputDirection;
     }
   };
+  const onTouchStart = (e) => {
+    setTouchEnd(null); // otherwise the swipe is fired even with usual touch events
+    setTouchStart({
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY,
+    });
+  };
+  const onTouchMove = (e) => {
+    setTouchEnd({
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY,
+    });
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distanceX = touchStart.x - touchEnd.x;
+    const distanceY = touchStart.y - touchEnd.y;
+    const isHorizontalSwipe = Math.abs(distanceX) > Math.abs(distanceY);
+    const isVerticalSwipe = Math.abs(distanceY) > Math.abs(distanceX);
+
+    if (isHorizontalSwipe) {
+      distanceX > 0
+        ? setInputDirection(controls["ArrowLeft"])
+        : setInputDirection(controls["ArrowRight"]);
+    }
+    if (isVerticalSwipe) {
+      distanceY > 0
+        ? setInputDirection(controls["ArrowUp"])
+        : setInputDirection(controls["ArrowDown"]);
+    }
+  };
+
   return (
     <div
       className="grid snake-game"
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      // ref={gameRefPassTrough}
-      // {...swipeable}
-    >
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}>
       {game.grid.length > 1 &&
         game.grid.map((cell) => (
           <div
