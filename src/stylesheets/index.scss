@@ -19,24 +19,23 @@
   font-family: "Roboto", sans-serif;
   margin: auto;
   max-width: 1100px;
-  min-height: 100vh;
+  height: 100vh;
 }
-
-.card {
-  background-color: #fcfcfc;
+.player {
   border-radius: 4px;
   padding: 1rem;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-  margin: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
 }
 
-.glow .card {
+.glow {
   background-color: #3d3b3d;
   border: none;
   color: white;
   animation: fadeOut 2s infinite alternate ease-in;
 }
-.dim .card {
+.dim {
   background-color: #1b1a1b;
   color: white;
   border: none;
@@ -49,13 +48,6 @@
 }
 .form-control {
   height: 3rem;
-}
-.logger {
-  max-height: 300px;
-  overflow-y: scroll;
-  .log-wrapper {
-    border-bottom: 1px solid #3d3b3d;
-  }
 }
 
 // for accessibiblity

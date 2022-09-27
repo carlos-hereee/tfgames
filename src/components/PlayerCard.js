@@ -1,8 +1,8 @@
 import defaultAvatar from "../assets/logo.svg";
 
-const PlayerCard = ({ data }) => {
+const PlayerCard = ({ data, glow }) => {
   return (
-    <div className="card">
+    <div className={`player ${glow ? "glow" : "dim"}`}>
       <div className="avatar-frame">
         <img
           src={data?.avatarSrc || defaultAvatar}

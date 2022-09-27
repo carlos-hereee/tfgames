@@ -1,15 +1,14 @@
 .dashboard {
-  margin: auto;
-}
-.avatar-frame {
-  margin: auto;
-  min-height: 150px;
+  background-color: $primaryLightBg;
+  padding: 1rem;
+  border-radius: 4px;
 }
 
+.avatar-frame {
+  margin: auto;
+}
 .avatar {
   border-radius: 50%;
-  width: 120px;
-  height: 100px;
   margin: auto;
 }
 .player-info {
