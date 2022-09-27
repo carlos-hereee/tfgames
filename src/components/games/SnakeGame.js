@@ -10,7 +10,6 @@ const SnakeGame = () => {
   const [inputDirection, setInputDirection] = useState({ x: 0, y: 0 });
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
-  const minSwipeDistance = 50;
 
   const controls = {
     ArrowUp: { x: 0, y: -1 },
