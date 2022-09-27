@@ -13,7 +13,7 @@ const LobbyOptions = ({ name }) => {
   const [toggleMenu, setToggleMenu] = useState(false);
 
   return (
-    <div className="card">
+    <div className="lobby-options">
       <div className="lobby-buttons">
         {ticket?.lobbyId ? (
           <CancelBtn onBtnClick={() => cancelTicket(ticket)} />

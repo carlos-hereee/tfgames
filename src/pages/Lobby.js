@@ -22,11 +22,11 @@ export default function Lobby({ history }) {
   return (
     <main className="lobby">
       {/* <Prompt message={() => "Are you sure you want to leave this page?"} /> */}
-      <div className="lobby-player">
+      <div className="lobby-data">
         <PlayerCard data={player} />
         <LobbyOptions name={gameName} />
       </div>
-      <div className="card logger">
+      <div className="logger">
         <Logger data={log} />
       </div>
     </main>

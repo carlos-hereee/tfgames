@@ -49,13 +49,6 @@
 .form-control {
   height: 3rem;
 }
-.logger {
-  max-height: 300px;
-  overflow-y: scroll;
-  .log-wrapper {
-    border-bottom: 1px solid #3d3b3d;
-  }
-}
 
 // for accessibiblity
 @media (prefers-reduced-inputdirection: reduce) {
