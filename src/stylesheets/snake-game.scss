@@ -1,7 +1,4 @@
 .snake-game {
-  &:focus {
-    border: 2px solid rgb(11, 175, 107);
-  }
   .cell {
     border: 1px solid rgb(168, 240, 210);
     background-color: rgb(12, 223, 135);

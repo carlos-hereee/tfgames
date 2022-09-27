@@ -8,18 +8,6 @@ $circleGray: url("../assets/circle-gray.svg");
     border: 2px solid #7d4141;
     position: relative;
   }
-  .x-1 {
-    border-left: none;
-  }
-  .y-1 {
-    border-top: none;
-  }
-  .y-3 {
-    border-bottom: none;
-  }
-  .x-3 {
-    border-right: none;
-  }
 }
 .exes {
   background: $exes no-repeat center;
@@ -28,67 +16,21 @@ $circleGray: url("../assets/circle-gray.svg");
 .circle {
   background: $circle no-repeat center;
   background-size: contain;
-  // .circle::before,
-  // .circle::after {
-  //   content: "";
-  //   position: absolute;
-  //   border-radius: 50%;
-  // }
-
-  // .circle::before {
-  //   width: 6rem;
-  //   height: 6rem;
-  //   background-color: black;
-  // }
-
-  // .circle::after {
-  //   width: 5rem;
-  //   height: 5rem;
-  //   background-color: white;
-  // }
 }
 .player1:not(.exes):not(.circle):hover,
 .player1:not(.exes):not(.circle):hover {
   background: $circleGray no-repeat center;
   background-size: contain;
 }
-
 .player1:not(.exes):not(.circle):hover {
-  // .player1:not(.exes):not(.circle):hover::before {
-  //   transform: rotate(45deg);
-  // }
-
-  // .player1:not(.exes):not(.circle):hover::after {
-  //   transform: rotate(-45deg);
   background: $exesGray no-repeat center;
   background-size: contain;
 }
-
-// }
-
 .player2:not(.exes):not(.circle):hover,
 .player2:not(.exes):not(.circle):hover {
   background: $circleGray no-repeat center;
   background-size: contain;
-  // .player2:not(.exes):not(.circle):hover::before,
-  // .player2:not(.exes):not(.circle):hover::after {
-  //   content: "";
-  //   position: absolute;
-  //   border-radius: 50%;
-  // }
 }
-// .player2:not(.exes):not(.circle):hover::before {
-//   width: 6rem;
-//   height: 6rem;
-//   background-color: lightgray;
-// }
-
-// .player2:not(.exes):not(.circle):hover::after {
-//   width: 5rem;
-//   height: 5rem;
-//   background-color: white;
-// }
-
 .grid .exes,
 .grid .circle {
   cursor: not-allowed;

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { GameContext } from "../../context/GameContext";
@@ -19,7 +20,9 @@ const SnakeGame = () => {
     gameUpdate(game, inputDirection, player);
   }, [clock.timer]);
   useEffect(() => {
-    gameRef.current.focus();
+    if (gameRef.current) {
+      gameRef.current.focus();
+    }
   }, [gameRef]);
 
   const handleKeyDown = (e) => {
@@ -49,7 +52,9 @@ const SnakeGame = () => {
       className="grid snake-game"
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      ref={gameRef}>
+      // ref={gameRefPassTrough}
+      // {...swipeable}
+    >
       {game.grid.length > 1 &&
         game.grid.map((cell) => (
           <div
