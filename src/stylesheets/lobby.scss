@@ -11,7 +11,7 @@
 }
 .lobby-options {
   padding: 1rem;
-  background-color: #f8f9fa;
+  background-color: $primaryLightBg;
   border-radius: 4px;
 }
 .lobby-buttons {
@@ -28,7 +28,7 @@
   border-radius: 4px;
   max-height: 50vh;
   overflow-y: auto;
-  background-color: #f8f9fa;
+  background-color: $primaryLightBg;
   padding: 1rem;
   .log {
     border-bottom: 1px solid #3d3b3d;
