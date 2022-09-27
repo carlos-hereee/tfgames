@@ -63,7 +63,6 @@ const SnakeGame = () => {
       y: e.targetTouches[0].clientY,
     });
   };
-
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
     const distanceX = touchStart.x - touchEnd.x;
