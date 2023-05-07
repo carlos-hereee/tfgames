@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Header from "./pages/Header";
 import Footer from "./pages/Footer";
 import Homepage from "./pages/Homepage";
@@ -22,14 +22,14 @@ function App() {
   return (
     <div className="app">
       {!gameStart && <Header />}
-      <Switch>
-        <Route exact path="/" component={Homepage} />
-        <Route path="/login" component={Auth} />
-        <Route path="/signup" component={Register} />
-        <Route path="/lobby" component={Lobby} />
-        <PrivateRoute path="/dashboard" component={Dashboard} />
-        <PrivateRoute path="/shop" component={Shop} />
-      </Switch>
+      <Routes>
+        <Route exact path="/" element={Homepage} />
+        <Route path="/login" element={Auth} />
+        <Route path="/signup" element={Register} />
+        <Route path="/lobby" element={Lobby} />
+        <PrivateRoute path="/dashboard" element={Dashboard} />
+        <PrivateRoute path="/shop" element={Shop} />
+      </Routes>
       <Footer />
     </div>
   );

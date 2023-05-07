@@ -10,9 +10,9 @@ export const SocketState = ({ children }) => {
     let id = localStorage.getItem("tf-games-id");
     if (id) {
       const newSocket = io(
-        process.env.REACT_APP_NODE_ENV === "production"
-          ? process.env.REACT_APP_DB_BASE_URL_PRODUCTION
-          : process.env.REACT_APP_DB_BASE_URL,
+        process.env.VITE_NODE_ENV === "production"
+          ? process.env.VITE_DB_BASE_URL_PRODUCTION
+          : process.env.VITE_DB_BASE_URL,
         {
           query: { id },
         }
@@ -22,7 +22,5 @@ export const SocketState = ({ children }) => {
     }
   }, []);
 
-  return (
-    <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
-  );
+  return <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>;
 };
