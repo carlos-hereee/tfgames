@@ -2,15 +2,12 @@ import tictactoeGameboard from "../assets/tictactoeGameboard.svg";
 import snakeGame from "../assets/snakeGame.jpg";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { games } from "../utils/usefulFunction";
+import { games } from "../utils/fns/usefulFunction";
 import { LobbyContext } from "../utils/context/LobbyContext";
 
 const Homepage = () => {
   const { setOptions, setGameName } = useContext(LobbyContext);
-  const image = {
-    tictactoeGameboard,
-    snakeGame,
-  };
+  const image = { tictactoeGameboard, snakeGame };
   const handleGameSettings = (g) => {
     setGameName(g.name);
     setOptions(g.defaultOptions);

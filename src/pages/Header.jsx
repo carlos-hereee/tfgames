@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import OnlineNav from "../components/OnlineNav";
 import { AuthContext } from "../utils/context/AuthContext";
+import { AppContext } from "../utils/context/AppContext";
 
 const Header = () => {
   const [isActive, setActive] = useState(false);
@@ -44,7 +45,7 @@ const Header = () => {
 
   return (
     <header>
-      <Logo />
+      {/* <Logo /> */}
       <nav className="primary-navigation">
         <ul className="navigation">
           {menu.map((m) => (

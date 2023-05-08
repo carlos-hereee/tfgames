@@ -11,7 +11,7 @@ import Lobby from "./pages/Lobby";
 import Auth from "./pages/Auth";
 import { AuthContext } from "./utils/context/AuthContext";
 import Loading from "./components/Loading";
-import PrivateRoute from "./utils/PrivateRoute";
+import PrivateRoute from "./utils/fns/PrivateRoute";
 import { GameContext } from "./utils/context/GameContext";
 
 function App() {

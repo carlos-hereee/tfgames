@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useEffect } from "react";
-import { axiosWithAuth, axiosWithOutAuth, setLocalStorage } from "../axios";
+import { axiosWithAuth, axiosWithOutAuth, setLocalStorage } from "../fns/axios";
 import generate from "project-name-generator";
 import { reducer } from "../reducer/reducer";
 import { v4 as uuidv4 } from "uuid";
