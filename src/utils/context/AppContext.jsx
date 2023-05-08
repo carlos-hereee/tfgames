@@ -27,9 +27,7 @@ export const AppState = ({ children }) => {
     appliedFilters: [],
     filtered: [],
     filterToggle: false,
-    brands: [],
-    disclaimer:
-      "** Photos are for illustrative purposes only. Not responsible for errors or omissions. **",
+    games: app.games,
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const { accessToken } = useContext(AuthContext);
@@ -195,7 +193,7 @@ export const AppState = ({ children }) => {
         appliedFilters: state.appliedFilters,
         isFiltered: state.isFiltered,
         filterToggle: state.filterToggle,
-        brands: state.brands,
+        games: state.games,
         updateBurger,
         updateMenu,
         newsletter,
