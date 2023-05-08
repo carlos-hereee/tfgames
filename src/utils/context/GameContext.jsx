@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useContext, useEffect, useReducer } from "react";
-import { reducer } from "./GameReducer";
+import { reducer } from "../reducer/GameReducer";
 import { LobbyContext } from "./LobbyContext";
 import { AuthContext } from "./AuthContext";
 import { useSocket } from "./SocketContext";

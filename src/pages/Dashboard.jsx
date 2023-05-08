@@ -1,7 +1,7 @@
 // import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../utils/context/AuthContext";
 import PlayerCard from "../components/PlayerCard";
 import { Link } from "react-router-dom";
 
@@ -14,9 +14,7 @@ const Dashboard = ({ history }) => {
         <Link className="nav-link btn btn-success" to={"/"}>
           Play game
         </Link>
-        <button
-          className="btn btn-danger"
-          onClick={() => logOut(player, history)}>
+        <button className="btn btn-danger" onClick={() => logOut(player, history)}>
           Log Out
         </button>
       </nav>

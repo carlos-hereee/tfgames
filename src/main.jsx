@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { GameState } from "./context/GameContext";
-import { AuthState } from "./context/AuthContext";
-import { LobbyState } from "./context/LobbyContext";
+import { GameState } from "./utils/context/GameContext";
+import { AuthState } from "./utils/context/AuthContext";
+import { LobbyState } from "./utils/context/LobbyContext";
 import App from "./App";
 import "./stylesheets/index.scss";
-import { SocketState } from "./context/SocketContext";
+import { SocketState } from "./utils/context/SocketContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

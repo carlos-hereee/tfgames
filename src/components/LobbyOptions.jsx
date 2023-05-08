@@ -1,15 +1,14 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import { LobbyContext } from "../context/LobbyContext";
+import { AuthContext } from "../utils/context/AuthContext";
+import { LobbyContext } from "../utils/context/LobbyContext";
 import CancelBtn from "./atoms/CancelBtn";
 import ReadyBtn from "./atoms/ReadyBtn";
 import ToggleBtn from "./atoms/ToggleBtn";
 
 const LobbyOptions = ({ name }) => {
   const { player } = useContext(AuthContext);
-  const { newGame, ticket, cancelTicket, clock, options } =
-    useContext(LobbyContext);
+  const { newGame, ticket, cancelTicket, clock, options } = useContext(LobbyContext);
   const [toggleMenu, setToggleMenu] = useState(false);
 
   return (

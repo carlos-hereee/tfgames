@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useRef } from "react";
-import { GameContext } from "../context/GameContext";
+import { GameContext } from "../utils/context/GameContext";
 
 export const useAnimationFrame = (cb) => {
   const { game } = useContext(GameContext);

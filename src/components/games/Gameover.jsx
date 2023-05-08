@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { GameContext } from "../../context/GameContext";
+import { AuthContext } from "../../utils/context/AuthContext";
+import { GameContext } from "../../utils/context/GameContext";
 import CancelBtn from "../atoms/CancelBtn";
 import RematchBtn from "../atoms/RematchBtn";
 

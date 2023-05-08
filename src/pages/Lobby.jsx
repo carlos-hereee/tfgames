@@ -1,10 +1,10 @@
 import PlayerCard from "../components/PlayerCard";
 import LobbyOptions from "../components/LobbyOptions";
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../utils/context/AuthContext";
 import Logger from "../components/Logger";
-import { LobbyContext } from "../context/LobbyContext";
-import { GameContext } from "../context/GameContext";
+import { LobbyContext } from "../utils/context/LobbyContext";
+import { GameContext } from "../utils/context/GameContext";
 import Game from "../components/games/Game";
 // import { Prompt } from "react-router-dom";
 

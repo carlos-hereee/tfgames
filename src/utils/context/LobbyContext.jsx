@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
-import { reducer } from "./LobbyReducer";
+import { reducer } from "../reducer/LobbyReducer";
 import { useSocket } from "./SocketContext";
 import { AuthContext } from "./AuthContext";
 

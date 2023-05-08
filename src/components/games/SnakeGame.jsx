@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useRef, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { GameContext } from "../../context/GameContext";
+import { AuthContext } from "../../utils/context/AuthContext";
+import { GameContext } from "../../utils/context/GameContext";
 
 const SnakeGame = () => {
   const gameRef = useRef(null);

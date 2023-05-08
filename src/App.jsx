@@ -9,10 +9,10 @@ import Shop from "./pages/Shop";
 import Register from "./pages/Register";
 import Lobby from "./pages/Lobby";
 import Auth from "./pages/Auth";
-import { AuthContext } from "./context/AuthContext";
+import { AuthContext } from "./utils/context/AuthContext";
 import Loading from "./components/Loading";
 import PrivateRoute from "./utils/PrivateRoute";
-import { GameContext } from "./context/GameContext";
+import { GameContext } from "./utils/context/GameContext";
 
 function App() {
   const { isLoading } = useContext(AuthContext);

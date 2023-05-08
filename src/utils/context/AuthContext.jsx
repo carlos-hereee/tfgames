@@ -1,11 +1,7 @@
 import React, { createContext, useReducer, useEffect } from "react";
-import {
-  axiosWithAuth,
-  axiosWithOutAuth,
-  setLocalStorage,
-} from "../utils/axios";
+import { axiosWithAuth, axiosWithOutAuth, setLocalStorage } from "../axios";
 import generate from "project-name-generator";
-import { reducer } from "./reducer";
+import { reducer } from "../reducer/reducer";
 import { v4 as uuidv4 } from "uuid";
 
 export const AuthContext = createContext();

@@ -2,11 +2,10 @@ import { useContext } from "react";
 import Coins from "../components/Coins";
 import Notification from "../components/Notification";
 // import { avatarsArray } from "../data/shop";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../utils/context/AuthContext";
 
 const Shop = () => {
-  const { player, purchaseAvatar, ownedAvatars, setError } =
-    useContext(AuthContext);
+  const { player, purchaseAvatar, ownedAvatars, setError } = useContext(AuthContext);
   // check if client can buy the item
   const addToCart = (avatar) => {
     if (player?.coins >= avatar.cost) {

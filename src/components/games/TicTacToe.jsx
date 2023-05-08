@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { GameContext } from "../../context/GameContext";
-import { AuthContext } from "../../context/AuthContext";
+import { GameContext } from "../../utils/context/GameContext";
+import { AuthContext } from "../../utils/context/AuthContext";
 
 const TicTacToe = () => {
   const { game, gameUpdate, gameResult } = useContext(GameContext);
@@ -26,12 +26,10 @@ const TicTacToe = () => {
             disabled={gameResult.result}
             key={cell.uid}
             onClick={() => checkLegalMove(cell)}
-            className={`cell x-${cell.x} y-${cell.y} ${
-              isPlayer1 ? "player1" : ""
-            }${isPlayer2 ? "player2" : ""}
-            ${
-              cell.content && game.player1.uid === cell.content ? "exes" : ""
-            } ${
+            className={`cell x-${cell.x} y-${cell.y} ${isPlayer1 ? "player1" : ""}${
+              isPlayer2 ? "player2" : ""
+            }
+            ${cell.content && game.player1.uid === cell.content ? "exes" : ""} ${
               cell.content && game.player2.uid === cell.content ? "circle" : ""
             }`}
           />

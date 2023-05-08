@@ -1,9 +1,9 @@
 import tictactoeGameboard from "../assets/tictactoeGameboard.svg";
 import snakeGame from "../assets/snakeGame.jpg";
 import { Link } from "react-router-dom";
-import { LobbyContext } from "../context/LobbyContext";
 import { useContext } from "react";
 import { games } from "../utils/usefulFunction";
+import { LobbyContext } from "../utils/context/LobbyContext";
 
 const Homepage = () => {
   const { setOptions, setGameName } = useContext(LobbyContext);
@@ -18,10 +18,7 @@ const Homepage = () => {
   return (
     <main className="homepage">
       {games.map((game) => (
-        <Link
-          to={`/lobby?game=${game.name}`}
-          key={game.key}
-          className="game-card">
+        <Link to={`/lobby?game=${game.name}`} key={game.key} className="game-card">
           <button className="btn" onClick={() => handleGameSettings(game)}>
             <h2>{game.name.toUpperCase()}</h2>
             <img
