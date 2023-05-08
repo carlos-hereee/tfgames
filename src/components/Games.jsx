@@ -4,6 +4,7 @@ import { assets } from "../assets";
 import ButtonCardItem from "./molecules/buttons/ButtonCardItem";
 import NavigationLink from "./molecules/navigation/NavigationLink";
 import { AppContext } from "../utils/context/AppContext";
+import SectionHeader from "./molecules/SectionHeader";
 
 const Games = () => {
   const { setOptions, setGameName } = useContext(LobbyContext);
@@ -15,11 +16,17 @@ const Games = () => {
   };
   return (
     <section className="container">
-      {games.map(({ name, key }) => (
-        <NavigationLink path={`/lobby?game=${name}`} key={key}>
-          <ButtonCardItem data={{ link: assets[name], name }} click={gameSettings} />
-        </NavigationLink>
-      ))}
+      <SectionHeader data={games} />
+      <div className="card-container">
+        {games.list.map(({ name, key }) => (
+          <NavigationLink path={`/lobby?game=${name}`} key={key}>
+            <ButtonCardItem
+              data={{ link: assets[name], name }}
+              click={gameSettings}
+            />
+          </NavigationLink>
+        ))}
+      </div>
     </section>
   );
 };

@@ -135,3 +135,12 @@
     border-bottom: 1px solid #eee;
   }
 }
+.section-header {
+  display: flex;
+  color: #{$secondary-text};
+}
+.section-body {
+  text-align: center;
+  // letter-spacing: 1px;
+  color: #{$secondary-text};
+}

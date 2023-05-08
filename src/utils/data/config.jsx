@@ -1,5 +1,12 @@
 import shortid from "shortid";
-import { lorem20, random100, aboutMe1, aboutMe2, aboutMe3 } from "./variables";
+import {
+  lorem20,
+  random100,
+  aboutMe1,
+  aboutMe2,
+  aboutMe3,
+  lorem10,
+} from "./variables";
 
 export const app = {
   socials: [
@@ -34,34 +41,14 @@ export const app = {
     hero: { link: "", name: "main-hero" },
   },
   about: {
-    title: "Welcome to SW-Auto 59",
+    title: "Welcome to TF Games",
     subtitle: "",
     hasHero: false,
     hasIcon: false,
+    hasSection: false,
+    description: lorem10,
     hero: { link: "", name: "main-hero" },
-    sections: [
-      {
-        title: "Welcome to TFGames",
-        response: aboutMe1,
-        sections: [aboutMe2, aboutMe3],
-        uid: shortid.generate(),
-        hasHero: false,
-        hasIcon: false,
-        hasLink: false,
-        hero: { link: "/lorem", name: "lorem ipsum" },
-        hyperlink: [{ word: "Maiores", link: "/lorem" }],
-      },
-      {
-        title: "Who am I?",
-        response: lorem20 + lorem20,
-        uid: shortid.generate(),
-        hasHero: false,
-        hasIcon: false,
-        hero: { link: "", name: "" },
-        hasLink: false,
-        hyperlink: [{ word: "obcaecati assumenda", link: "/lorem" }],
-      },
-    ],
+    details: [lorem20, lorem10],
   },
   schedule: {
     title: "Bussiness Hours",
@@ -90,29 +77,32 @@ export const app = {
     },
     // { name: "about", uid: shortid.generate(), notification: 0 },
   ],
-  games: [
-    {
-      name: "tictactoe",
-      key: shortid.generate(),
-      defaultOptions: {
-        size: { length: 3, width: 3 },
-        gridSize: 9,
+  games: {
+    title: "Feature Games",
+    list: [
+      {
+        name: "tictactoe",
+        key: shortid.generate(),
+        defaultOptions: {
+          size: { length: 3, width: 3 },
+          gridSize: 9,
+        },
       },
-    },
-    {
-      name: "snakeGame",
-      key: shortid.generate(),
-      defaultOptions: {
-        size: { length: 7, width: 7 },
-        gridSize: 49,
-        renderSpeed: 1,
-        lastRenderTime: 0,
-        expansionRate: 1,
-        newSegment: 0,
-        inputDirection: { x: 0, y: 0 },
-        lastInputDirection: { x: 0, y: 0 },
+      {
+        name: "snakeGame",
+        key: shortid.generate(),
+        defaultOptions: {
+          size: { length: 7, width: 7 },
+          gridSize: 49,
+          renderSpeed: 1,
+          lastRenderTime: 0,
+          expansionRate: 1,
+          newSegment: 0,
+          inputDirection: { x: 0, y: 0 },
+          lastInputDirection: { x: 0, y: 0 },
+        },
       },
-    },
-  ],
+    ],
+  },
   name: "TF Games",
 };

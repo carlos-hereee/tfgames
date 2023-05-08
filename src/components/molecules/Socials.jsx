@@ -21,7 +21,7 @@ import { useContext } from "react";
 import { AppContext } from "../../utils/context/AppContext";
 import SocialLink from "../atoms/SocialLink";
 
-const FollowUs = () => {
+const Socials = () => {
   const { socials } = useContext(AppContext);
   return (
     <div className="social">
@@ -35,4 +35,4 @@ const FollowUs = () => {
   );
 };
 
-export default FollowUs;
+export default Socials;

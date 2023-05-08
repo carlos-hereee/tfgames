@@ -3,7 +3,7 @@ import { Fragment, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./pages/Header";
 import Footer from "./pages/Footer";
-import Homepage from "./pages/Homepage";
+import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import Shop from "./pages/Shop";
 import Register from "./pages/Register";
@@ -26,7 +26,7 @@ function App() {
       {!gameStart && <Header />}
       <Fragment>
         <Routes>
-          <Route exact path="/" element={<Homepage />} />
+          <Route exact path="/" element={<Landing />} />
           <Route path="/login" element={<Auth />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/lobby" element={<Lobby />} />

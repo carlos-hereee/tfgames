@@ -1,16 +1,20 @@
 import { Field, Form, Formik } from "formik";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../utils/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const { signIn, error, accessToken } = useContext(AuthContext);
   const [canSeePassword, setCanSeePassword] = useState(false);
-  if (accessToken) {
-    history.push("/dashboard");
-  }
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate("/dashboard");
+    }
+  }, [accessToken]);
   return (
     <section className="container">
       <div className="card">

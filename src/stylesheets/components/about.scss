@@ -24,6 +24,7 @@
 .social {
   display: flex;
   flex-direction: column;
+  color: #{$secondary-text};
   gap: 1rem;
   .title {
     text-align: center;
