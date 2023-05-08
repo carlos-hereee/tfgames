@@ -28,7 +28,6 @@ export const AppState = ({ children }) => {
     isFiltered: false,
     appliedFilters: [],
     filtered: [],
-    filtered: [],
     filterToggle: false,
     brands: [],
     disclaimer:

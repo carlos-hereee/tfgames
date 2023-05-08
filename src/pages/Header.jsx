@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import OnlineNav from "../components/OnlineNav";
@@ -42,7 +42,7 @@ const Header = () => {
   const handleClick = () => {
     setActive(!isActive);
   };
-
+  console.log("menu", menu);
   return (
     <header>
       {/* <Logo /> */}
