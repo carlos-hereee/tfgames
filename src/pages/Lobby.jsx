@@ -6,15 +6,18 @@ import Logger from "../components/Logger";
 import { LobbyContext } from "../utils/context/LobbyContext";
 import { GameContext } from "../utils/context/GameContext";
 import Game from "../components/games/Game";
+import { useNavigate } from "react-router-dom";
 // import { Prompt } from "react-router-dom";
 
-export default function Lobby({ history }) {
+const Lobby = () => {
   const { player } = useContext(AuthContext);
   const { log, gameName } = useContext(LobbyContext);
   const { gameStart } = useContext(GameContext);
+  const navigate = useNavigate();
 
   if (!gameName) {
-    history.push("/");
+    // history.push("/");
+    navigate(-1);
   }
   if (gameStart) {
     return <Game />;
@@ -31,4 +34,5 @@ export default function Lobby({ history }) {
       </div>
     </main>
   );
-}
+};
+export default Lobby;

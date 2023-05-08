@@ -34,3 +34,14 @@
     border-bottom: 1px solid #3d3b3d;
   }
 }
+.glow {
+  // background-color: #{$secondary-color};
+  border: none;
+  color: white;
+  // animation: fadeOut 2s infinite alternate ease-in;
+}
+.dim {
+  // background-color: #1b1a1b;
+  color: white;
+  border: none;
+}
