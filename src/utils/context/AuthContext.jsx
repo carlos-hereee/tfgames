@@ -59,7 +59,7 @@ export const AuthState = ({ children }) => {
       });
       setLocalStorage(data);
       // dispatch({ type: "SET_LOGIN", payload: data.user });
-      history.push("/dashboard");
+      // history.push("/dashboard");
     } catch (e) {
       dispatch({
         type: "SET_SIGNUP_ERROR",

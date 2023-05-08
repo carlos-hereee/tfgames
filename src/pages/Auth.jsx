@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-const Auth = ({ history }) => {
+const Auth = () => {
   const { signIn, error, accessToken } = useContext(AuthContext);
   const [canSeePassword, setCanSeePassword] = useState(false);
   if (accessToken) {
@@ -20,15 +20,14 @@ const Auth = ({ history }) => {
         <div className="card-body">
           <Formik
             initialValues={{ username: "", password: "" }}
-            onSubmit={({ username, password }, _) =>
-              signIn(username, password, history)
-            }>
+            onSubmit={({ username, password }, _) => signIn(username, password)}>
             <Form>
               <div className="form-group">
                 <p>{error}</p>
                 <label htmlFor="username">Username </label>
                 <div className="input-group">
                   <Field
+                    autoComplete="current-username"
                     type="text"
                     className="form-control"
                     name="username"
@@ -40,6 +39,7 @@ const Auth = ({ history }) => {
                 <label htmlFor="password">Password </label>
                 <div className="input-group">
                   <Field
+                    autoComplete="current-password"
                     className="form-control"
                     type={canSeePassword ? "text" : "password"}
                     name="password"
@@ -57,7 +57,7 @@ const Auth = ({ history }) => {
                   </button>
                 </div>
               </div>
-              <div className="d-flex justify-content-center flex-column">
+              <div className="">
                 <button type="submit" className="btn btn-primary">
                   Login
                 </button>
