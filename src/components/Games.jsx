@@ -15,7 +15,7 @@ const Games = () => {
     setOptions(g.defaultOptions);
   };
   return (
-    <section className="container">
+    <section className="primary-container">
       <SectionHeader data={games} />
       <div className="card-container">
         {games.list.map(({ name, key }) => (

@@ -36,14 +36,6 @@ export const AppState = ({ children }) => {
   useEffect(() => {
     if (accessToken) {
       getAllAssets(accessToken);
-      //   if (!id) {
-      //     saveLocalPlayer({
-      //       nickname: generate({ words: 2 }).spaced,
-      //       uid: uuidv4(),
-      //     });
-      //   } else {
-      //     saveLocalPlayer();
-      // }
     }
   }, [accessToken]);
 

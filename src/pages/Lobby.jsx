@@ -17,7 +17,7 @@ const Lobby = () => {
 
   useEffect(() => {
     if (!gameName) {
-      navigate(-1);
+      navigate("/games");
     }
   }, [gameName]);
   if (gameStart) {

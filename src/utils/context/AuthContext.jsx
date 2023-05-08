@@ -13,7 +13,9 @@ export const AuthState = ({ children }) => {
   const id = localStorage.getItem("tf-games-uid");
 
   useEffect(() => {
-    getAccessToken();
+    if (id) {
+      getAccessToken();
+    } else loadPlayer();
   }, [id]);
 
   const getAccessToken = async () => {
@@ -24,13 +26,17 @@ export const AuthState = ({ children }) => {
       dispatch({ type: "SET_PLAYER_DATA", payload: data.user });
       setLocalStorage(data);
     } catch {
-      let user = { nickname: generate({ words: 2 }), uid: v4() };
-      dispatch({ type: "SET_PLAYER_DATA", payload: user });
-      dispatch({ type: "SET_ACCESS_TOKEN", payload: "" });
+      loadPlayer();
     }
   };
+  const loadPlayer = () => {
+    dispatch({ type: "IS_LOADING", payload: true });
+    let user = { nickname: generate({ words: 2 }), uid: v4() };
+    dispatch({ type: "SET_ACCESS_TOKEN", payload: "" });
+    dispatch({ type: "SET_PLAYER_DATA", payload: user });
+  };
 
-  const signIn = async (username, password, history) => {
+  const signIn = async (username, password) => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
       const { data } = await axiosWithOutAuth.post("/users/login", {
@@ -40,7 +46,6 @@ export const AuthState = ({ children }) => {
       setLocalStorage(data);
       dispatch({ type: "SET_ACCESS_TOKEN", payload: data.accessToken });
       dispatch({ type: "SET_PLAYER_DATA", payload: data.user });
-      history.push("/");
     } catch (e) {
       dispatch({
         type: "SET_ERROR",
@@ -49,7 +54,7 @@ export const AuthState = ({ children }) => {
     }
     dispatch({ type: "IS_LOADING", payload: false });
   };
-  const register = async (username, password, history) => {
+  const register = async (username, password) => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
       const { data } = await axiosWithOutAuth.post("/users/register", {
