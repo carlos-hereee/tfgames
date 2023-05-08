@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../utils/context/AuthContext";
 import { LobbyContext } from "../utils/context/LobbyContext";
-import CancelBtn from "./atoms/CancelBtn";
+import CancelBtn from "./atoms/atoms/buttons/CancelBtn";
 import ReadyBtn from "./atoms/ReadyBtn";
 import ToggleBtn from "./atoms/ToggleBtn";
 

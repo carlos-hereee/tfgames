@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../../utils/context/AuthContext";
 import { GameContext } from "../../utils/context/GameContext";
-import CancelBtn from "../atoms/CancelBtn";
+import CancelBtn from "../atoms/atoms/buttons/CancelBtn";
 import RematchBtn from "../atoms/RematchBtn";
 
 export default function Gameover() {
