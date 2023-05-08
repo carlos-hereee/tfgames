@@ -10,9 +10,9 @@ export const SocketState = ({ children }) => {
     let id = localStorage.getItem("tf-games-id");
     if (id) {
       const newSocket = io(
-        process.env.VITE_NODE_ENV === "production"
-          ? process.env.VITE_DB_BASE_URL_PRODUCTION
-          : process.env.VITE_DB_BASE_URL,
+        import.meta.VITE_NODE_ENV === "production"
+          ? import.meta.VITE_DB_BASE_URL_PRODUCTION
+          : import.meta.VITE_DB_BASE_URL,
         {
           query: { id },
         }

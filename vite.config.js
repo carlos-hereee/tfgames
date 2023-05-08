@@ -10,7 +10,7 @@ export default defineConfig({
     outDir: "build",
   },
   // define: {
-  //   "process.env": process.env,
+  //   "import.meta": import.meta,
   // },
   plugins: [react()],
 });
