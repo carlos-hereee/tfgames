@@ -1,0 +1,100 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1rem;
+  gap: 1rem;
+}
+.container-header {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+.primary-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  gap: 1rem;
+  @include devices(mobile) {
+    flex: 0 0 100%;
+    width: auto;
+  }
+}
+.secondary-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #{$secondary-color};
+  min-height: 60vh;
+  width: 100%;
+  gap: 1rem;
+  @include devices(mobile) {
+    width: auto;
+  }
+}
+.children {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.display-gap {
+  display: flex;
+  gap: 1rem;
+}
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  gap: 1rem;
+  justify-content: center;
+}
+.container-empty {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: #{$secondary-color};
+  flex: 1;
+  min-width: 200px;
+  padding: 1rem;
+  gap: 1rem;
+  .fa-left-long {
+    @include devices(mobile) {
+      transform: rotate(90deg);
+    }
+  }
+}
+// .cart-container {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   background-color: #{$secondary-color};
+//   flex: 1;
+//   gap: 1rem;
+//   border-radius: 4px;
+//   top: 7rem;
+//   padding: 1rem;
+//   .required {
+//     display: flex;
+//     justify-content: center;
+//   }
+//   &:has(> div > .active) {
+//     .active {
+//       background-color: #{$primary-color};
+//       .read-more {
+//         &:has(+ .read-more-toggle:not(:checked))::before {
+//           background: linear-gradient(to bottom, transparent, #{$primary-color});
+//         }
+//       }
+//     }
+//   }
+//   @include devices(mobile) {
+//     flex: auto;
+//     flex-wrap: wrap;
+//   }
+// }
+#error-page {
+  text-align: center;
+}

@@ -1,0 +1,51 @@
+.account-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  a {
+    text-decoration: none;
+  }
+}
+.admin-container {
+  display: flex;
+  gap: 1rem;
+  @include devices(mobile) {
+    // flex-wrap: wrap;
+    // flex: none;
+    display: block;
+    // position: relative;
+    .secondary-navigation {
+      width: 100%;
+      position: sticky;
+      top: 20vh;
+      background-color: #{$secondary-color2};
+      padding: 0;
+      z-index: 2;
+      .navigation {
+        padding: 0.5rem;
+        margin: 0;
+        .nav-link {
+          border-radius: 0;
+          background-color: #{$secondary-color2};
+        }
+        .btn-icons {
+          background-color: #{$primary-color};
+          color: #{$text-color3};
+        }
+      }
+    }
+  }
+}
+.app-body:has(.admin-container) {
+  padding: 0;
+}
+.admin-content {
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .list-item {
+    flex: 1;
+    // width: 100%;
+  }
+}

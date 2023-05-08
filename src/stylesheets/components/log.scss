@@ -1,0 +1,47 @@
+.log {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  position: fixed;
+  overflow-y: scroll;
+  max-height: 50vh;
+  z-index: 99;
+  gap: 1rem;
+  top: 20%;
+  border-radius: 1rem;
+  transform: translateY(-50%);
+  .message {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 1rem;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #{$text-color};
+    color: #{$text-color3};
+    animation: fadeIn 1s, slideUp 0.8s forwards;
+    .link {
+      margin: 0 0.25rem;
+    }
+  }
+  .error-message {
+    color: #{$danger};
+  }
+}
+.close {
+  background: transparent;
+  position: relative;
+  .icon {
+    position: absolute;
+    animation-duration: 4s;
+  }
+  &:hover {
+    background: transparent;
+  }
+}
+.warning {
+  text-align: center;
+  color: #{$danger};
+}

@@ -1,0 +1,91 @@
+.primary-navigation {
+  overflow-x: auto;
+  @include devices(mobile) {
+    display: none;
+  }
+}
+.secondary-navigation {
+  display: flex;
+  align-items: flex-start;
+  background-color: #{$secondary-color};
+  padding: 1rem 0.5rem;
+}
+.mobile-navigation {
+  display: none;
+  .navigation {
+    flex-direction: column;
+    justify-content: space-around;
+    position: absolute;
+    list-style: none;
+    background-color: #{$primary-color2};
+    border-radius: 4px;
+    gap: 1rem;
+    top: 100%;
+    right: 0%;
+    min-width: 150px;
+    padding: 1rem 0.5rem;
+    transition: clip-path ease-in-out 700ms;
+  }
+  .navigation[data-state="open"] {
+    animation: circleOpen 750ms ease-in-out forwards;
+    display: block;
+  }
+  .navigation[data-state="closing"] {
+    display: block;
+    animation: circleClose ease-in-out forwards;
+  }
+  .navigation[data-state="close"] {
+    display: none;
+  }
+  @include devices(mobile) {
+    display: flex;
+  }
+}
+.navigation {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  border-radius: 4px;
+  padding: 0;
+}
+.navbar {
+  // width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0 1rem;
+  color: #{$text-color};
+}
+.nav-link {
+  display: flex;
+  text-decoration: none;
+  position: relative;
+  padding: 0.5rem;
+  flex: 1;
+  color: #{$text-color};
+}
+.nav-link[data-state="active"] {
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  width: 100%;
+  background-color: $primary-color;
+}
+.notification-count {
+  position: absolute;
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #{$danger};
+  color: #{$primary-color};
+  border-radius: 50%;
+  padding: 0.35rem;
+}
+.checkout-navigation {
+  display: flex;
+  flex-direction: column;
+  .navbar {
+    padding: 0;
+  }
+}
