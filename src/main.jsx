@@ -12,8 +12,8 @@ import { AppState } from "./utils/context/AppContext";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <SocketState>
-        <AuthState>
+      <AuthState>
+        <SocketState>
           <AppState>
             <LobbyState>
               <GameState>
@@ -21,8 +21,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               </GameState>
             </LobbyState>
           </AppState>
-        </AuthState>
-      </SocketState>
+        </SocketState>
+      </AuthState>
     </BrowserRouter>
   </React.StrictMode>
 );

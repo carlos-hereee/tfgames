@@ -1,12 +1,5 @@
 import shortid from "shortid";
-import {
-  lorem20,
-  random100,
-  aboutMe1,
-  aboutMe2,
-  aboutMe3,
-  lorem10,
-} from "./variables";
+import { lorem20, lorem10 } from "./variables";
 
 export const app = {
   socials: [
@@ -14,6 +7,12 @@ export const app = {
       isEmpty: true,
       name: "instagram",
       link: "https://www.instagram.com//",
+      uid: shortid.generate(),
+    },
+    {
+      isEmpty: true,
+      name: "twitter",
+      link: "https://www.twitter.com//",
       uid: shortid.generate(),
     },
   ],

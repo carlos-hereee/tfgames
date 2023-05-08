@@ -29,13 +29,4 @@
   .title {
     text-align: center;
   }
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    width: 100%;
-    [data-state="instagram"] {
-      color: #{$instagram};
-    }
-  }
 }

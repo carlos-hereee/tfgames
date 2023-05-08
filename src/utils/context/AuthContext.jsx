@@ -11,7 +11,6 @@ export const AuthState = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const id = localStorage.getItem("tf-games-uid");
-  const nickname = localStorage.getItem("tf-games-nickname");
 
   useEffect(() => {
     getAccessToken();
@@ -92,7 +91,6 @@ export const AuthState = ({ children }) => {
         isLoading: state.isLoading,
         error: state.error,
         player: state.player,
-        signUpError: state.signUpError,
         accessToken: state.accessToken,
         getAccessToken,
         signIn,

@@ -3,11 +3,13 @@ import { io } from "socket.io-client";
 
 export const SocketContext = createContext();
 export const useSocket = () => useContext(SocketContext);
+
 export const SocketState = ({ children }) => {
   const [socket, setSocket] = useState();
+  let id = localStorage.getItem("tf-games-uid");
 
   useEffect(() => {
-    let id = localStorage.getItem("tf-games-id");
+    console.log("id", id);
     if (id) {
       const newSocket = io(
         import.meta.VITE_NODE_ENV === "production"
@@ -20,7 +22,7 @@ export const SocketState = ({ children }) => {
       setSocket(newSocket);
       return () => newSocket.close();
     }
-  }, []);
+  }, [id]);
 
   return <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>;
 };

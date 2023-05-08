@@ -1,4 +1,8 @@
-import { faCcVisa, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import {
+  faCcVisa,
+  faInstagram,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 import {
   fa0,
   fa1,
@@ -44,9 +48,8 @@ import {
   faUser,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const svg = {
+export const svg = {
   home: faHome,
   about: faInfo,
   services: faListCheck,
@@ -89,6 +92,7 @@ const svg = {
   save: faSave,
   x: faX,
   refresh: faRefresh,
+  twitter: faTwitter,
   1: fa1,
   2: fa2,
   3: fa3,
@@ -100,16 +104,3 @@ const svg = {
   9: fa9,
   0: fa0,
 };
-const Icons = ({ name, size, spin }) => {
-  return (
-    <FontAwesomeIcon
-      icon={svg[name]}
-      size={size}
-      className="icon"
-      spin={spin === "spin"}
-      pulse={spin === "pulse"}
-    />
-  );
-};
-
-export default Icons;

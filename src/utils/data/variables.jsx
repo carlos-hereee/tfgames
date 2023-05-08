@@ -18,10 +18,3 @@ export let minPrice = (count, increment) => {
 
 export const color = ["red", "blue", "black", "white", "yellow", "brown"];
 export const getRandomArr = (arr) => arr[Math.floor(Math.random() * arr.length)];
-export const aboutMe1 =
-  "SW Auto of Houston treats our customers with paramount concern. We have a great varieties of vehicles for you to choose from. We all know that your time is precious and you have high expectations. As a fast growing used car dealer in Houston, we enjoy the challenge of meeting and exceeding those standards each and every time. So, come see us and find out.";
-
-export const aboutMe2 =
-  "Our experienced and friendly sales are always eager to share their knowledge and enthusiasm with you. We encourage you to browse our online inventory. Please don't hesitate to call and schedule a test drive when you are ready.";
-export const aboutMe3 =
-  "If you don't see a particular vehicle, we are only a phone call away. We will gladly work closely with you and inform you when a matching car arrives. Allow us to be your one-stop auto dealer. We look forward to serving you, always!";
