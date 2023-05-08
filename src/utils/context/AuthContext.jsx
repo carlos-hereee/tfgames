@@ -7,36 +7,21 @@ import { v4 as uuidv4 } from "uuid";
 export const AuthContext = createContext();
 
 export const AuthState = ({ children }) => {
-  const initialState = {
-    isLoading: false,
-    accessToken: "",
-    error: "",
-    signUpError: "",
-    player: {},
-  };
+  const initialState = { isLoading: false, accessToken: "", player: {} };
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const id = localStorage.getItem("tf-games-id");
+  const id = localStorage.getItem("tf-games-uid");
   const nickname = localStorage.getItem("tf-games-nickname");
 
   useEffect(() => {
     getAccessToken();
-    if (!state.accessToken) {
-      if (!id) {
-        saveLocalPlayer({
-          nickname: generate({ words: 2 }).spaced,
-          uid: uuidv4(),
-        });
-      } else {
-        saveLocalPlayer();
-      }
-    }
-  }, [state.accessToken, id]);
+  }, [id]);
 
   const getAccessToken = async () => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
       const { data } = await axiosWithAuth.post("/users/refresh-token");
+      console.log("data", data);
       dispatch({ type: "SET_ACCESS_TOKEN", payload: data.accessToken });
       dispatch({ type: "SET_PLAYER_DATA", payload: data.user });
       setLocalStorage(data);

@@ -1,10 +1,11 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { axiosWithAuth } from "../fns/axios";
 import { reducer } from "../reducer/AppReducer";
 import { app } from "../data/config";
 import { useNavigate } from "react-router-dom";
 
 import shortid from "shortid";
+import { AuthContext } from "./AuthContext";
 // import shortid from "shortid";
 
 export const AppContext = createContext();
@@ -31,13 +32,26 @@ export const AppState = ({ children }) => {
       "** Photos are for illustrative purposes only. Not responsible for errors or omissions. **",
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { accessToken } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getAllAssets();
-  }, []);
+    if (accessToken) {
+      getAllAssets(accessToken);
+      //   if (!id) {
+      //     saveLocalPlayer({
+      //       nickname: generate({ words: 2 }).spaced,
+      //       uid: uuidv4(),
+      //     });
+      //   } else {
+      //     saveLocalPlayer();
+      // }
+    }
+  }, [accessToken]);
 
-  const getAllAssets = async () => {};
+  const getAllAssets = async (accessToken) => {
+    console.log("accesstoken", accessToken);
+  };
   const loadFilters = (arr) => {
     let filters = {};
     arr.forEach((a) => {

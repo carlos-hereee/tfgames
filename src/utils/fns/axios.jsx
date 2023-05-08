@@ -1,37 +1,26 @@
 import axios from "axios";
-// import.meta.;
 
 export let accessToken = localStorage.getItem("access-token");
 
 export const setLocalStorage = (data) => {
-  if (data.accessToken) {
-    localStorage.setItem("access-token", data.accessToken);
-    accessToken = data.accessToken;
-  }
   localStorage.setItem("tf-games-nickname", data.user.nickname);
-  localStorage.setItem("tf-games-id", data.user.uid);
+  localStorage.setItem("tf-games-uid", data.user.uid);
 };
 
 export const axiosWithAuth = axios.create({
-  baseURL:
-    import.meta.NODE_ENV === "production"
-      ? import.meta.VITE_DB_BASE_URL_PRODUCTION
-      : import.meta.VITE_DB_BASE_URL,
+  baseURL: import.meta.env.VITE_DB_BASE_URL,
   withCredentials: true,
   headers: {
-    "Access-Control-Allow-Origin": import.meta.VITE_CLIENT_BASE_URL,
+    "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_BASE_URL,
     "Content-Type": "application/json; charset=utf-8",
     Accept: "application/json",
   },
 });
 export const axiosWithOutAuth = axios.create({
-  baseURL:
-    import.meta.NODE_ENV === "production"
-      ? import.meta.VITE_DB_BASE_URL_PRODUCTION
-      : import.meta.VITE_DB_BASE_URL,
+  baseURL: import.meta.env.VITE_DB_BASE_URL,
   withCredentials: true,
   headers: {
-    "Access-Control-Allow-Origin": import.meta.VITE_CLIENT_BASE_URL,
+    "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_BASE_URL,
     "Content-Type": "application/json;charset=UTF-8",
     Accept: "application/json",
   },
@@ -54,6 +43,7 @@ axiosWithAuth.interceptors.request.use(
     return config;
   },
   async (err) => {
+    console.log("err", err);
     const { config, response } = err;
     const ogReq = config;
     if (response.status === 401) {

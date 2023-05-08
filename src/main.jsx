@@ -13,15 +13,15 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <SocketState>
-        <AppState>
-          <AuthState>
+        <AuthState>
+          <AppState>
             <LobbyState>
               <GameState>
                 <App />
               </GameState>
             </LobbyState>
-          </AuthState>
-        </AppState>
+          </AppState>
+        </AuthState>
       </SocketState>
     </BrowserRouter>
   </React.StrictMode>
