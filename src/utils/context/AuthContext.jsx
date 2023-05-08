@@ -1,8 +1,8 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import { axiosWithAuth, axiosWithOutAuth, setLocalStorage } from "../fns/axios";
 import generate from "project-name-generator";
-import { reducer } from "../reducer/reducer";
-import { v4 as uuidv4 } from "uuid";
+import { reducer } from "../reducer/AuthReducer";
+import { v4 } from "uuid";
 
 export const AuthContext = createContext();
 
@@ -21,24 +21,16 @@ export const AuthState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
       const { data } = await axiosWithAuth.post("/users/refresh-token");
-      console.log("data", data);
       dispatch({ type: "SET_ACCESS_TOKEN", payload: data.accessToken });
       dispatch({ type: "SET_PLAYER_DATA", payload: data.user });
       setLocalStorage(data);
     } catch {
+      let user = { nickname: generate({ words: 2 }), uid: v4() };
+      dispatch({ type: "SET_PLAYER_DATA", payload: user });
       dispatch({ type: "SET_ACCESS_TOKEN", payload: "" });
     }
   };
-  const saveLocalPlayer = (data) => {
-    dispatch({ type: "IS_LOADING", payload: true });
-    if (data) {
-      setLocalStorage({ user: data });
-      dispatch({ type: "SAVE_LOCAL_PLAYER", payload: data });
-    } else {
-      setLocalStorage({ user: { uid: id, nickname } });
-      dispatch({ type: "SAVE_LOCAL_PLAYER", payload: { uid: id, nickname } });
-    }
-  };
+
   const signIn = async (username, password, history) => {
     dispatch({ type: "IS_LOADING", payload: true });
     try {
@@ -106,7 +98,6 @@ export const AuthState = ({ children }) => {
         signIn,
         register,
         logOut,
-        saveLocalPlayer,
       }}>
       {children}
     </AuthContext.Provider>

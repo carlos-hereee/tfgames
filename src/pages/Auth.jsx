@@ -12,7 +12,7 @@ const Auth = ({ history }) => {
     history.push("/dashboard");
   }
   return (
-    <section className="auth">
+    <section className="container">
       <div className="card">
         <div className="card-header">
           <h3 className="card-title">Login</h3>

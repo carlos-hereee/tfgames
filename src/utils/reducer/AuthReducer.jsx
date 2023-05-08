@@ -65,13 +65,6 @@ const getOwnedAvatars = (state, action) => {
     ownedAvatars: [...state.ownedAvatars, action.payload],
   };
 };
-const saveLocalPlayer = (state, action) => {
-  return {
-    ...state,
-    isLoading: false,
-    player: action.payload,
-  };
-};
 
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -95,8 +88,6 @@ export const reducer = (state, action) => {
       return getOwnedAvatars(state, action);
     case "SET_PLAYER_DATA":
       return setPlayerData(state, action);
-    case "SAVE_LOCAL_PLAYER":
-      return saveLocalPlayer(state, action);
     default:
       return state;
   }
