@@ -1,0 +1,30 @@
+header {
+  display: flex;
+  align-items: center;
+  // padding: 1rem;
+  background-color: #{$secondary-color};
+  border-bottom: 1px solid #{$secondary-color2};
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  max-height: 15vh;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.card-secondary {
+  width: 100%;
+  padding: 1rem;
+}
+footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  color: #{$text-color};
+  background-color: #{$secondary-color};
+  padding: 1rem;
+  gap: 1rem;
+}
+.link {
+  color: #{$text-color};
+}
