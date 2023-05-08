@@ -2,9 +2,9 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../utils/context/AuthContext";
 import { LobbyContext } from "../utils/context/LobbyContext";
-import CancelBtn from "./atoms/atoms/buttons/CancelBtn";
-import ReadyBtn from "./atoms/ReadyBtn";
-import ToggleBtn from "./atoms/ToggleBtn";
+import CancelBtn from "./atoms/buttons/CancelBtn";
+import ReadyBtn from "./atoms/buttons/ReadyBtn";
+import ToggleBtn from "./atoms/buttons/ToggleBtn";
 
 const LobbyOptions = ({ name }) => {
   const { player } = useContext(AuthContext);
