@@ -23,9 +23,7 @@ const Navlink = ({ data, handleClick }) => {
   // }
   return (
     <li>
-      <Link
-        className="nav-link"
-        to={data.name === "Home" ? "/" : `/${data.name.toLowerCase()}`}>
+      <Link className="nav-link" to={data.name}>
         <Buttons
           name={data.name}
           notification={data.notification}

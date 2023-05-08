@@ -41,7 +41,6 @@ const Header = () => {
   const handleClick = () => {
     setActive(!isActive);
   };
-  console.log("menu", menu);
   return (
     <header>
       <Logo />
