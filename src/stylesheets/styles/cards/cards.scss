@@ -6,12 +6,13 @@
   overflow: hidden;
   padding: 1rem;
   gap: 1rem;
-  box-shadow: 1px 0 3px 2px #eee;
   min-width: 200px;
   max-width: 280px;
+  background-color: #{$secondary-color2};
   .hero {
     border-radius: 1rem;
-    width: 100%;
+    max-width: 10rem;
+    max-height: 10rem;
   }
   &:has(> div > .ribbon) {
     position: relative;
@@ -30,7 +31,6 @@
 .card-header {
   display: flex;
   flex-direction: column;
-  // padding: 1rem;
   gap: 1rem;
   .card-header-heading {
     text-align: left;
@@ -40,8 +40,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  // gap: 1rem;
-  // gap: 1rem;
   text-align: left;
   &:has(> .btn-primary) {
     justify-content: space-between;
@@ -72,16 +70,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  // .third-btn {
-  //   flex: none;
-  //   display: flex;
-  //   gap: 1rem;
-  //   justify-content: flex-start;
-  //   width: 100%;
-  // }
-  // .third-btn[data-state="booked"] {
-  //   // background-color: #{$third-color2};
-  // }
 }
 .ribbon {
   position: absolute;
@@ -108,7 +96,5 @@
 .card-item {
   display: flex;
   flex-direction: column;
-  box-shadow: 1px 0 3px 2px #eee;
-  min-width: 250px;
-  flex: 1;
+  padding: 0;
 }

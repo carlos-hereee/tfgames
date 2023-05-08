@@ -59,7 +59,7 @@
   }
   &:disabled {
     background-color: #{$secondary-color};
-    color: #{$text-color2};
+    color: #{$secondary-text};
     cursor: not-allowed;
   }
   @include devices(mobile) {
@@ -70,7 +70,7 @@
 //   display: flex;
 // }
 .react-calendar__month-view__weekdays {
-  color: #{$text-color2};
+  color: #{$secondary-text};
   text-align: center;
 }
 .react-calendar__navigation__arrow {
@@ -79,7 +79,7 @@
     // background-color: #{$third-color2};
   }
   &:disabled {
-    color: #{$text-color2};
+    color: #{$secondary-text};
     cursor: not-allowed;
   }
 }

@@ -11,13 +11,11 @@ p,
 span {
   font-family: "Roboto", sans-serif;
 }
-#root {
-  background-color: whitesmoke;
-}
+
 .app {
   display: flex;
   flex-direction: column;
-  background-color: #3d3b3d;
+  background-color: #{$secondary-color};
   font-family: "Roboto", sans-serif;
   margin: auto;
   max-width: 1100px;
@@ -32,7 +30,7 @@ span {
 }
 
 .glow {
-  background-color: #3d3b3d;
+  background-color: #{$secondary-color};
   border: none;
   color: white;
   animation: fadeOut 2s infinite alternate ease-in;

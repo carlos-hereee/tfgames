@@ -13,16 +13,12 @@ const Homepage = () => {
     setOptions(g.defaultOptions);
   };
   return (
-    <main className="homepage">
+    <main className="container">
       {games.map((game) => (
-        <Link to={`/lobby?game=${game.name}`} key={game.key} className="game-card">
-          <button className="btn" onClick={() => handleGameSettings(game)}>
+        <Link to={`/lobby?game=${game.name}`} key={game.key} className="card">
+          <button className="btn card-item" onClick={() => handleGameSettings(game)}>
             <h2>{game.name.toUpperCase()}</h2>
-            <img
-              src={image[game.imageName]}
-              alt={game.imageName}
-              className="icon-frame"
-            />
+            <img src={image[game.imageName]} alt={game.imageName} className="hero" />
           </button>
         </Link>
       ))}
