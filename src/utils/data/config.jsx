@@ -80,13 +80,9 @@ export const app = {
     ],
   },
   menu: [
-    // { name: "Espanol", uid: shortid.generate(), notification: 0 },
-    { name: "Cars", uid: shortid.generate(), notification: 0 },
-    // { name: "Services", uid: shortid.generate(), notification: 0, },
-    // { name: "accessories", uid: shortid.generate(), notification: 0 , },
-    // { name: "checkout", uid: shortid.generate(), notification: 0 , },
-    { name: "Boats", uid: shortid.generate(), notification: 0 },
-    { name: "RvAtv", uid: shortid.generate(), notification: 0 },
-    { name: "financing", uid: shortid.generate(), notification: 0 },
+    { name: "games", uid: shortid.generate(), notification: 0 },
+    { name: "dashboard", uid: shortid.generate(), notification: 0, isPrivate: true },
+    { name: "about", uid: shortid.generate(), notification: 0 },
   ],
+  name: "TF Games",
 };

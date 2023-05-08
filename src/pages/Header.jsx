@@ -1,9 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import logo from "../assets/logo.svg";
-import OnlineNav from "../components/OnlineNav";
-import { AuthContext } from "../utils/context/AuthContext";
 import { AppContext } from "../utils/context/AppContext";
+import Logo from "../components/atoms/Logo";
 import Navlink from "../components/molecules/navigation/Navlink";
 import BurgerButton from "../components/molecules/navigation/BugerButton/";
 
@@ -47,7 +44,7 @@ const Header = () => {
   console.log("menu", menu);
   return (
     <header>
-      {/* <Logo /> */}
+      <Logo />
       <nav className="primary-navigation">
         <ul className="navigation">
           {menu.map((m) => (

@@ -1,6 +1,6 @@
 .react-calendar {
   background-color: #{$secondary-color};
-  color: #{$text-color};
+  color: #{$primary-text};
   flex: 1;
   min-width: 200px;
   max-width: 700px;
@@ -23,7 +23,7 @@
   height: 100px;
   button {
     background-color: #{$secondary-color2};
-    color: #{$text-color};
+    color: #{$primary-text};
     &:disabled {
       background-color: #{$secondary-color2};
     }

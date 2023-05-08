@@ -13,38 +13,38 @@ button {
 }
 .btn-primary {
   background-color: #{$primary-color};
-  color: #{$text-color};
+  color: #{$primary-text};
   flex: 1;
   &:hover {
     background-color: #{$primary-color2};
-    color: #{$text-color};
+    color: #{$primary-text};
   }
   &:disabled {
     background-color: #{$primary-color3};
-    color: #{$text-color};
+    color: #{$primary-text};
   }
   &:focus {
     background-color: #{$primary-color2};
-    color: #{$text-color};
+    color: #{$primary-text};
   }
 }
 .btn-secondary {
   position: absolute;
-  color: #{$text-color};
+  color: #{$primary-text};
   right: 0;
   padding: 1rem;
   bottom: 3rem;
   &:hover {
     background-color: #{$secondary-color};
-    color: #{$text-color};
+    color: #{$primary-text};
   }
   &:disabled {
     background-color: #{$secondary-color2};
-    color: #{$text-color};
+    color: #{$primary-text};
   }
   &:focus {
     background-color: #{$secondary-color};
-    color: #{$text-color};
+    color: #{$primary-text};
   }
 }
 .icon {
@@ -66,7 +66,7 @@ button {
   gap: 1rem;
   flex: 1;
   background-color: #{$secondary-color2};
-  color: #{$text-color};
+  color: #{$primary-text};
   .icon-label {
     flex: 1;
     text-align: left;
@@ -93,23 +93,23 @@ button {
 .btn-search {
   padding: 0.5rem;
   margin: auto;
-  color: #{$text-color};
+  color: #{$primary-text};
   &:hover {
     background-color: #{$primary-color2};
-    color: #{$text-color};
+    color: #{$primary-text};
   }
   &:disabled {
     background-color: #{$primary-color3};
-    color: #{$text-color};
+    color: #{$primary-text};
   }
 }
 .btn-green {
   background-color: #{$success};
-  color: #{$text-color};
+  color: #{$primary-text};
   width: 100%;
   &:hover {
     // background-color: #{$success-hover};
-    color: #{$text-color};
+    color: #{$primary-text};
   }
 }
 .btn-back {
@@ -117,7 +117,7 @@ button {
 }
 .btn-danger {
   background-color: #{$danger};
-  color: #{$text-color};
+  color: #{$primary-text};
   width: 100%;
 }
 .btn {
@@ -127,7 +127,7 @@ button {
 }
 .btn-link {
   background-color: #{$secondary-color2};
-  color: #{$text-color};
+  color: #{$primary-text};
   position: sticky;
   text-decoration: underline;
   z-index: 2;

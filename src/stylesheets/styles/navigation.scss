@@ -55,7 +55,7 @@
   flex-wrap: wrap;
   gap: 1rem;
   padding: 0 1rem;
-  color: #{$text-color};
+  color: #{$primary-text};
 }
 .nav-link {
   display: flex;
@@ -63,7 +63,7 @@
   position: relative;
   padding: 0.5rem;
   flex: 1;
-  color: #{$text-color};
+  color: #{$primary-text};
 }
 .nav-link[data-state="active"] {
   border-top-left-radius: 1rem;
