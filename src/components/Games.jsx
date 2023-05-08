@@ -14,13 +14,13 @@ const Games = () => {
     setOptions(g.defaultOptions);
   };
   return (
-    <>
+    <section className="container">
       {games.map(({ name, key }) => (
         <NavigationLink path={`/lobby?game=${name}`} key={key}>
           <ButtonCardItem data={{ link: assets[name], name }} click={gameSettings} />
         </NavigationLink>
       ))}
-    </>
+    </section>
   );
 };
 

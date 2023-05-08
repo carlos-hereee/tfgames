@@ -13,6 +13,7 @@ import { AuthContext } from "./utils/context/AuthContext";
 import Loading from "./components/Loading";
 import PrivateRoute from "./utils/fns/PrivateRoute";
 import { GameContext } from "./utils/context/GameContext";
+import Games from "./components/Games";
 
 function App() {
   const { isLoading } = useContext(AuthContext);
@@ -29,6 +30,7 @@ function App() {
           <Route path="/login" element={<Auth />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/lobby" element={<Lobby />} />
+          <Route path="/games" element={<Games />} />
           <Route path="/dashboard" element={<PrivateRoute />}>
             {/* <Route path */}
             <Route path="/dashboard" element={<Dashboard />} />

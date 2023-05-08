@@ -1,6 +1,6 @@
 import PlayerCard from "../components/PlayerCard";
 import LobbyOptions from "../components/LobbyOptions";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../utils/context/AuthContext";
 import Logger from "../components/Logger";
 import { LobbyContext } from "../utils/context/LobbyContext";
@@ -15,10 +15,11 @@ const Lobby = () => {
   const { gameStart } = useContext(GameContext);
   const navigate = useNavigate();
 
-  if (!gameName) {
-    // history.push("/");
-    navigate(-1);
-  }
+  useEffect(() => {
+    if (!gameName) {
+      navigate(-1);
+    }
+  }, [gameName]);
   if (gameStart) {
     return <Game />;
   }

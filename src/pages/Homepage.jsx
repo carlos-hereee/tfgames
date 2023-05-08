@@ -2,7 +2,7 @@ import Games from "../components/Games";
 
 const Homepage = () => {
   return (
-    <main className="container">
+    <main className="primary-container">
       <Games />
     </main>
   );
