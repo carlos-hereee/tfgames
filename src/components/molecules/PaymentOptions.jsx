@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AppContext } from "../../utils/context/AppContext";
 import { ServicesContext } from "../../utils/context/ServicesContext";
 import { UserContext } from "../../utils/context/UserContext";
-import Icons from "../atoms/Icons";
+import Icons from "../icons/Icons";
 import Forms from "../organisms/Forms";
 import Buttons from "./buttons/Buttons";
 import CardHeader from "./card/CardHeader";

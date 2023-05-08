@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ServicesContext } from "../../../utils/context/ServicesContext";
-import Icons from "../../atoms/Icons";
+import Icons from "../../icons/Icons";
 
 const NotFound = () => {
   const { active } = useContext(ServicesContext);

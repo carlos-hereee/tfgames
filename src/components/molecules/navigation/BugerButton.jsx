@@ -1,4 +1,4 @@
-import Icons from "../../atoms/Icons";
+import Icons from "../icons/Icons";
 import SetNotificationCount from "../SetNotificationCount";
 
 const BurgerButton = ({ isBurger, burger, click }) => {

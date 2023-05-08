@@ -1,7 +1,7 @@
 import { getIn, useFormik } from "formik";
 import { useContext } from "react";
 import { UserContext } from "../../../utils/context/UserContext";
-import Icons from "../../atoms/Icons";
+import Icons from "../../icons/Icons";
 
 const FormShippingDetails = () => {
   const { shippingValues, shippingSchema, setShipping } = useContext(UserContext);

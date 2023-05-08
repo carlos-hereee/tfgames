@@ -1,6 +1,6 @@
 // import React from "react";
 // import { AppContext } from "../../utils/context/AppContext";
-// import Icons from "../atoms/Icons";
+// import Icons from "../icons/Icons";
 
 // const FollowUs = () => {
 //   const { socials } = useContext(AppContext);

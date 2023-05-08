@@ -1,5 +1,5 @@
 import React from "react";
-import Icons from "../../atoms/Icons";
+import Icons from "../../icons/Icons";
 import { useNavigate } from "react-router-dom";
 
 const BackButton = () => {

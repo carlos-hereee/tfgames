@@ -1,6 +1,6 @@
 import ArtistName from "../../atoms/ArtistName";
 import Hero from "../../atoms/Hero";
-import Icons from "../../atoms/Icons";
+import Icons from "../../icons/Icons";
 
 const CardHeader = ({ data }) => {
   return (

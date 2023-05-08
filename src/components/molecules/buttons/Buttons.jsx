@@ -1,4 +1,4 @@
-// import Icons from "../../atoms/Icons";
+// import Icons from "../../icons/Icons";
 // import NotificationCount from "../SetNotificationCount";
 
 const Buttons = ({ name, handleClick, notification, size }) => {

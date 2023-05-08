@@ -1,5 +1,5 @@
 import Hero from "../../atoms/Hero";
-import Icons from "../../atoms/Icons";
+import Icons from "../../icons/Icons";
 
 const CardSectionHeader = ({ data }) => {
   return (

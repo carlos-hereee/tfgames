@@ -1,5 +1,5 @@
 import { getIn, useFormik } from "formik";
-import Icons from "../../atoms/Icons";
+import Icons from "../../icons/Icons";
 
 const NoCaptchaForm = ({ data, submit, isHorizontal, type }) => {
   const label = {

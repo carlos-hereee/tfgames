@@ -1,4 +1,4 @@
-import Icons from "../atoms/Icons";
+import Icons from "./icons/Icons";
 
 const NotificationCount = ({ count }) => {
   return (
