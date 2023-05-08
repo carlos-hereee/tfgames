@@ -79,8 +79,10 @@ button {
   display: flex;
   // flex-wrap: wrap;
   gap: 0.5rem;
+  // text-decoration: none;
   color: white;
-  background-color: #{$secondary-color};
+  // box-shadow: 1px 0 3px 0 #{$primary-color};
+  background-color: #{$primary-color};
 }
 .btn-cancel {
   position: absolute;
@@ -127,13 +129,14 @@ button {
 .btn-link {
   background-color: #{$secondary-color2};
   color: #{$primary-text};
-  position: sticky;
+  // position: sticky;
   text-decoration: underline;
-  z-index: 2;
-  top: 25%;
-  margin: 0 1rem;
-  flex: 1;
-  border-radius: 0.5rem;
+  text-decoration: none;
+  // z-index: 2;
+  // top: 25%;
+  // margin: 0 1rem;
+  // flex: 1;
+  // border-radius: 0.5rem;
 }
 .btn-step {
   background-color: #{$secondary-color2};

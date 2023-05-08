@@ -1,9 +1,9 @@
 import defaultAvatar from "../assets/logo.svg";
 import Hero from "./atoms/Hero";
 
-const PlayerCard = ({ data, glow }) => {
+const PlayerCard = ({ data }) => {
   return (
-    <div className={`player ${glow ? "glow" : "dim"}`}>
+    <div className="player">
       <div className="avatar-frame">
         <Hero data={{ link: data.avatarSrc || defaultAvatar, name: "player" }} />
       </div>

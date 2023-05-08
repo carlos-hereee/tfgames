@@ -15,3 +15,12 @@
   margin: 0 2rem;
   width: 100%;
 }
+.player {
+  background-color: #{$secondary-color2};
+  color: #{$primary-text};
+  border-radius: 4px;
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+}

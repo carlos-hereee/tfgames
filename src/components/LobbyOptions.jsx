@@ -24,8 +24,8 @@ const LobbyOptions = ({ name }) => {
       <p>Elapsed time: {clock.seconds}</p>
       {toggleMenu && (
         <nav className="lobby-toggle-menu">
-          <Link to="/">
-            <button className="btn btn-danger">Leave</button>
+          <Link to="/" className="btn-link">
+            <button className="btn btn-main">Leave</button>
           </Link>
         </nav>
       )}
