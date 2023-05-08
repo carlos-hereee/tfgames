@@ -81,8 +81,14 @@ export const app = {
   },
   menu: [
     { name: "games", uid: shortid.generate(), notification: 0 },
-    { name: "dashboard", uid: shortid.generate(), notification: 0, isPrivate: true },
-    { name: "about", uid: shortid.generate(), notification: 0 },
+    {
+      name: "dashboard",
+      uid: shortid.generate(),
+      notification: 0,
+      isPrivate: true,
+      alt: "account",
+    },
+    // { name: "about", uid: shortid.generate(), notification: 0 },
   ],
   games: [
     {

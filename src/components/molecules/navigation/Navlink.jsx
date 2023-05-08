@@ -6,28 +6,14 @@ import Buttons from "../buttons/Buttons";
  *
  * data = {name=string, uid: string, notification: number}
  */
-const Navlink = ({ data, handleClick }) => {
-  // const { user } = useContext(UserContext);
-  // if (user.uid && n === "login") {
-  //   return (
-  //     <li>
-  //       <Link className="nav-link" to="/dashboard">
-  //         <Buttons
-  //           name="dashboard"
-  //           notification={data.notification}
-  //           handleClick={handleClick}
-  //         />
-  //       </Link>
-  //     </li>
-  //   );
-  // }
+const Navlink = ({ data, click }) => {
   return (
     <li>
       <Link className="nav-link" to={data.name}>
         <Buttons
-          name={data.name}
+          name={data.isPrivate ? data.alt : data.name}
           notification={data.notification}
-          handleClick={handleClick}
+          handleClick={click}
         />
       </Link>
     </li>

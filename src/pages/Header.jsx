@@ -38,7 +38,7 @@ const Header = () => {
   //   updateMenu(menuPayload);
   // }, [cart, isActive]);
 
-  const handleClick = () => {
+  const click = () => {
     setActive(!isActive);
   };
   return (
@@ -47,17 +47,17 @@ const Header = () => {
       <nav className="primary-navigation">
         <ul className="navigation">
           {menu.map((m) => (
-            <Navlink data={m} key={m.uid} handleClick={handleClick} />
+            <Navlink data={m} key={m.uid} click={click} />
           ))}
         </ul>
       </nav>
       <nav className="mobile-navigation">
-        <BurgerButton isBurger={isActive} burger={burger} click={handleClick} />
+        <BurgerButton isBurger={isActive} burger={burger} click={click} />
         <ul
           className="navigation"
           data-state={isActive ? "open" : isClose ? "closing" : "close"}>
           {menu.map((m) => (
-            <Navlink data={m} key={m.uid} handleClick={handleClick} />
+            <Navlink data={m} key={m.uid} onClick={click} />
           ))}
         </ul>
       </nav>
