@@ -23,14 +23,18 @@ const Lobby = () => {
     return <Game />;
   }
   return (
-    <main className="lobby">
+    <main className="container">
       {/* <Prompt message={() => "Are you sure you want to leave this page?"} /> */}
       <div className="lobby-data">
         <PlayerCard data={player} />
         <LobbyOptions name={gameName} />
       </div>
       <div className="logger">
-        <Logger data={log} />
+        {log.length > 0 ? (
+          <Logger data={log} />
+        ) : (
+          <div className="log">..Loading</div>
+        )}
       </div>
     </main>
   );
