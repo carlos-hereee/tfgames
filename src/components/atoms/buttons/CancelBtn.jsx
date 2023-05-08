@@ -1,8 +1,8 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const CancelBtn = ({ onBtnClick }) => (
-  <button type="button" className="btn btn-danger" onClick={onBtnClick}>
+const CancelBtn = ({ click }) => (
+  <button type="button" className="btn btn-main" onClick={click}>
     <FontAwesomeIcon icon={faTimes} className="mr-2" />
     Cancel
   </button>

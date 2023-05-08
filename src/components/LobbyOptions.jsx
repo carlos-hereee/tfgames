@@ -15,9 +15,9 @@ const LobbyOptions = ({ name }) => {
     <div className="lobby-options">
       <div className="lobby-buttons">
         {ticket?.lobbyId ? (
-          <CancelBtn onBtnClick={() => cancelTicket(ticket)} />
+          <CancelBtn click={() => cancelTicket(ticket)} />
         ) : (
-          <ReadyBtn onBtnClick={() => newGame({ player, name, options })} />
+          <ReadyBtn click={() => newGame({ player, name, options })} />
         )}
         <ToggleBtn toggle={toggleMenu} setToggle={setToggleMenu} />
       </div>

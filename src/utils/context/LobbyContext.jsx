@@ -30,8 +30,9 @@ export const LobbyState = ({ children }) => {
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "SET_OPTIONS", payload: option });
   };
-  const newGame = (data) => socket.emit("game-new", data);
+  const newGame = (data) => socket.emit("ready-game", data);
   const clockLobbyData = (res) => {
+    // console.log("res", res);
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "SET_CLOCK_LOBBY_DATA", payload: res });
   };

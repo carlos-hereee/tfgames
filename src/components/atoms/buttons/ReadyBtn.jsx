@@ -1,5 +1,5 @@
-const ReadyBtn = ({ onBtnClick }) => (
-  <button type="button" className="btn btn-main" onClick={onBtnClick}>
+const ReadyBtn = ({ click }) => (
+  <button type="button" className="btn btn-main" onClick={click}>
     Ready
   </button>
 );

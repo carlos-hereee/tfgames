@@ -7,7 +7,6 @@ import { LobbyContext } from "../utils/context/LobbyContext";
 import { GameContext } from "../utils/context/GameContext";
 import Game from "../components/games/Game";
 import { useNavigate } from "react-router-dom";
-// import { Prompt } from "react-router-dom";
 
 const Lobby = () => {
   const { player } = useContext(AuthContext);
@@ -23,6 +22,7 @@ const Lobby = () => {
   if (gameStart) {
     return <Game />;
   }
+  console.log("log", log);
   return (
     <main className="container">
       {/* <Prompt message={() => "Are you sure you want to leave this page?"} /> */}
