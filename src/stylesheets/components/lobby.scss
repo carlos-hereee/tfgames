@@ -1,0 +1,21 @@
+.lobby-data {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 1rem;
+}
+.lobby-options {
+  background-color: #{$secondary-color2};
+  padding: 1rem;
+  border-radius: 4px;
+  color: #{$primary-text};
+}
+.lobby-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.lobby-toggle-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}

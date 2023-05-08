@@ -1,0 +1,26 @@
+.dashboard {
+  background-color: #{$primary-color};
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.avatar-frame {
+  margin: auto;
+}
+.avatar {
+  border-radius: 50%;
+  margin: auto;
+}
+.player-info {
+  margin: 0 2rem;
+  width: 100%;
+}
+.player {
+  background-color: #{$secondary-color2};
+  color: #{$primary-text};
+  border-radius: 4px;
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+}

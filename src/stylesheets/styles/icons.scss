@@ -1,0 +1,12 @@
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+.twitter {
+  color: #{$twitter};
+}
+.instagram {
+  color: #{$instagram};
+}
