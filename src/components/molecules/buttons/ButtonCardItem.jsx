@@ -2,7 +2,7 @@ import Hero from "../../atoms/Hero";
 
 const ButtonCardItem = ({ data, click }) => {
   return (
-    <button className="btn card-item" onClick={() => click(data)}>
+    <button className="btn card-item" onClick={click}>
       <h2>{data.name.toUpperCase()}</h2>
       {data.link && <Hero data={data} />}
     </button>

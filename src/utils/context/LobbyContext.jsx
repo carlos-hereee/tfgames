@@ -12,7 +12,6 @@ export const LobbyState = ({ children }) => {
     log: [],
     ticket: {},
     clock: {},
-    options: {},
     gameName: "",
   };
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -32,7 +31,8 @@ export const LobbyState = ({ children }) => {
   };
   const newGame = (data) => socket.emit("ready-game", data);
   const clockLobbyData = (res) => {
-    // console.log("res", res);
+    console.log("res", res);
+
     dispatch({ type: "IS_LOADING", payload: true });
     dispatch({ type: "SET_CLOCK_LOBBY_DATA", payload: res });
   };

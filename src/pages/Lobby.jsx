@@ -22,7 +22,6 @@ const Lobby = () => {
   if (gameStart) {
     return <Game />;
   }
-  console.log("log", log);
   return (
     <main className="container">
       {/* <Prompt message={() => "Are you sure you want to leave this page?"} /> */}

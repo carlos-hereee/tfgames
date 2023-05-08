@@ -18,11 +18,11 @@ const Games = () => {
     <section className="primary-container">
       <SectionHeader data={games} />
       <div className="card-container">
-        {games.list.map(({ name, key }) => (
-          <NavigationLink path={`/lobby?game=${name}`} key={key}>
+        {games.list.map((l) => (
+          <NavigationLink path={`/lobby?game=${l.name}`} key={l.key}>
             <ButtonCardItem
-              data={{ link: assets[name], name }}
-              click={gameSettings}
+              data={{ link: assets[l.name], name: l.name }}
+              click={() => gameSettings(l)}
             />
           </NavigationLink>
         ))}
