@@ -1,3 +1,4 @@
+// import React from "react";
 import { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./pages/Header";
@@ -23,12 +24,12 @@ function App() {
     <div className="app">
       {!gameStart && <Header />}
       <Routes>
-        <Route exact path="/" element={Homepage} />
-        <Route path="/login" element={Auth} />
-        <Route path="/signup" element={Register} />
-        <Route path="/lobby" element={Lobby} />
-        <PrivateRoute path="/dashboard" element={Dashboard} />
-        <PrivateRoute path="/shop" element={Shop} />
+        <Route exact path="/" element={<Homepage />} />
+        <Route path="/login" element={<Auth />} />
+        <Route path="/signup" element={<Register />} />
+        <Route path="/lobby" element={<Lobby />} />
+        <PrivateRoute path="/dashboard" element={<Dashboard />} />
+        <PrivateRoute path="/shop" element={<Shop />} />
       </Routes>
       <Footer />
     </div>

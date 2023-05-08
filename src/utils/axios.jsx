@@ -1,4 +1,5 @@
 import axios from "axios";
+// import.meta.;
 
 export let accessToken = localStorage.getItem("access-token");
 
@@ -13,24 +14,24 @@ export const setLocalStorage = (data) => {
 
 export const axiosWithAuth = axios.create({
   baseURL:
-    process.env.NODE_ENV === "production"
-      ? process.env.VITE_DB_BASE_URL_PRODUCTION
-      : process.env.VITE_DB_BASE_URL,
+    import.meta.NODE_ENV === "production"
+      ? import.meta.VITE_DB_BASE_URL_PRODUCTION
+      : import.meta.VITE_DB_BASE_URL,
   withCredentials: true,
   headers: {
-    "Access-Control-Allow-Origin": process.env.VITE_CLIENT_BASE_URL,
+    "Access-Control-Allow-Origin": import.meta.VITE_CLIENT_BASE_URL,
     "Content-Type": "application/json; charset=utf-8",
     Accept: "application/json",
   },
 });
 export const axiosWithOutAuth = axios.create({
   baseURL:
-    process.env.NODE_ENV === "production"
-      ? process.env.VITE_DB_BASE_URL_PRODUCTION
-      : process.env.VITE_DB_BASE_URL,
+    import.meta.NODE_ENV === "production"
+      ? import.meta.VITE_DB_BASE_URL_PRODUCTION
+      : import.meta.VITE_DB_BASE_URL,
   withCredentials: true,
   headers: {
-    "Access-Control-Allow-Origin": process.env.VITE_CLIENT_BASE_URL,
+    "Access-Control-Allow-Origin": import.meta.VITE_CLIENT_BASE_URL,
     "Content-Type": "application/json;charset=UTF-8",
     Accept: "application/json",
   },
