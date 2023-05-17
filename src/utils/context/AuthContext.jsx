@@ -1,8 +1,6 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import { axiosWithAuth, axiosWithOutAuth, setLocalStorage } from "../fns/axios";
-import generate from "project-name-generator";
 import { reducer } from "../reducer/AuthReducer";
-import { v4 } from "uuid";
 
 export const AuthContext = createContext();
 
@@ -13,7 +11,7 @@ export const AuthState = ({ children }) => {
   const id = localStorage.getItem("tf-games-uid");
 
   useEffect(() => {
-    if (id) {
+    if (id !== "undefined") {
       getAccessToken();
     } else loadPlayer();
   }, [id]);
@@ -25,15 +23,15 @@ export const AuthState = ({ children }) => {
       dispatch({ type: "SET_ACCESS_TOKEN", payload: data.accessToken });
       dispatch({ type: "SET_PLAYER_DATA", payload: data.user });
       setLocalStorage(data);
-    } catch {
-      loadPlayer();
-    }
+    } catch {}
   };
-  const loadPlayer = () => {
+  const loadPlayer = async () => {
     dispatch({ type: "IS_LOADING", payload: true });
-    let user = { nickname: generate({ words: 2 }), uid: v4() };
-    dispatch({ type: "SET_ACCESS_TOKEN", payload: "" });
-    dispatch({ type: "SET_PLAYER_DATA", payload: user });
+    try {
+      const { data } = await axiosWithAuth.get("/custom/create-name");
+      dispatch({ type: "SET_ACCESS_TOKEN", payload: "" });
+      dispatch({ type: "SET_PLAYER_DATA", payload: data });
+    } catch {}
   };
 
   const signIn = async (username, password) => {
