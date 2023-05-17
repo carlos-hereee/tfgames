@@ -1,11 +1,9 @@
-// import React from "react";
 import { Fragment, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./pages/Header";
 import Footer from "./pages/Footer";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
-import Shop from "./pages/Shop";
 import Register from "./pages/Register";
 import Lobby from "./pages/Lobby";
 import Auth from "./pages/Auth";
